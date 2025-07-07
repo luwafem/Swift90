@@ -1,0 +1,438 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@plugin "daisyui";
+
+/* globals.css */
+
+html, body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%; 
+
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url('/assets/fonts/AvenirLTStd/AvenirLTStd.ttf') format('truetype'),
+       url('/assets/fonts/AvenirLTStd/AvenirLTStd95Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block; /* Ensures text is hidden until font loads */
+}
+
+@font-face {
+  font-family: "AvenirBold";
+  src: url('/assets/fonts/AvenirLTStd/AvenirLTStd95Black.ttf') format('truetype'),
+       url('/assets/fonts/AvenirLTStd/AvenirLTStd.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block; /* Ensures text is hidden until font loads */
+}
+
+/* .container-1420 {
+  border: 1px solid blue;
+  width: 98% !important;
+} */
+
+/* logo */
+#logo {
+  width: 80px !important;
+  height: 65px !important;
+}
+
+/* Hero (Desktop) */
+.hero-section {
+  width: 100%;
+  height: 100vh;
+  background-image: url('/assets/images/hero/hero-7.svg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  position: relative;
+}
+
+/* Hero (Desktop) */
+.hero-section {
+  width: 100%;
+  height: 100vh;
+  background-color: #1a1a1a; /* Fallback background color */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  position: relative;
+  transition: background-image 0.5s ease-in-out; /* Smooth transition */
+}
+
+/* Add a class to apply the image once loaded */
+.hero-section.image-loaded {
+  background-image: url('/assets/images/hero/hero-7.svg');
+}
+
+/* .hero-main-2 {
+  margin-top: -10%;
+} */
+
+.hero-main {
+  margin-bottom: 2.5%;
+}
+
+.hero-text {
+  line-height: 1.2em
+}
+
+#faq,
+#explore,
+#about,
+#team
+  {
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+}
+
+
+.cta {
+  line-height: 1.3em;
+  letter-spacing: 10px;
+}
+
+
+
+.custom-bg {
+  position: relative;
+  background: linear-gradient(to right, #333, #333);
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+/* Left Side - Parent Circle */
+.custom-bg::before {
+  content: "";
+  position: absolute;
+  width: 39%;
+  height: 120%;
+  top: -10%;
+  left: -15%;
+  border-radius: 15rem;
+  background: linear-gradient(to right,  rgba(255, 255, 255, 0.15), #fff);
+  
+}
+
+/* Left Side - Child Circle */
+.custom-bg::after {
+  content: "";
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  top: 0%;
+  left: -15%;
+  border-radius: 50%;
+  background: #000;
+}
+
+/* Right Side - Large Circle */
+.right-circle {
+  position: absolute;
+  width: 96%;
+  height: 120%;
+  top: -10%;
+  right: -20%;
+  border-radius: 15rem;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.042),#333, #333,#333, #333,#333, #333);
+}
+
+
+
+#services-text {
+  display: grid;
+  gap: 0.2em !important;
+}
+
+.services-text-title {
+  font-size: 31px !important;
+}
+
+.services-text-title-cite {
+  font-size: 13px !important;
+}
+
+#contact-form-container {
+  width: fit-content;
+  padding: 1%;
+}
+/*
+
+*/
+@media screen and (min-width: 1600px) {
+
+
+  .headertext {
+    font-size: larger !important;
+  }
+  
+  .nine20 {
+    width: 80%;
+  }
+  
+
+
+  /* .hero-main-2 {
+    margin-top: -30%;
+  } */
+
+  /* .hero-heading-section {
+    margin-top: -2%;
+  } */
+
+  .hero-text {
+    line-height: 2em;
+    font-size: 60px !important;
+  }
+
+  #services-container {
+    width: 80%;
+  }
+
+  #services-card {
+    gap: 2em;
+  }
+
+  #services-text {
+    display: grid;
+    gap: 2em;
+  }
+
+  #contact-form-container {
+    width: 591px;
+  }
+
+  #faq {
+    padding-left: 7%;
+    padding-right: 7%;
+  }
+
+  .about-modal {
+    height: 675px !important;
+  }
+
+  .team-image-m {
+    height: 450px;
+    width: 100% !important;
+   }
+  
+   .team-image {
+    height: fit-content !important;
+    /* width: 460px; */
+    border-radius: 5%;
+   } 
+
+   ol.roman-figure-list {
+    list-style-type: upper-roman !important;
+   }
+
+   #products {
+    padding: 0%
+  }
+
+  .services-title {
+    font-size: 28px !important;
+  }
+
+  .services-description {
+    font-size: 18px !important;
+  }
+
+  
+  .services-text-title {
+    font-size: 50px !important;
+  }
+
+  .services-text-title-cite {
+    font-size: 20px !important;
+  }
+
+  .services-text-description {
+    font-size: 20px !important;
+  }
+  
+    
+} 
+
+
+/*
+  
+*/
+@media screen and (max-width: 800px) {
+
+  /* *{
+    font-size: small !important;
+  } */
+  .hero-section {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position: top center;
+    height: 70vh;
+    display: grid
+
+  }
+
+  #hero {
+    max-width: 100%;
+  }
+
+  .hero-main {
+    max-width: 100%;
+    margin-top: 12%;
+    min-height: 35vh;
+  }
+  .hero-main-2 {
+    display: grid;
+    gap: 1.8em;
+  }
+
+  .hero-text {
+    line-height:unset;
+    font-size: 28px;
+  }
+
+
+  
+  .heelHeid-Logo {
+    width: 60px;
+  }
+
+  #services-container {
+    margin: auto !important;
+    padding: 5%;
+  }
+
+  .services-box {
+    margin-bottom: 10%;
+  }
+
+  .product_servicesImage{
+    display: none;
+  }
+
+  #about {
+    flex-direction: column;
+  }
+
+  #faq,
+  #explore,
+  #about {
+    padding-left: 5.2%;
+    padding-right: 5.2%;
+  }
+
+  
+  #team {
+    padding-left: default;
+    padding-right: default;
+  }
+
+
+  .footer {
+    margin-top: 10%;
+    padding: 5%;
+  }
+
+  .companyBottomLinks,
+  .socialBottomLinks,
+  .signatureBottomLinks {
+    margin-top: 6%;
+  }
+
+
+ .subscribeCTA {
+  margin: 5%;
+  padding: 5%;
+  width: 90%;
+ }
+
+ .team-image-m {
+  height: 210px !important;
+ }
+
+ .team-image {
+  height: fit-content !important;
+ }
+
+ .team-profile-content {
+   margin-top: -3em !important;
+ }
+
+ .banner-content-container {
+  display: grid;
+   gap: 15px
+ }
+
+ .about-modal {
+    height: 100vh !important;
+  }
+
+  .about {
+    margin-top: 15px
+  }
+
+  
+  /* Left Side - Parent Circle */
+  .custom-bg::before {
+    display: none;
+  }
+  
+  /* Left Side - Child Circle */
+  .custom-bg::after {
+    display: none;
+  }
+  
+  /* Right Side - Large Circle */
+  .right-circle {
+  position: absolute;
+  width: 100%;
+  height: 120%;
+  margin: auto;
+  top: -10%;
+  right: 0%;
+  border-radius: 15rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.042),rgba(255, 255, 255, 0.042),#fff, #fff,#fff, #fff,#fff, #fff);
+  }
+
+  .banner-dynamic-title {
+    font-size: large !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .banner-dynamic-caption {
+    font-size: small !important;
+  }
+
+  .banner-link-caption {
+    font-size: small !important;
+  }
+
+  .team-details {
+    font-size: small !important;
+  }
+
+  .team-details-smaller {
+    font-size: smaller !important;
+  }
+
+}
+
+
