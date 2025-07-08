@@ -1,5 +1,46 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+// Intro Animation Component
+function IntroAnimation({ onAnimationEnd }) {
+  const [fadeOut, setFadeOut] = useState(false);
+
+  useEffect(() => {
+    // Start fade out after 2 seconds (adjust as needed)
+    const fadeOutTimer = setTimeout(() => {
+      setFadeOut(true);
+    }, 2000); // Duration before fade out starts
+
+    // End animation and call callback after fade out completes
+    const animationEndTimer = setTimeout(() => {
+      onAnimationEnd();
+    }, 2500); // Total duration (2s for slide-in + 0.5s for fade-out)
+
+    return () => {
+      clearTimeout(fadeOutTimer);
+      clearTimeout(animationEndTimer);
+    };
+  }, [onAnimationEnd]);
+
+  return (
+    <div className={`fixed inset-0 bg-white dark:bg-black flex items-center justify-center z-[9999] transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
+      <h1 className="text-2xl md:text-6xl font-extrabold text-gray-700 animate-slide-in-left-intro">
+        Swift90
+      </h1>
+      {/* Ensure dark mode transition is smooth even during intro */}
+      <style>{`
+        @keyframes slideInLeftIntro {
+          from { opacity: 0; transform: translateX(-100px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in-left-intro {
+          animation: slideInLeftIntro 1s ease-out forwards;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+
 // Main App Component
 function App() {
   // Global States
@@ -24,6 +65,7 @@ function App() {
     paymentStatus: 'pending', // 'pending', 'successful', 'failed'
   });
   const [selectedBlogPost, setSelectedBlogPost] = useState(null); // State to hold data for the currently viewed blog post
+  const [showIntro, setShowIntro] = useState(true); // State to control intro animation
 
   // Dummy pricing data
   const pricingData = {
@@ -130,20 +172,23 @@ function App() {
 
   // Effect to check for stored country and theme on component mount
   useEffect(() => {
-    const storedCountry = localStorage.getItem('terraace_country_selection');
-    if (storedCountry && pricingData[storedCountry]) {
-      setSelectedCountry(storedCountry);
-    } else {
-      setShowLocationModal(true);
-    }
+    // Only check for stored country and theme AFTER the intro animation
+    if (!showIntro) {
+      const storedCountry = localStorage.getItem('terraace_country_selection');
+      if (storedCountry && pricingData[storedCountry]) {
+        setSelectedCountry(storedCountry);
+      } else {
+        setShowLocationModal(true);
+      }
 
-    const storedTheme = localStorage.getItem('terraace_theme');
-    if (storedTheme === 'dark') {
-      setDarkMode(true);
-    } else {
-      setDarkMode(false); // Default to light mode
+      const storedTheme = localStorage.getItem('terraace_theme');
+      if (storedTheme === 'dark') {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false); // Default to light mode
+      }
     }
-  }, []);
+  }, [showIntro]); // Depend on showIntro
 
   // Handler for country selection in the modal
   const handleCountrySelect = (event) => {
@@ -270,7 +315,7 @@ function App() {
           <li><strong>Dedicated Support:</strong> Access to expert support for any issues or questions you might have.</li>
         </ul>
         <p class="mb-4">WaaS is not just a trend; it's the evolution of how businesses manage their digital footprint. It provides a streamlined, efficient, and cost-effective way to ensure your online presence is always professional, secure, and performing at its best.</p>
-        <p>Embrace the future of web management with TerraAce WaaS and experience unparalleled peace of mind.</p>
+        <p>Embrace the future of web management with Swift90 WaaS and experience unparalleled peace of mind.</p>
       `
     },
     {
@@ -285,7 +330,7 @@ function App() {
         <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">3. Create High-Quality, Relevant Content</h3>
         <p class="mb-4">Regularly publish valuable content that addresses your audience's questions and needs. This could be blog posts, FAQs, or service descriptions. High-quality content not only helps with SEO but also establishes your authority and engages visitors.</p>
         <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">4. Ensure Mobile-Friendliness</h3>
-        <p class="mb-4">Google prioritizes mobile-first indexing, meaning your website's mobile version is the primary one used for ranking. Ensure your site is responsive and provides a seamless experience on all devices. TerraAce websites are inherently mobile-friendly!</p>
+        <p class="mb-4">Google prioritizes mobile-first indexing, meaning your website's mobile version is the primary one used for ranking. Ensure your site is responsive and provides a seamless experience on all devices. Swift90 websites are inherently mobile-friendly!</p>
         <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">5. Build Quality Backlinks</h3>
         <p class="mb-4">Backlinks (links from other reputable websites to yours) are a strong signal of authority to search engines. Focus on earning natural backlinks through valuable content, local partnerships, and industry collaborations.</p>
         <p>By implementing these essential SEO tips, small businesses can significantly improve their search engine rankings, drive more organic traffic, and ultimately achieve greater online success.</p>
@@ -301,9 +346,9 @@ function App() {
         <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">1. Minimalism and Clean Layouts</h3>
         <p class="mb-4">Less is more. Designers are increasingly focusing on clean, uncluttered layouts with ample white space. This approach enhances readability, improves user focus, and creates a sophisticated, modern look. It also contributes to faster loading times.</p>
         <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">2. Dark Mode Options</h3>
-        <p class="mb-4">As seen on our TerraAce site, dark mode continues to gain popularity. It reduces eye strain in low-light conditions, saves battery life on OLED screens, and offers a sleek, premium aesthetic. Providing users with the choice between light and dark modes is becoming a standard.</p>
+        <p class="mb-4">As seen on our Swift90 site, dark mode continues to gain popularity. It reduces eye strain in low-light conditions, saves battery life on OLED screens, and offers a sleek, premium aesthetic. Providing users with the choice between light and dark modes is becoming a standard.</p>
         <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">3. Interactive Elements and Micro-animations</h3>
-        <p class="mb-4">Subtle animations, hover effects, and interactive elements (like the card hovers on TerraAce) add life and engagement to a website without being distracting. They guide user attention, provide feedback, and make the browsing experience more enjoyable.</p>
+        <p class="mb-4">Subtle animations, hover effects, and interactive elements (like the card hovers on Swift90) add life and engagement to a website without being distracting. They guide user attention, provide feedback, and make the browsing experience more enjoyable.</p>
         <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">4. Bold Typography and Unique Fonts</h3>
         <p class="mb-4">Typography is being used as a primary design element. Expect to see more large, bold headlines and unique font pairings that capture attention and convey brand personality. Readability remains key, but creativity in font choice is on the rise.</p>
         <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-gray-100">5. AI-Powered Personalization</h3>
@@ -381,6 +426,8 @@ function App() {
     default: // 'home' page
       return (
         <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500`}>
+          {showIntro && <IntroAnimation onAnimationEnd={() => setShowIntro(false)} />}
+
           {/* Location Selection Modal */}
           {showLocationModal && (
             <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
@@ -424,7 +471,7 @@ function App() {
           )}
 
           {/* Header Section */}
-          <header className="bg-white dark:bg-black py-4 px-6 md:px-12 fixed top-0 w-full z-10  transition-colors duration-500">
+          <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 transition-colors duration-500">
             <nav className="container mx-auto flex justify-between items-center">
               {/* Mobile Menu Button (Hamburger Icon) - Always visible */}
               <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -443,7 +490,7 @@ function App() {
                     </svg>
                   ) : (
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59zm12.728 0a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
+                      <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
                 </svg>
               )}
             </button>
@@ -474,21 +521,20 @@ function App() {
           </header>
 
           {/* Hero Section */}
-          <section className="relative pt-24 pb-16 md:pt-40 md:pb-48 md:mt-20 text-gray-900 dark:text-gray-100 overflow-hidden  transition-colors duration-500 bg-cover bg-center"
-            style={{
-              backgroundImage: `url('https://placehold.co/1920x1080/222222/FFFFFF?text=TerraAce+Hero+Image')`,
-            }}
+          <section
+            className="relative pt-24 pb-16 md:pt-40 md:pb-48 md:mt-20 text-gray-900 dark:text-gray-100 overflow-hidden transition-colors duration-500 bg-cover bg-center"
+            style={{ backgroundImage: `url('https://placehold.co/1920x1080/4A5568/CBD5E0?text=Your+Hero+Image')` }}
           >
             {/* Overlay for text readability */}
-            <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
+            <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
 
             {/* Additional subtle graphic elements (now on top of the overlay) */}
-            <div className="absolute w-48 h-48 bg-orange-500 bg-opacity-5 rounded-full -top-10 left-1/4 animate-pulse-slow filter blur-sm shadow-orange-glow transform rotate-12 z-10"></div>
-            <div className="absolute w-32 h-32 bg-orange-400 bg-opacity-5 rounded-lg -bottom-10 right-1/3 animate-pulse-slow delay-300 filter blur-sm shadow-orange-glow transform skew-x-6 z-10"></div>
-            <div className="absolute w-24 h-24 bg-orange-600 bg-opacity-5 rounded-full top-1/3 -right-10 animate-pulse-slow delay-600 filter blur-sm shadow-orange-glow z-10"></div>
-            <div className="absolute w-40 h-40 bg-orange-300 bg-opacity-5 rounded-full bottom-1/4 -left-10 animate-pulse-slow delay-900 filter blur-sm shadow-orange-glow transform rotate-45 z-10"></div>
+            <div className="absolute w-48 h-48 bg-orange-500 bg-opacity-5 rounded-full -top-10 left-1/4 animate-pulse-slow filter blur-sm shadow-orange-glow transform rotate-12 z-20"></div>
+            <div className="absolute w-32 h-32 bg-orange-400 bg-opacity-5 rounded-lg -bottom-10 right-1/3 animate-pulse-slow delay-300 filter blur-sm shadow-orange-glow transform skew-x-6 z-20"></div>
+            <div className="absolute w-24 h-24 bg-orange-600 bg-opacity-5 rounded-full top-1/3 -right-10 animate-pulse-slow delay-600 filter blur-sm shadow-orange-glow z-20"></div>
+            <div className="absolute w-40 h-40 bg-orange-300 bg-opacity-5 rounded-full bottom-1/4 -left-10 animate-pulse-slow delay-900 filter blur-sm shadow-orange-glow transform rotate-45 z-20"></div>
 
-            <div className="container mx-auto text-center px-6 animate-fade-in-up relative z-20"> {/* Increased z-index for text */}
+            <div className="container mx-auto text-center px-6 animate-fade-in-up relative z-30"> {/* Increased z-index for text */}
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-slide-in-left tracking-tight text-white">
                 Your Global Online Presence, <br className="hidden sm:inline"/> Effortlessly Refined.
               </h1>
@@ -506,7 +552,7 @@ function App() {
             </div>
           </section>
 
-          {/* Why Choose TerraAce Section */}
+          {/* Why Choose Swift90 Section */}
           <section id="why-terraace" className="relative py-16 md:py-24 bg-gray-50 dark:bg-black border-b border-gray-100 dark:border-gray-900 transition-colors duration-500 overflow-hidden">
             {/* Subtle background graphics */}
             <div className="absolute w-40 h-40 bg-orange-200 bg-opacity-5 rounded-full -top-20 -right-20 animate-pulse-slow filter blur-sm"></div>
@@ -526,7 +572,7 @@ function App() {
                 </div>
                 <div className="flex justify-center animate-fade-in-right">
                   <img
-                    src={"/assets/icons/mail-black.svg"}
+                    src={"https://placehold.co/600x400/E0E0E0/333333?text=Simplified+Online+Presence"}
                     alt="Simplified Online Presence Illustration"
                     className="rounded-lg shadow-sm w-full max-w-md h-auto object-cover border border-gray-200 dark:border-gray-700"
                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/E0E0E0/333333?text=Image+Load+Error'; }}
@@ -646,7 +692,7 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm overflow-hidden transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
                   <img
-                    src={"/assets/icons/mail-black.svg"}
+                    src={"https://placehold.co/600x400/E0E0E0/333333?text=Global+E-commerce"}
                     alt="Global E-commerce Website Example"
                     className="w-full h-48 object-cover"
                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/E0E0E0/333333?text=Image+Load+Error'; }}
@@ -658,7 +704,7 @@ function App() {
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm overflow-hidden transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
                   <img
-                    src={"/assets/icons/mail-black.svg"}
+                    src={"https://placehold.co/600x400/E0E0E0/333333?text=Corporate+Portfolio"}
                     alt="Corporate Portfolio Website Example"
                     className="w-full h-48 object-cover"
                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/E0E0E0/333333?text=Image+Load+Error'; }}
@@ -670,7 +716,7 @@ function App() {
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm overflow-hidden transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
                   <img
-                    src={"/assets/icons/mail-black.svg"}
+                    src={"https://placehold.co/600x400/E0E0E0/333333?text=Creative+Agency"}
                     alt="Creative Agency Website Example"
                     className="w-full h-48 object-cover"
                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/E0E0E0/333333?text=Image+Load+Error'; }}
@@ -798,23 +844,23 @@ function App() {
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-100">
-                  <img 
-                    src={"/assets/icons/mail-black.svg"} alt="React Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=React'; }}/>
+                  <img
+                    src={"https://placehold.co/80x80/E0E0E0/333333?text=React"} alt="React Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=React'; }}/>
                   <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">React</p>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-200">
-                  <img 
-                    src={"/assets/icons/mail-black.svg"} alt="Node.js Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Node'; }}/>
+                  <img
+                    src={"https://placehold.co/80x80/E0E0E0/333333?text=Node.js"} alt="Node.js Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Node'; }}/>
                   <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Node.js</p>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-300">
-                  <img 
-                    src={"/assets/icons/mail-black.svg"} alt="Cloud Hosting Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Cloud'; }}/>
+                  <img
+                    src={"https://placehold.co/80x80/E0E0E0/333333?text=Cloud+Hosting"} alt="Cloud Hosting Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Cloud'; }}/>
                   <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Cloud Hosting</p>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-400">
-                  <img 
-                    src={"/assets/icons/mail-black.svg"} alt="Tailwind CSS Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Tailwind'; }}/>
+                  <img
+                    src={"https://placehold.co/80x80/E0E0E0/333333?text=Tailwind+CSS"} alt="Tailwind CSS Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Tailwind'; }}/>
                   <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Tailwind CSS</p>
                 </div>
               </div>
@@ -1065,7 +1111,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
 
   return (
     <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-sm py-4 px-6 md:px-12 fixed top-0 w-full z-10 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1084,7 +1130,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 </svg>
               ) : (
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59zm12.728 0a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
+                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
                 </svg>
               )}
             </button>
@@ -1097,7 +1143,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
-            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why TerraAce?</a>
+            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
             <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
             <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
             <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
@@ -1420,7 +1466,7 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
 
   return (
     <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-sm py-4 px-6 md:px-12 fixed top-0 w-full z-10 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1439,7 +1485,7 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
                 </svg>
               ) : (
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59zm12.728 0a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
+                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
                 </svg>
               )}
             </button>
@@ -1541,7 +1587,7 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
                 ))}
               </ul>
               <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Total Add-on Cost:</span> {currency}{totalAddOnCost.toFixed(2)}
+                <span className="font-semibold">Total Add-on Cost:</span> {totalAddOnCost.toFixed(2)}
               </p>
             </>
           )}
@@ -1588,7 +1634,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
 
   return (
     <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-sm py-4 px-6 md:px-12 fixed top-0 w-full z-10 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1597,7 +1643,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
             </svg>
           </button>
           <div className="text-2xl font-bold text-orange-500 rounded-lg p-2 transition-colors duration-500">
-            TerraAce
+            Swift90
           </div>
           <div className="flex items-center space-x-4">
             <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1620,7 +1666,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
-            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why TerraAce?</a>
+            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
             <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
             <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
             <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
@@ -1649,7 +1695,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
               Payment Successful!
             </p>
             <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
-              Thank you for choosing TerraAce. Your order has been confirmed.
+              Thank you for choosing Swift90. Your order has been confirmed.
               We will be in touch shortly to begin crafting your website.
             </p>
           </>
@@ -1719,7 +1765,6 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
               <span className="font-semibold">Assets Provided:</span> {assets.join(', ')}
             </p>
           )}
-          {/* Fix: Removed the extra closing </p> tag here */}
           {requirements && (
             <p className="text-lg text-gray-900 dark:text-gray-200">
               <span className="font-semibold">Requirements:</span> {requirements}
@@ -1767,7 +1812,7 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
 
   return (
     <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-sm py-4 px-6 md:px-12 fixed top-0 w-full z-10 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1776,7 +1821,7 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
             </svg>
           </button>
           <div className="text-2xl font-bold text-orange-500 rounded-lg p-2 transition-colors duration-500">
-            TerraAce
+            Swift90
           </div>
           <div className="flex items-center space-x-4">
             <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1786,7 +1831,7 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
                 </svg>
               ) : (
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59zm12.728 0a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
+                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
                 </svg>
               )}
             </button>
@@ -1799,7 +1844,7 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
-            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why TerraAce?</a>
+            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
             <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
             <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
             <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
@@ -1855,7 +1900,7 @@ function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobile
 
   return (
     <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-sm py-4 px-6 md:px-12 fixed top-0 w-full z-10 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1864,7 +1909,7 @@ function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobile
             </svg>
           </button>
           <div className="text-2xl font-bold text-orange-500 rounded-lg p-2 transition-colors duration-500">
-            TerraAce
+            Swift90
           </div>
           <div className="flex items-center space-x-4">
             <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1887,7 +1932,7 @@ function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobile
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
-            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why TerraAce?</a>
+            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
             <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
             <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
             <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
