@@ -528,6 +528,7 @@ function App() {
             {/* Overlay for text readability */}
             <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
 
+
             {/* Additional subtle graphic elements (now on top of the overlay) */}
             <div className="absolute w-48 h-48 bg-orange-500 bg-opacity-5 rounded-full -top-10 left-1/4 animate-pulse-slow filter blur-sm shadow-orange-glow transform rotate-12 z-20"></div>
             <div className="absolute w-32 h-32 bg-orange-400 bg-opacity-5 rounded-lg -bottom-10 right-1/3 animate-pulse-slow delay-300 filter blur-sm shadow-orange-glow transform skew-x-6 z-20"></div>
