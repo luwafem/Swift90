@@ -523,10 +523,11 @@ function App() {
           {/* Hero Section */}
           <section
             className="relative pt-24 pb-16 md:pt-40 md:pb-48 md:mt-20 text-gray-900 dark:text-gray-100 overflow-hidden transition-colors duration-500 bg-cover bg-center"
-            style={{ backgroundImage: `url('https://placehold.co/1920x1080/4A5568/CBD5E0?text=Your+Hero+Image')` }}
+            style={{ backgroundImage: `url('https://images.pexels.com/photos/9436715/pexels-photo-9436715.jpeg')` }}
           >
             {/* Overlay for text readability */}
             <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
+
 
             {/* Additional subtle graphic elements (now on top of the overlay) */}
             <div className="absolute w-48 h-48 bg-orange-500 bg-opacity-5 rounded-full -top-10 left-1/4 animate-pulse-slow filter blur-sm shadow-orange-glow transform rotate-12 z-20"></div>
