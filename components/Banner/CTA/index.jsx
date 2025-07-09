@@ -480,7 +480,7 @@ function App() {
                 </svg>
               </button>
               <div className="text-2xl font-bold text-gray-700 dark:text-gray-300 rounded-lg p-2 transition-colors duration-500">
-                Swift902
+                Swift90
               </div>
               <div className="flex items-center space-x-4">
                 <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
