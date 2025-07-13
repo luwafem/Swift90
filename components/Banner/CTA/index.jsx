@@ -22,8 +22,8 @@ function IntroAnimation({ onAnimationEnd }) {
   }, [onAnimationEnd]);
 
   return (
-    <div className={`fixed inset-0 bg-white dark:bg-black flex items-center justify-center z-[9999] transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
-      <h1 className="text-2xl md:text-6xl font-extrabold text-gray-700 animate-slide-in-left-intro">
+    <div className={`fixed inset-0 bg-white dark:bg-[#1F1A2A] flex items-center justify-center z-[9999] transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
+      <h1 className="text-2xl md:text-6xl font-extrabold text-[#1F1A2A] dark:text-[#CAC4D0] animate-slide-in-left-intro">
         Swift90
       </h1>
       {/* Ensure dark mode transition is smooth even during intro */}
