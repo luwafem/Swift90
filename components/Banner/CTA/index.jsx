@@ -664,7 +664,7 @@ function App() {
                 </div>
                 <div className="flex justify-center animate-fade-in-right">
                   <img
-                    src={"https://placehold.co/600x400/E0E0E0/333333?text=Simplified+Online+Presence"}
+                    src={"https://plus.unsplash.com/premium_photo-1720908579765-3cf1dd7999f7?q=80&w=1678&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                     alt="Simplified Online Presence Illustration"
                     className="rounded-lg shadow-sm w-full max-w-md h-auto object-cover border border-gray-200 dark:border-gray-700"
                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/E0E0E0/333333?text=Image+Load+Error'; }}
@@ -940,22 +940,22 @@ function App() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-100">
                   <img
-                    src={"https://placehold.co/80x80/E0E0E0/333333?text=React"} alt="React Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=React'; }}/>
+                    src={"https://icon.icepanel.io/Technology/svg/React.svg"} alt="React Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=React'; }}/>
                   <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">React</p>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-200">
                   <img
-                    src={"https://placehold.co/80x80/E0E0E0/333333?text=Node.js"} alt="Node.js Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Node'; }}/>
+                    src={"https://icon.icepanel.io/Technology/svg/Node.js.svg"} alt="Node.js Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Node'; }}/>
                   <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Node.js</p>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-300">
                   <img
-                    src={"https://placehold.co/80x80/E0E0E0/333333?text=Cloud+Hosting"} alt="Cloud Hosting Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Cloud'; }}/>
+                    src={"https://icon.icepanel.io/Technology/svg/Google-Cloud.svg"} alt="Cloud Hosting Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Cloud'; }}/>
                   <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Cloud Hosting</p>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-400">
                   <img
-                    src={"https://placehold.co/80x80/E0E0E0/333333?text=Tailwind+CSS"} alt="Tailwind CSS Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Tailwind'; }}/>
+                    src={"https://icon.icepanel.io/Technology/svg/Tailwind-CSS.svg"} alt="Tailwind CSS Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Tailwind'; }}/>
                   <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Tailwind CSS</p>
                 </div>
               </div>
