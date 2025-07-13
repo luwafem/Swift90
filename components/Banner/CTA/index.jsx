@@ -706,7 +706,7 @@ function App() {
           </section>
 
           {/* Features Section */}
-          <section id="features" className="py-16 md:py-24 bg-gray-50 dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-[#CAC4D0] transition-colors duration-500">
+          <section id="features" className="py-16 md:py-24 bg-gray-50 dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-gray-800 transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
               <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">Built for Your Triumph: Essential Features That Drive Growth</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -852,7 +852,7 @@ function App() {
           </section>
 
           {/* Pricing Section */}
-          <section id="pricing" className="py-16 md:py-24 bg-gray-50 dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-[#CAC4D0] transition-colors duration-500">
+          <section id="pricing" className="py-16 md:py-24 bg-gray-50 dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-gray-800 transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
               <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">Invest in Your Growth: Simple, Transparent Plans for Every Stage of Your Business Journey</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-10 max-w-2xl mx-auto animate-fade-in leading-relaxed">
