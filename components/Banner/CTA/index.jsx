@@ -70,10 +70,9 @@ function App() {
   // Hero Section Image Carousel States
   const heroImages = [
     "https://images.pexels.com/photos/9436715/pexels-photo-9436715.jpeg", // Original image
-    "https://placehold.co/1200x800/FF5733/FFFFFF?text=Digital+Growth",
-    "https://placehold.co/1200x800/33FF57/FFFFFF?text=Online+Success",
-    "https://placehold.co/1200x800/3357FF/FFFFFF?text=Business+Solutions",
-    "https://placehold.co/1200x800/FF33E9/FFFFFF?text=Future+Ready",
+    "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg",
+    "https://images.pexels.com/photos/776655/pexels-photo-776655.jpeg",
+    "https://images.pexels.com/photos/2792258/pexels-photo-2792258.jpeg",
   ];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   // isFadingOut controls the opacity of the current image layer (fades out)
@@ -542,21 +541,21 @@ function App() {
             </nav>
             {/* Mobile Menu Overlay - now the primary navigation overlay */}
             {isMobileMenuOpen && (
-              <div className="fixed inset-0 bg-white dark:bg-Slate-800  bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
-                <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-Slate-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+              <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A]  bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+                <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-[#CAC4D0] focus:outline-none hover:text-orange-500 transition-colors duration-300">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                   </svg>
                 </button>
-                <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
-                <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
-                <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
-                <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
-                <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
-                <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
-                <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
-                <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
-                <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
+                <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
+                <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
+                <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
+                <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
+                <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
+                <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
+                <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
+                <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
+                <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
                 <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="bg-orange-500 text-white px-8 py-3 rounded-full text-xl font-semibold hover:bg-orange-600 transition duration-300 shadow-md">
                   Get Started
                 </a>
@@ -566,7 +565,7 @@ function App() {
 
           {/* Hero Section */}
           <section
-            className="relative pt-24 pb-16 md:pt-32 md:pb-24 md:mt-20 text-gray-900 dark:text-[#CAC4D0] overflow-hidden"
+            className="relative pt-24 pb-16 md:pt-36 md:pb-28 md:mt-20 text-gray-900 dark:text-[#CAC4D0] overflow-hidden"
           >
             {/* Background Image Layer 1 (Current Image - fades out) */}
             <div
@@ -596,7 +595,7 @@ function App() {
             <div className="absolute w-40 h-40 bg-orange-300 bg-opacity-5 rounded-full bottom-1/4 -left-10 animate-pulse-slow delay-900 filter blur-sm shadow-orange-glow transform rotate-45 z-20"></div>
 
             <div className="container mx-auto text-center px-6 animate-fade-in-up relative z-30"> {/* Increased z-index for text */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-slide-in-left tracking-tight text-white">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-slide-in-left tracking-tight text-[#CAC4D0]">
                 Tired of Website Headaches? <br className="hidden sm:inline"/> We Build Your Online Success, So You Don't Have To.
               </h1>
               <p className="text-lg sm:text-xl mb-10 max-w-3xl mx-auto text-gray-200 animate-fade-in leading-relaxed">
@@ -609,32 +608,32 @@ function App() {
               {/* Four Selling Points Squares */}
               <div className="mt-16 flex flex-wrap md:flex-nowrap justify-center gap-6 md:gap-8 relative z-30">
                 {/* Selling Point 1: Speed */}
-                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800">
+                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800">
                   <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                   </svg>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Launch in Days, Not Months</p>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-[#CAC4D0]">Launch in Days, Not Months</p>
                 </div>
                 {/* Selling Point 2: Simplicity */}
-                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800">
+                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800">
                   <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
                   </svg>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Hassle-Free Management</p>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-[#CAC4D0]">Hassle-Free Management</p>
                 </div>
                 {/* Selling Point 3: Security */}
-                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800">
+                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800">
                   <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002 12c0 2.757 1.25 5.232 3.248 7.072A11.955 11.955 0 0112 21.056c2.757 0 5.232-1.25 7.072-3.248A11.955 11.955 0 0022 12c0-2.757-1.25-5.232-3.248-7.072z"></path>
                   </svg>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Ironclad Protection</p>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-[#CAC4D0]">Ironclad Protection</p>
                 </div>
                 {/* Selling Point 4: Support */}
-                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-400 border border-gray-200 dark:border-gray-800">
+                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-400 border border-gray-200 dark:border-gray-800">
                   <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">24/7 Expert Guidance</p>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-[#CAC4D0]">24/7 Expert Guidance</p>
                 </div>
               </div>
             </div>
@@ -1211,8 +1210,8 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
   };
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
+      <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1220,7 +1219,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
-          <div className="text-2xl font-bold text-orange-500 rounded-lg p-2 transition-colors duration-500">
+          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
             Swift90
           </div>
           <div className="flex items-center space-x-4">
@@ -1238,7 +1237,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
           </div>
         </nav>
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-white dark:bg-black bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+          <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
             <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -1260,13 +1259,13 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
         )}
       </header>
 
-      <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-black p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
+      <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
           Your Journey Continues: Customize Your {purchaseDetails.plan?.name} Plan
         </h2>
 
         {/* Dynamic Price Display */}
-        <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-6 text-center border border-gray-200 dark:border-gray-700">
+        <div className="bg-gray-100 dark:bg-[#2B253B] p-4 rounded-lg mb-6 text-center border border-gray-200 dark:border-gray-700">
           <p className="text-lg text-gray-700 dark:text-gray-300">
             {isCustomPlan ? "Your Custom Quote Request" : "Base Monthly Price:"}
           </p>
@@ -1585,8 +1584,8 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
   };
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
+      <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1594,7 +1593,7 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
-          <div className="text-2xl font-bold text-orange-500 rounded-lg p-2 transition-colors duration-500">
+          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
             Swift90
           </div>
           <div className="flex items-center space-x-4">
@@ -1612,7 +1611,7 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
           </div>
         </nav>
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-white dark:bg-black bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+          <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
             <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -1634,7 +1633,7 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
         )}
       </header>
 
-      <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-black p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
+      <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
           One Step Closer: Confirm Your Investment in Online Success
         </h2>
@@ -1767,8 +1766,8 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
   const totalAmount = baseAmount + totalAddOnCost;
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
+      <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1776,7 +1775,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
-          <div className="text-2xl font-bold text-orange-500 rounded-lg p-2 transition-colors duration-500">
+          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
             Swift90
           </div>
           <div className="flex items-center space-x-4">
@@ -1794,7 +1793,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
           </div>
         </nav>
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-white dark:bg-black bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+          <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
             <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -1816,7 +1815,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
         )}
       </header>
 
-      <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-black p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500 text-center">
+      <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500 text-center">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Your Digital Journey Has Begun!
         </h2>
@@ -1858,7 +1857,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
           </>
         )}
 
-        <div className="text-left space-y-3 mb-8 bg-gray-50 dark:bg-gray-950 p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+        <div className="text-left space-y-3 mb-8 bg-gray-50 dark:bg-[#2B253B] p-6 rounded-lg border border-gray-200 dark:border-gray-800">
           <p className="text-lg text-gray-900 dark:text-gray-200">
             <span className="font-semibold">Plan:</span> {plan?.name}
           </p>
@@ -1960,8 +1959,8 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
   };
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
+      <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -1969,7 +1968,7 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
-          <div className="text-2xl font-bold text-orange-500 rounded-lg p-2 transition-colors duration-500">
+          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
             Swift90
           </div>
           <div className="flex items-center space-x-4">
@@ -1987,7 +1986,7 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
           </div>
         </nav>
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-white dark:bg-black bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+          <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
             <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -2009,11 +2008,11 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
         )}
       </header>
 
-      <div className="container mx-auto mt-24 max-w-4xl bg-white dark:bg-black p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
+      <div className="container mx-auto mt-24 max-w-4xl bg-white dark:bg-[#1F1A2A] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">Your Guide to Digital Success: Insights from the Swift90 Blog</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {blogPosts.map(post => (
-            <div key={post.id} className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm p-6 transform hover:scale-[1.02] hover:shadow-md transition duration-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+            <div key={post.id} className="bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm p-6 transform hover:scale-[1.02] hover:shadow-md transition duration-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{post.title}</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{post.date}</p>
               <p className="text-gray-700 dark:text-gray-300 mb-4">{post.excerpt}</p>
@@ -2035,7 +2034,7 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
 function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobileMenuOpen, setIsMobileMenuOpen }) {
   if (!post) {
     return (
-      <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6 flex items-center justify-center`}>
+      <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#2B253B] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6 flex items-center justify-center`}>
         <p className="text-xl">Blog post not found.</p>
         <button
           onClick={() => setCurrentPage('blog')}
@@ -2048,8 +2047,8 @@ function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobile
   }
 
   return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
+      <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
         <nav className="container mx-auto flex justify-between items-center">
           {/* Hamburger Icon */}
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -2057,7 +2056,7 @@ function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobile
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
-          <div className="text-2xl font-bold text-orange-500 rounded-lg p-2 transition-colors duration-500">
+          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
             Swift90
           </div>
           <div className="flex items-center space-x-4">
@@ -2075,7 +2074,7 @@ function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobile
           </div>
         </nav>
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-white dark:bg-black bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+          <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
             <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -2097,7 +2096,7 @@ function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobile
         )}
       </header>
 
-      <div className="container mx-auto mt-24 max-w-4xl bg-white dark:bg-black p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
+      <div className="container mx-auto mt-24 max-w-4xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
         <button
           onClick={() => setCurrentPage('blog')}
           className="mb-6 inline-flex items-center text-orange-500 hover:text-orange-600 font-semibold transition-colors duration-300"
