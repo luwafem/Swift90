@@ -62,107 +62,151 @@ function App() {
     serviceCategories: '',
     numProjects: '',
     additionalFeatures: [], // Now explicitly for add-ons
-    paymentStatus: 'pending', // 'pending', 'successful', 'failed'
+    paymentStatus: 'pending', // 'pending', 'successful', 'failed', 'requested'
   });
   const [selectedBlogPost, setSelectedBlogPost] = useState(null); // State to hold data for the currently viewed blog post
   const [showIntro, setShowIntro] = useState(true); // State to control intro animation
+
+  // Hero Section Image Carousel States
+  const heroImages = [
+    "https://images.pexels.com/photos/9436715/pexels-photo-9436715.jpeg", // Original image
+    "https://placehold.co/1200x800/FF5733/FFFFFF?text=Digital+Growth",
+    "https://placehold.co/1200x800/33FF57/FFFFFF?text=Online+Success",
+    "https://placehold.co/1200x800/3357FF/FFFFFF?text=Business+Solutions",
+    "https://placehold.co/1200x800/FF33E9/FFFFFF?text=Future+Ready",
+  ];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // isFadingOut controls the opacity of the current image layer (fades out)
+  // The next image layer's opacity will be the inverse (fades in)
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
+  // Effect for Hero Section Image Carousel
+  useEffect(() => {
+    // Set an interval to change the image every 30 seconds
+    const interval = setInterval(() => {
+      setIsFadingOut(true); // Start fading out the current image
+
+      // After the fade-out transition duration (1 second), update the image index
+      // and reset the fading state to prepare for the next fade-in
+      setTimeout(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+        setIsFadingOut(false); // New image becomes current, reset fade state
+      }, 1000); // This duration should match the CSS transition duration for opacity
+    }, 30000); // Total time per image (29 seconds static display + 1 second fade)
+
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(interval);
+  }, [heroImages.length]); // Re-run effect if the number of hero images changes
+
 
   // Dummy pricing data
   const pricingData = {
     "USA": {
       currency: '$',
       plans: {
-        basic: { name: 'Basic', price: 29, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 79, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 199, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 29, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 79, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 199, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "Nigeria": {
       currency: '₦',
       plans: {
-        basic: { name: 'Basic', price: 15000, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 40000, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 100000, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 15000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 40000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 100000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "UK": {
       currency: '£',
       plans: {
-        basic: { name: 'Basic', price: 25, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 65, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 170, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 25, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 65, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 170, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "Canada": {
       currency: 'C$',
       plans: {
-        basic: { name: 'Basic', price: 35, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 89, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 220, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 35, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 89, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 220, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "Australia": {
       currency: 'A$',
       plans: {
-        basic: { name: 'Basic', price: 39, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 99, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 250, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 39, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 99, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 250, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "Germany": {
       currency: '€',
       plans: {
-        basic: { name: 'Basic', price: 27, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 75, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 180, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 27, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 75, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 180, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "France": {
       currency: '€',
       plans: {
-        basic: { name: 'Basic', price: 27, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 75, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 180, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 27, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 75, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 180, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "India": {
       currency: '₹',
       plans: {
-        basic: { name: 'Basic', price: 2000, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 5500, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 15000, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 2000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 5500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 15000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "Brazil": {
       currency: 'R$',
       plans: {
-        basic: { name: 'Basic', price: 120, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 350, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 900, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 120, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 350, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 900, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "South Africa": {
       currency: 'R',
       plans: {
-        basic: { name: 'Basic', price: 450, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 1200, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 3000, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 450, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 1200, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 3000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "Japan": {
       currency: '¥',
       plans: {
-        basic: { name: 'Basic', price: 3500, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 9500, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 25000, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 3500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 9500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 25000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
     "Mexico": {
       currency: 'MX$',
       plans: {
-        basic: { name: 'Basic', price: 500, features: ['1 Website', 'Standard Templates', 'Basic Support', '10GB Storage'] },
-        pro: { name: 'Pro', price: 1500, features: ['5 Websites', 'Premium Templates', 'Priority Support', '50GB Storage', 'Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 4000, features: ['Unlimited Websites', 'Custom Development', '24/7 Dedicated Support', 'Unlimited Storage', 'Advanced Analytics', 'Managed SEO'] },
+        basic: { name: 'Basic', price: 500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        pro: { name: 'Pro', price: 1500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
+        enterprise: { name: 'Enterprise', price: 4000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
   };
@@ -278,7 +322,7 @@ function App() {
     },
     {
       question: "How long does it take to get my website live?",
-      answer: "Once you choose your plan and provide your content, our team typically gets your basic website live within 3-5 business days. More complex sites may take a bit longer, but we prioritize speed."
+      answer: "We know your time is precious. Our streamlined process gets your basic website live within 3-5 business days, so you can start connecting with customers and generating leads faster."
     },
     {
       question: "Can I use my own custom domain name?",
@@ -298,7 +342,7 @@ function App() {
   const blogPosts = [
     {
       id: 'waas-future',
-      title: 'Website as a Service: The Future of Online Presence',
+      title: 'Unlock Your Future: Why WaaS is the Smart Choice for Your Business',
       date: 'July 15, 2024',
       excerpt: 'Discover why WaaS is becoming the preferred choice for businesses looking for hassle-free, high-performance websites.',
       content: `
@@ -471,19 +515,19 @@ function App() {
           )}
 
           {/* Header Section */}
-          <header className="bg-white dark:bg-black shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 transition-colors duration-500">
+          <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 transition-colors duration-500">
             <nav className="container mx-auto flex justify-between items-center">
               {/* Mobile Menu Button (Hamburger Icon) - Always visible */}
-              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-[#1F1A2A] dark:text-[#CAC4D0] focus:outline-none hover:text-orange-500 transition-colors duration-300">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
               </button>
-              <div className="text-2xl font-bold text-gray-700 dark:text-gray-300 rounded-lg p-2 transition-colors duration-500">
+              <div className="text-2xl font-bold text-[#1F1A2A] dark:text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
                 Swift90
               </div>
               <div className="flex items-center space-x-4">
-                <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+                <button onClick={toggleDarkMode} className="text-[#1F1A2A] dark:text-[#CAC4D0] focus:outline-none hover:text-orange-500 transition-colors duration-300">
                   {darkMode ? (
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
@@ -491,15 +535,15 @@ function App() {
                   ) : (
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
-                </svg>
-              )}
-            </button>
-          </div>
-        </nav>
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </nav>
             {/* Mobile Menu Overlay - now the primary navigation overlay */}
             {isMobileMenuOpen && (
-              <div className="fixed inset-0 bg-white dark:bg-black bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
-                <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+              <div className="fixed inset-0 bg-white dark:bg-Slate-800  bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+                <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-Slate-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                   </svg>
@@ -522,9 +566,25 @@ function App() {
 
           {/* Hero Section */}
           <section
-            className="relative pt-24 pb-16 md:pt-40 md:pb-48 md:mt-20 text-gray-900 dark:text-gray-100 overflow-hidden transition-colors duration-500 bg-cover bg-center"
-            style={{ backgroundImage: `url('https://images.pexels.com/photos/9436715/pexels-photo-9436715.jpeg')` }}
+            className="relative pt-24 pb-16 md:pt-32 md:pb-24 md:mt-20 text-gray-900 dark:text-[#CAC4D0] overflow-hidden"
           >
+            {/* Background Image Layer 1 (Current Image - fades out) */}
+            <div
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 z-0`}
+              style={{
+                backgroundImage: `url('${heroImages[currentImageIndex]}')`,
+                opacity: isFadingOut ? 0 : 1, // Current image fades out when isFadingOut is true
+              }}
+            ></div>
+            {/* Background Image Layer 2 (Next Image - fades in) */}
+            <div
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 z-0`}
+              style={{
+                backgroundImage: `url('${heroImages[(currentImageIndex + 1) % heroImages.length]}')`,
+                opacity: isFadingOut ? 1 : 0, // Next image fades in when isFadingOut is true
+              }}
+            ></div>
+
             {/* Overlay for text readability */}
             <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
 
@@ -537,14 +597,46 @@ function App() {
 
             <div className="container mx-auto text-center px-6 animate-fade-in-up relative z-30"> {/* Increased z-index for text */}
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-slide-in-left tracking-tight text-white">
-                Your Global Online Presence, <br className="hidden sm:inline"/> Effortlessly Refined.
+                Tired of Website Headaches? <br className="hidden sm:inline"/> We Build Your Online Success, So You Don't Have To.
               </h1>
               <p className="text-lg sm:text-xl mb-10 max-w-3xl mx-auto text-gray-200 animate-fade-in leading-relaxed">
-                Swift90 delivers professional, high-performance websites as a service, crafted to elevate your business worldwide.
+                We transform your digital dreams into thriving online realities, handling every technical detail so you can focus on what truly matters: your business growth.
               </p>
               <a href="#pricing" className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 animate-bounce-once">
-                Explore Plans
+                Start Your Transformation
               </a>
+
+              {/* Four Selling Points Squares */}
+              <div className="mt-16 flex  justify-center gap-6 md:gap-8 relative z-30">
+                {/* Selling Point 1: Speed */}
+                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800">
+                  <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Launch in Days, Not Months</p>
+                </div>
+                {/* Selling Point 2: Simplicity */}
+                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800">
+                  <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                  </svg>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Hassle-Free Management</p>
+                </div>
+                {/* Selling Point 3: Security */}
+                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800">
+                  <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002 12c0 2.757 1.25 5.232 3.248 7.072A11.955 11.955 0 0112 21.056c2.757 0 5.232-1.25 7.072-3.248A11.955 11.955 0 0022 12c0-2.757-1.25-5.232-3.248-7.072z"></path>
+                  </svg>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Ironclad Protection</p>
+                </div>
+                {/* Selling Point 4: Support */}
+                <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-400 border border-gray-200 dark:border-gray-800">
+                  <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">24/7 Expert Guidance</p>
+                </div>
+              </div>
             </div>
             {/* Subtle abstract shapes for visual appeal - enhanced with blur and glow (now on top of the overlay) */}
             <div className="absolute top-0 left-0 w-full h-full z-10">
@@ -554,18 +646,18 @@ function App() {
           </section>
 
           {/* Why Choose Swift90 Section */}
-          <section id="why-terraace" className="relative py-16 md:py-24 bg-gray-50 dark:bg-black border-b border-gray-100 dark:border-gray-900 transition-colors duration-500 overflow-hidden">
+          <section id="why-terraace" className="relative py-16 md:py-24 bg-gray-50 dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-gray-900 transition-colors duration-500 overflow-hidden">
             {/* Subtle background graphics */}
             <div className="absolute w-40 h-40 bg-orange-200 bg-opacity-5 rounded-full -top-20 -right-20 animate-pulse-slow filter blur-sm"></div>
             <div className="absolute w-60 h-60 bg-orange-300 bg-opacity-5 rounded-lg -bottom-30 -left-30 animate-pulse-slow delay-400 filter blur-sm transform rotate-45"></div>
 
             <div className="container mx-auto px-6 text-center relative z-10">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100 animate-fade-in-up">Why Choose Swift90?</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">Your Business Deserves More Than Just a Website. It Deserves Online Success.</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div className="text-left animate-slide-in-left">
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100 leading-tight">Focus on Your Vision, We Handle the Digital Foundation.</h3>
+                  <h3 className="text-2xl font-semibold mb-4 text-[#1F1A2A]gray-900 dark:text-[#CAC4D0] leading-tight">Reclaim Your Time: We Build and Manage Your Online Presence, So You Can Build Your Empire.</h3>
                   <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                    In today's fast-paced global market, your online presence is paramount. Swift90 removes the complexities of website management, allowing you to dedicate your invaluable time and resources to core business growth. From design to deployment, security to scaling, we manage every technical detail.
+                    Imagine a world where your website just *works*. No late-night updates, no security scares, no performance worries. That's the peace of mind Swift90 delivers, giving you back precious hours to innovate, connect with customers, and drive your business forward.
                   </p>
                   <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                     Experience the freedom of a fully managed website that's always up-to-date, secure, and performing at its peak, giving you a distinct advantage and peace of mind.
@@ -584,99 +676,99 @@ function App() {
           </section>
 
           {/* How It Works Section */}
-          <section id="how-it-works" className="relative py-16 md:py-24 bg-white dark:bg-black  transition-colors duration-500 overflow-hidden">
+          <section id="how-it-works" className="relative py-16 md:py-24 bg-white dark:bg-[#1F1A2A]  transition-colors duration-500 overflow-hidden">
             {/* Subtle background graphics */}
             <div className="absolute w-32 h-32 bg-orange-100 bg-opacity-5 rounded-full top-1/4 -left-10 animate-pulse-slow delay-200 filter blur-sm"></div>
             <div className="absolute w-48 h-48 bg-orange-200 bg-opacity-5 rounded-lg bottom-1/3 -right-20 animate-pulse-slow delay-500 filter blur-sm transform skew-y-6"></div>
 
             <div className="container mx-auto px-6 text-center relative z-10">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100 animate-fade-in-up">The Swift90 Journey</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">From Idea to Impact: Your Simple Journey with Swift90</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {/* Step 1 */}
-                <div className="flex flex-col items-center p-8 bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                <div className="flex flex-col items-center p-8 bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
                   <div className="w-16 h-16 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-sm">1</div>
-                  <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Select Your Tier</h3>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">Choose the WaaS plan that aligns with your business objectives and budget. Our tiers are designed for growth.</p>
+                  <h3 className="text-xl font-semibold mb-4 text-[#1F1A2A] dark:text-[#CAC4D0]">Your Vision, Your Plan</h3>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">Choose the foundation for your digital future. Our flexible tiers are designed to scale with your ambition.</p>
                 </div>
                 {/* Step 2 */}
-                <div className="flex flex-col items-center p-8 bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                <div className="flex flex-col items-center p-8 bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
                   <div className="w-16 h-16 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-sm">2</div>
-                  <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Define Your Vision</h3>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">Share your brand identity, content, and specific requirements. Our experts will craft your bespoke online presence.</p>
+                  <h3 className="text-xl font-semibold mb-4 text[#1F1A2A] dark:text-[#CAC4D0]">Tell Us Your Story</h3>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">We'll listen, learn, and translate your unique vision into a stunning digital experience, pixel by pixel.</p>
                 </div>
                 {/* Step 3 */}
-                <div className="flex flex-col items-center p-8 bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                <div className="flex flex-col items-center p-8 bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
                   <div className="w-16 h-16 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-sm">3</div>
-                  <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Launch & Expand</h3>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">Your meticulously built website goes live, fully optimized and supported, allowing you to focus purely on business expansion.</p>
+                  <h3 className="text-xl font-semibold mb-4 text-[#1F1A2A] dark:text-[#CAC4D0]">Go Live, Grow Limitlessly</h3>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">Your expertly crafted website launches, ready to attract, convert, and empower your business for unstoppable growth.</p>
                 </div>
               </div>
             </div>
           </section>
 
           {/* Features Section */}
-          <section id="features" className="py-16 md:py-24 bg-gray-50 dark:bg-black border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+          <section id="features" className="py-16 md:py-24 bg-gray-50 dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-[#CAC4D0] transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100 animate-fade-in-up">Core Capabilities for Global Impact</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">Built for Your Triumph: Essential Features That Drive Growth</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* Feature 1 */}
-                <div className="flex items-start p-6 bg-white dark:bg-black rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h4l-1-1v-3.25m-1.25 0h-3.5m4.75 0h3.5m-3.5 0v-4.5m-3.5 0v-4.5m4.75 0h3.5m-3.5 0v-4.5m-3.5 0v-4.5m4.75 0h3.5m-3.5 0v-4.5M12 12h.01M12 16h.01M12 8h.01M12 4h.01M12 20h.01M12 24h.01M12 0h.01"></path></svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100 text-left">Adaptive Design</h3>
-                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Flawless presentation and functionality across all devices, from mobile to desktop, ensuring universal accessibility.</p>
+                    <h3 className="text-xl font-semibold mb-2 text-[#1F1A2A] dark:text-[#CAC4D0] text-left">Reach Every Customer, Everywhere</h3>
+                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Your website beautifully adapts to any screen, ensuring a perfect experience whether they're on a phone, tablet, or desktop.</p>
                   </div>
                 </div>
                 {/* Feature 2 */}
-                <div className="flex items-start p-6 bg-white dark:bg-black rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100 text-left">Optimized Performance</h3>
-                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Engineered for exceptional speed and efficiency, delivering rapid loading times and a superior user experience globally.</p>
+                    <h3 className="text-xl font-semibold mb-2 text-[#1F1A2A] dark:text-[#CAC4D0] text-left">Capture Every Click</h3>
+                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Blazing-fast load times keep visitors engaged, reducing bounce rates and boosting conversions for your business.</p>
                   </div>
                 </div>
                 {/* Feature 3 */}
-                <div className="flex items-start p-6 bg-white dark:bg-black rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-2-6V4m2 11h2m-2 4h2m-6-4h6m-6 0H6a2 2 0 00-2 2v2a2 2 0 002 2h2m0-4h.01M17 12h.01M17 16h.01M17 8h.01M17 4h.01M17 20h.01M17 24h.01M17 0h.01"></path></svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100 text-left">Integrated SEO</h3>
-                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Built with foundational SEO principles to enhance your visibility and ensure your business is easily discovered online.</p>
+                    <h3 className="text-xl font-semibold mb-2 text-[#1F1A2A] dark:text-[#CAC4D0] text-left">Be Discovered</h3>
+                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Our websites are built from the ground up with SEO in mind, ensuring your business ranks higher and attracts more qualified leads.</p>
                   </div>
                 </div>
                 {/* Feature 4 */}
-                <div className="flex items-start p-6 bg-white dark:bg-black rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-400 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-400 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2zM12 14c-1.657 0-3 .895-3 2v2h6v-2c0-1.105-1.343-2-3-2z"></path></svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100 text-left">Robust Security</h3>
-                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Your digital presence is safeguarded with secure, global hosting, automatic backups, and essential SSL encryption.</p>
+                    <h3 className="text-xl font-semibold mb-2 text-[#1F1A2A] dark:text-[#CAC4D0] text-left">Sleep Soundly</h3>
+                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">We protect your online investment with ironclad security, global hosting, and automatic backups, so you never have to worry.</p>
                   </div>
                 </div>
                 {/* Feature 5 */}
-                <div className="flex items-start p-6 bg-white dark:bg-black rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-500 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-500 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 012-2h14zM4 9h16a2 2 0 002-2V5a2 2 0 00-2-2H4a2 2 0 00-2 2v2a2 2 0 002 2z"></path></svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100 text-left">Dedicated Support</h3>
-                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Our expert support team is available 24/7 to provide assistance, ensuring your operations run smoothly, worldwide.</p>
+                    <h3 className="text-xl font-semibold mb-2 text-[#1F1A2A] dark:text-[#CAC4D0] text-left">Your Partner in Success</h3>
+                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Never feel alone. Our 24/7 expert support means we're always here to guide you, troubleshoot, and ensure your online journey is seamless.</p>
                   </div>
                 </div>
                 {/* Feature 6 */}
-                <div className="flex items-start p-6 bg-white dark:bg-black rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-600 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-600 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100 text-left">Scalable Solutions</h3>
-                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Effortlessly upgrade your plan as your business expands, guaranteeing your website continually meets evolving demands.</p>
+                    <h3 className="text-xl font-semibold mb-2 text-[#1F1A2A] dark:text-[#CAC4D0] text-left">Grow Without Limits</h3>
+                    <p className="text-gray-700 dark:text-gray-300 text-left leading-relaxed">Your website evolves with your ambition. Seamlessly upgrade your plan as your business expands, ensuring your digital presence always keeps pace.</p>
                   </div>
                 </div>
               </div>
@@ -684,14 +776,14 @@ function App() {
           </section>
 
           {/* Portfolio Section */}
-          <section id="portfolio" className="py-16 md:py-24 bg-white dark:bg-black  transition-colors duration-500">
+          <section id="portfolio" className="py-16 md:py-24 bg-white dark:bg-[#1F1A2A]  transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100 animate-fade-in-up">Our Showcase</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">Real Stories, Real Results: See How We've Transformed Businesses Like Yours</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-10 max-w-2xl mx-auto animate-fade-in leading-relaxed">
-                Discover a selection of professional, high-impact websites meticulously crafted by Swift90 for diverse businesses.
+                These aren't just websites; they're thriving online presences that have helped our clients achieve their dreams. Imagine what we can build for you.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm overflow-hidden transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                <div className="bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm overflow-hidden transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
                   <img
                     src={"https://placehold.co/600x400/E0E0E0/333333?text=Global+E-commerce"}
                     alt="Global E-commerce Website Example"
@@ -699,11 +791,11 @@ function App() {
                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/E0E0E0/333333?text=Image+Load+Error'; }}
                   />
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Global E-commerce Hub</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">A sophisticated online store designed for seamless international transactions and customer engagement.</p>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">How [Client Name] Expanded Globally</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">We built a high-converting e-commerce hub that connected them with customers across continents, boosting their sales by X%.</p>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm overflow-hidden transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                <div className="bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm overflow-hidden transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
                   <img
                     src={"https://placehold.co/600x400/E0E0E0/333333?text=Corporate+Portfolio"}
                     alt="Corporate Portfolio Website Example"
@@ -711,11 +803,11 @@ function App() {
                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/E0E0E0/333333?text=Image+Load+Error'; }}
                   />
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Professional Corporate Portfolio</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">An elegant showcase for services and achievements, built for credibility and client acquisition.</p>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Elevating [Client Name]'s Brand</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">Their new corporate site now commands respect, attracting high-value clients and solidifying their industry leadership.</p>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm overflow-hidden transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                <div className="bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm overflow-hidden transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
                   <img
                     src={"https://placehold.co/600x400/E0E0E0/333333?text=Creative+Agency"}
                     alt="Creative Agency Website Example"
@@ -723,8 +815,8 @@ function App() {
                     onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/E0E0E0/333333?text=Image+Load+Error'; }}
                   />
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Dynamic Creative Agency Site</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">A vibrant and interactive platform designed to highlight creative work and attract new collaborations.</p>
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Unleashing [Client Name]'s Creativity</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">Their new interactive platform showcases their unique vision, drawing in exciting new projects and collaborations.</p>
                   </div>
                 </div>
               </div>
@@ -732,14 +824,14 @@ function App() {
           </section>
 
           {/* Testimonials Section */}
-          <section id="testimonials" className="py-16 md:py-24 bg-white dark:bg-black border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+          <section id="testimonials" className="py-16 md:py-24 bg-white dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100 animate-fade-in-up">Client Success Stories</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">Hear From Businesses Like Yours: Real Transformations, Real Results</h2>
               <div className="relative overflow-hidden group">
                 <div className="flex space-x-8 animate-scroll-testimonials">
                   {/* Duplicate testimonials to create a seamless loop */}
                   {[...testimonials, ...testimonials].map((testimonial, index) => (
-                    <div key={index} className="flex-shrink-0 w-[320px] bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm p-8 border border-gray-200 dark:border-gray-800">
+                    <div key={index} className="flex-shrink-0 w-[320px] bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm p-8 border border-gray-200 dark:border-gray-800">
                       <p className="text-lg italic text-gray-700 dark:text-gray-200 mb-6 leading-relaxed">"{testimonial.quote}"</p>
                       <div className="flex items-center justify-center">
                         <img
@@ -761,24 +853,24 @@ function App() {
           </section>
 
           {/* Pricing Section */}
-          <section id="pricing" className="py-16 md:py-24 bg-gray-50 dark:bg-black border-b border-gray-100 dark:border-gray-800 transition-colors duration-500">
+          <section id="pricing" className="py-16 md:py-24 bg-gray-50 dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-[#CAC4D0] transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-gray-900 dark:text-gray-100 animate-fade-in-up">Tailored Plans for Every Ambition</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">Invest in Your Growth: Simple, Transparent Plans for Every Stage of Your Business Journey</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-10 max-w-2xl mx-auto animate-fade-in leading-relaxed">
-                Select the ideal plan designed to empower your business, with transparent pricing adjusted for your region.
+                No hidden fees, just clear paths to online success. Choose the plan that empowers your vision, scaled for your region.
               </p>
 
               {/* Conditional rendering for pricing cards based on selectedCountry */}
               {selectedCountry && pricingData[selectedCountry] ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"> {/* Adjusted grid for 4 columns */}
                   {Object.keys(pricingData[selectedCountry].plans).map((planKey, index) => {
                     const plan = pricingData[selectedCountry].plans[planKey];
                     const currency = pricingData[selectedCountry].currency;
                     return (
-                      <div key={planKey} className="bg-white dark:bg-black rounded-lg shadow-sm p-8 flex flex-col items-center border border-gray-200 dark:border-gray-800 transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
+                      <div key={planKey} className="bg-white dark:bg-[#2B253B] rounded-lg shadow-sm p-8 flex flex-col items-center border border-gray-200 dark:border-gray-800 transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
                         <h3 className="text-2xl font-bold text-orange-500 mb-4">{plan.name}</h3>
-                        <p className="text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
-                          {currency}{plan.price}<span className="text-lg font-medium text-gray-600 dark:text-gray-400">/month</span>
+                        <p className="text-5xl font-extrabold text-[#1F1A2A] dark:text-[#CAC4D0] mb-6">
+                          {plan.name === 'Custom' ? 'Quote' : `${currency}${plan.price}`}<span className="text-lg font-medium text-gray-600 dark:text-gray-400">{plan.name === 'Custom' ? '' : '/month'}</span>
                         </p>
                         <ul className="text-gray-700 dark:text-gray-300 text-left space-y-3 mb-8 w-full max-w-xs">
                           {plan.features.map((feature, idx) => (
@@ -792,14 +884,17 @@ function App() {
                           onClick={() => startPurchase(planKey)}
                           className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105"
                         >
-                          Choose {plan.name}
+                          {plan.name === 'Basic' && 'Start Your Basic Journey'}
+                          {plan.name === 'Pro' && 'Accelerate with Pro'}
+                          {plan.name === 'Enterprise' && 'Dominate with Enterprise'}
+                          {plan.name === 'Custom' && 'Get a Custom Quote'}
                         </button>
                       </div>
                     );
                   })}
                 </div>
               ) : (
-                <div className="text-center p-10 bg-white dark:bg-black rounded-lg shadow-sm animate-fade-in border border-gray-200 dark:border-gray-800">
+                <div className="text-center p-10 bg-white dark:bg-[#1F1A2A] rounded-lg shadow-sm animate-fade-in border border-gray-200 dark:border-gray-800">
                   <p className="text-xl text-gray-700 dark:text-gray-200 mb-4">Please select your region to view pricing plans.</p>
                   <button
                     onClick={openLocationModal}
@@ -813,65 +908,65 @@ function App() {
           </section>
 
           {/* Our Impact in Numbers Section */}
-          <section id="impact" className="py-16 md:py-24 bg-white dark:bg-black  transition-colors duration-500">
+          <section id="impact" className="py-16 md:py-24 bg-white dark:bg-[#1F1A2A]  transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100 animate-fade-in-up">Our Impact in Numbers</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">The Story of Our Success, Measured by Yours</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm p-8 border border-gray-200 dark:border-gray-800 transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100">
+                <div className="bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm p-8 border border-gray-200 dark:border-gray-800 transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100">
                   <p className="text-5xl font-extrabold text-orange-500 mb-4">500+</p>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Websites Launched</h3>
-                  <p className="text-gray-700 dark:text-gray-300 mt-2">Empowering businesses globally.</p>
+                  <h3 className="text-xl font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Dreams Launched</h3>
+                  <p className="text-gray-700 dark:text-gray-300 mt-2">Each website represents a business now thriving online.</p>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm p-8 border border-gray-200 dark:border-gray-800 transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200">
+                <div className="bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm p-8 border border-gray-200 dark:border-gray-800 transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200">
                   <p className="text-5xl font-extrabold text-orange-500 mb-4">98%</p>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Client Satisfaction</h3>
-                  <p className="text-gray-700 dark:text-gray-300 mt-2">Our commitment to excellence.</p>
+                  <h3 className="text-xl font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Peace of Mind</h3>
+                  <p className="text-gray-700 dark:text-gray-300 mt-2">Our clients trust us to deliver, and we consistently exceed expectations.</p>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm p-8 border border-gray-200 dark:border-gray-800 transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300">
+                <div className="bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm p-8 border border-gray-200 dark:border-gray-800 transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300">
                   <p className="text-5xl font-extrabold text-orange-500 mb-4">24/7</p>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Dedicated Support</h3>
-                  <p className="text-gray-700 dark:text-gray-300 mt-2">Always here to assist you.</p>
+                  <h3 className="text-xl font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Your Partner, Around the Clock</h3>
+                  <p className="text-gray-700 dark:text-gray-300 mt-2">Our dedicated support ensures your online presence never sleeps, just like your ambition.</p>
                 </div>
               </div>
             </div>
           </section>
 
           {/* Our Technology Stack Section */}
-          <section id="tech-stack" className="py-16 md:py-24 bg-gray-50 dark:bg-black border-b border-gray-100 dark:border-gray-800 transition-colors duration-500">
+          <section id="tech-stack" className="py-16 md:py-24 bg-gray-50 dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-gray-800 transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100 animate-fade-in-up">Built with Modern Technologies</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-gray-100 animate-fade-in-up">The Engine of Your Success: Powerful Tech, Seamlessly Delivered</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-10 max-w-2xl mx-auto animate-fade-in leading-relaxed">
-                We leverage cutting-edge tools and frameworks to ensure your website is fast, secure, and scalable.
+                Behind every thriving Swift90 website is a foundation of cutting-edge technology, ensuring your online presence is not just beautiful, but future-proof, fast, and secure.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
-                <div className="flex flex-col items-center p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-100">
+                <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-100">
                   <img
                     src={"https://placehold.co/80x80/E0E0E0/333333?text=React"} alt="React Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=React'; }}/>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">React</p>
+                  <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">React</p>
                 </div>
-                <div className="flex flex-col items-center p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-200">
+                <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-200">
                   <img
                     src={"https://placehold.co/80x80/E0E0E0/333333?text=Node.js"} alt="Node.js Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Node'; }}/>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Node.js</p>
+                  <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Node.js</p>
                 </div>
-                <div className="flex flex-col items-center p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-300">
+                <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-300">
                   <img
                     src={"https://placehold.co/80x80/E0E0E0/333333?text=Cloud+Hosting"} alt="Cloud Hosting Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Cloud'; }}/>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Cloud Hosting</p>
+                  <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Cloud Hosting</p>
                 </div>
-                <div className="flex flex-col items-center p-4 bg-white dark:bg-black rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-400">
+                <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-400">
                   <img
                     src={"https://placehold.co/80x80/E0E0E0/333333?text=Tailwind+CSS"} alt="Tailwind CSS Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Tailwind'; }}/>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Tailwind CSS</p>
+                  <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Tailwind CSS</p>
                 </div>
               </div>
             </div>
           </section>
 
           {/* FAQ Section */}
-          <section id="faq" className="py-16 md:py-24 bg-gray-50 dark:bg-black transition-colors duration-500">
+          <section id="faq" className="py-16 md:py-24 bg-gray-50 dark:bg-[#1F1A2A] transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100 animate-fade-in-up">Frequently Asked Questions</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">Your Questions, Answered: Clearing the Path to Your Online Success</h2>
               <div className="max-w-3xl mx-auto">
                 {faqs.map((faq, index) => (
                   <div key={index} className="border-b border-gray-200 dark:border-gray-700 py-4 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
@@ -879,7 +974,7 @@ function App() {
                       className="flex justify-between items-center w-full text-left focus:outline-none"
                       onClick={() => toggleFAQ(index)}
                     >
-                      <span className="text-lg font-semibold text-gray-900 dark:text-gray-200">{faq.question}</span>
+                      <span className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">{faq.question}</span>
                       <svg
                         className={`w-6 h-6 text-orange-500 transform transition-transform duration-300 ${openFAQ === index ? 'rotate-180' : ''}`}
                         fill="none"
@@ -902,16 +997,16 @@ function App() {
           </section>
 
           {/* Contact Us Section */}
-          <section id="contact-us" className="py-16 md:py-24 bg-white dark:bg-black border-b border-gray-100 dark:border-gray-800 transition-colors duration-500">
+          <section id="contact-us" className="py-16 md:py-24 bg-white dark:bg-[#1F1A2A] border-b border-gray-100 dark:border-gray-800 transition-colors duration-500">
             <div className="container mx-auto px-6 text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-gray-900 dark:text-gray-100 animate-fade-in-up">Get in Touch</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-[#1F1A2A] dark:text-[#CAC4D0] animate-fade-in-up">Ready to Start Your Online Journey? Let's Connect.</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 mb-10 max-w-2xl mx-auto animate-fade-in leading-relaxed">
-                Have questions or ready to embark on your Swift90 journey? Our team is here to provide personalized assistance.
+                Your vision is unique, and so is our approach. Reach out to our expert guides, and let's craft the perfect online story for your business.
               </p>
-              <div className="max-w-xl mx-auto bg-gray-50 dark:bg-gray-950 p-8 rounded-lg shadow-sm animate-fade-in-up border border-gray-200 dark:border-gray-800">
+              <div className="max-w-xl mx-auto bg-gray-50 dark:bg-[#2B253B] p-8 rounded-lg shadow-sm animate-fade-in-up border border-gray-200 dark:border-gray-800">
                 <form className="space-y-6">
                   <div>
-                    <label htmlFor="name" className="block text-left text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                    <label htmlFor="name" className="block text-left text-sm font-medium text-[#1F1A2A] dark:text-gray-300 mb-1">Name</label>
                     <input
                       type="text"
                       id="name"
@@ -921,7 +1016,7 @@ function App() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-left text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                    <label htmlFor="email" className="block text-left text-sm font-medium text-[#1F1A2A] dark:text-gray-300 mb-1">Email</label>
                     <input
                       type="email"
                       id="email"
@@ -931,20 +1026,22 @@ function App() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-left text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                    <label htmlFor="message" className="block text-left text-sm font-medium text-[#1F1A2A] dark:text-gray-300 mb-1">Message</label>
                     <textarea
                       id="message"
                       name="message"
                       rows="4"
+                      value={purchaseDetails.requirements} // Pre-fill from purchase details
+                      onChange={(e) => setPurchaseDetails(prev => ({ ...prev, requirements: e.target.value }))}
                       className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-500"
-                      placeholder="Tell us about your needs..."
+                      placeholder="Tell us about your unique vision, specific needs, or any challenges you've faced with previous websites. We're listening!"
                     ></textarea>
                   </div>
                   <button
                     type="submit"
                     className="w-full bg-orange-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105"
                   >
-                    Send Message
+                    Start Your Online Story
                   </button>
                 </form>
               </div>
@@ -954,25 +1051,25 @@ function App() {
           {/* Call to Action Section */}
           <section className="py-16 md:py-24 bg-orange-600 text-white text-center transition-colors duration-500">
             <div className="container mx-auto px-6 animate-fade-in-up">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to Elevate Your Online Presence?</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to Stop Worrying About Your Website and Start Growing Your Business?</h2>
               <p className="text-lg sm:text-xl mb-10 max-w-3xl mx-auto opacity-90">
-                Join thousands of businesses worldwide thriving with Swift90. Get started today and experience the difference.
+                Join the ranks of confident business owners who trust Swift90 to manage their digital success. Your transformation begins now.
               </p>
               <a href="#pricing" className="bg-white text-orange-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-md transform hover:scale-105">
-                Get Your Swift90 Website
+                Begin Your Success Story
               </a>
             </div>
           </section>
 
           {/* Footer Section */}
-          <footer className="bg-white dark:bg-black  text-gray-300 dark:text-gray-400 py-10 px-6 md:px-12 transition-colors duration-500">
+          <footer className="bg-white dark:bg-[#1F1A2A]  text-gray-300 dark:text-gray-400 py-10 px-6 md:px-12 transition-colors duration-500">
             <div className="container mx-auto text-center">
-              <div className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-4 transition-colors duration-500">Swift90</div>
+              <div className="text-2xl font-bold text-[#1F1A2A] dark:text-gray-300 mb-4 transition-colors duration-500">Swift90</div>
               <p className="mb-4 text-gray-700 dark:text-gray-300">&copy; {new Date().getFullYear()} Swift90. All rights reserved.</p>
               <div className="flex justify-center space-x-6 flex-wrap">
-                <a href="#" className="hover:text-orange-300 dark:hover:text-orange-300 text-gray-700 dark:text-gray-300 transition-colors duration-300">Privacy Policy</a>
-                <a href="#" className="hover:text-orange-300 dark:hover:text-orange-300 text-gray-700 dark:text-gray-300 transition-colors duration-300">Terms of Service</a>
-                <a href="#" className="hover:text-orange-300 dark:hover:text-orange-300 text-gray-700 dark:text-gray-300 transition-colors duration-300">Support</a>
+                <a href="#" className="hover:text-orange-300 dark:hover:text-orange-300 text-[#1F1A2A] dark:text-gray-300 transition-colors duration-300">Privacy Policy</a>
+                <a href="#" className="hover:text-orange-300 dark:hover:text-orange-300 text-[#1F1A2A] dark:text-gray-300 transition-colors duration-300">Terms of Service</a>
+                <a href="#" className="hover:text-orange-300 dark:hover:text-orange-300 text-[#1F1A2A] dark:text-gray-300 transition-colors duration-300">Support</a>
                 <button onClick={openLocationModal} className="text-orange-400 dark:text-orange-500 hover:text-white dark:hover:text-orange-300 transition-colors duration-300 ml-0 md:ml-6 mt-2 md:mt-0">Change Region</button>
               </div>
             </div>
@@ -1063,10 +1160,12 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
   const [numProjects, setNumProjects] = useState(purchaseDetails.numProjects);
   const [additionalFeatures, setAdditionalFeatures] = useState(purchaseDetails.additionalFeatures);
 
-  // Calculate dynamic price
-  const baseAmount = purchaseDetails.plan ? purchaseDetails.plan.price : 0;
+  const isCustomPlan = purchaseDetails.plan?.name === 'Custom';
+
+  // Calculate dynamic price (only for non-custom plans)
+  const baseAmount = isCustomPlan ? 0 : (purchaseDetails.plan ? purchaseDetails.plan.price : 0);
   const addOnCostPerItem = baseAmount * 0.20; // 20% of base plan price per add-on
-  const totalAddOnCost = additionalFeatures.length * addOnCostPerItem;
+  const totalAddOnCost = isCustomPlan ? 0 : (additionalFeatures.length * addOnCostPerItem);
   const totalAmount = baseAmount + totalAddOnCost;
   const currency = pricingData[selectedCountry]?.currency || '$';
 
@@ -1106,6 +1205,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
       serviceCategories,
       numProjects,
       additionalFeatures,
+      paymentStatus: isCustomPlan ? 'requested' : 'pending', // Set status to 'requested' for custom plans
     }));
     setCurrentPage('payment');
   };
@@ -1162,55 +1262,61 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
 
       <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-black p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
-          Purchase Details for {purchaseDetails.plan?.name} Plan
+          Your Journey Continues: Customize Your {purchaseDetails.plan?.name} Plan
         </h2>
 
         {/* Dynamic Price Display */}
         <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-6 text-center border border-gray-200 dark:border-gray-700">
-          <p className="text-lg text-gray-700 dark:text-gray-300">Base Monthly Price:</p>
-          <p className="text-3xl font-extrabold text-orange-500 mb-2">
-            {currency}{baseAmount.toFixed(2)}
+          <p className="text-lg text-gray-700 dark:text-gray-300">
+            {isCustomPlan ? "Your Custom Quote Request" : "Base Monthly Price:"}
           </p>
-          {additionalFeatures.length > 0 && (
+          <p className="text-3xl font-extrabold text-orange-500 mb-2">
+            {isCustomPlan ? 'To be quoted' : `${currency}${baseAmount.toFixed(2)}`}
+          </p>
+          {!isCustomPlan && additionalFeatures.length > 0 && (
             <>
               <p className="text-md text-gray-600 dark:text-gray-400">
                 Add-ons ({additionalFeatures.length} selected): +{currency}{totalAddOnCost.toFixed(2)}
               </p>
             </>
           )}
-          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-4">
-            Total Estimated Monthly Cost: {currency}{totalAmount.toFixed(2)}
-          </p>
+          {!isCustomPlan && (
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-4">
+              Your Investment in Unstoppable Online Growth: {currency}{totalAmount.toFixed(2)}/month
+            </p>
+          )}
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Type of Website
-            </label>
-            <div className="flex flex-wrap gap-4">
-              {['E-commerce', 'Portfolio', 'Corporate', 'Blog', 'Service'].map(type => (
-                <label key={type} className="flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="websiteType"
-                    value={type}
-                    checked={websiteType === type}
-                    onChange={(e) => setWebsiteType(e.target.value)}
-                    className="form-radio h-5 w-5 text-orange-500 transition-colors duration-300"
-                  />
-                  <span className="text-gray-900 dark:text-gray-300">{type}</span>
-                </label>
-              ))}
+          {!isCustomPlan && (
+            <div>
+              <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+                What Story Will Your Website Tell? Choose Your Digital Foundation
+              </label>
+              <div className="flex flex-wrap gap-4">
+                {['E-commerce', 'Portfolio', 'Corporate', 'Blog', 'Service'].map(type => (
+                  <label key={type} className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="websiteType"
+                      value={type}
+                      checked={websiteType === type}
+                      onChange={(e) => setWebsiteType(e.target.value)}
+                      className="form-radio h-5 w-5 text-orange-500 transition-colors duration-300"
+                    />
+                    <span className="text-gray-900 dark:text-gray-300">{type}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Conditional Fields based on Website Type */}
-          {websiteType === 'E-commerce' && (
+          {/* Conditional Fields based on Website Type (only for non-custom plans) */}
+          {!isCustomPlan && websiteType === 'E-commerce' && (
             <>
               <div>
                 <label htmlFor="numProducts" className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Estimated Number of Products
+                  Estimated Number of Products (to power your sales potential)
                 </label>
                 <input
                   type="number"
@@ -1224,7 +1330,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Preferred Payment Gateways
+                  Preferred Payment Gateways (for seamless transactions)
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {['Stripe', 'PayPal', 'Paystack', 'Flutterwave', 'Other'].map(gateway => (
@@ -1244,11 +1350,11 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             </>
           )}
 
-          {websiteType === 'Blog' && (
+          {!isCustomPlan && websiteType === 'Blog' && (
             <>
               <div>
                 <label htmlFor="numBlogPosts" className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Estimated Number of Blog Posts (initial)
+                  Estimated Number of Blog Posts (to share your insights)
                 </label>
                 <input
                   type="number"
@@ -1262,7 +1368,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Comment System
+                  Comment System (to foster community engagement)
                 </label>
                 <div className="flex flex-wrap gap-4">
                   {['Native (Built-in)', 'Disqus', 'Facebook Comments', 'None'].map(system => (
@@ -1283,11 +1389,11 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             </>
           )}
 
-          {(websiteType === 'Corporate' || websiteType === 'Service') && (
+          {!isCustomPlan && (websiteType === 'Corporate' || websiteType === 'Service') && (
             <>
               <div>
                 <label htmlFor="numPages" className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Estimated Number of Pages
+                  Estimated Number of Pages (to showcase your professional presence)
                 </label>
                 <input
                   type="number"
@@ -1301,7 +1407,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               </div>
               <div>
                 <label htmlFor="serviceCategories" className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Key Service Categories (comma-separated)
+                  Key Service Categories (comma-separated, to define your expertise)
                 </label>
                 <input
                   type="text"
@@ -1315,10 +1421,10 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             </>
           )}
 
-          {websiteType === 'Portfolio' && (
+          {!isCustomPlan && websiteType === 'Portfolio' && (
             <div>
               <label htmlFor="numProjects" className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Estimated Number of Projects/Items
+                Estimated Number of Projects/Items (to effectively showcase your work)
               </label>
               <input
                 type="number"
@@ -1333,50 +1439,54 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
           )}
 
           {/* General Assets */}
-          <div>
-            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Website Assets You'll Provide
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {['Logo', 'Images', 'Text Content', 'Videos', 'Product Data', 'Branding Guidelines'].map(asset => (
-                <label key={asset} className="flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    value={asset}
-                    checked={assets.includes(asset)}
-                    onChange={handleAssetChange}
-                    className="form-checkbox h-5 w-5 text-orange-500 rounded transition-colors duration-300"
-                  />
-                  <span className="text-gray-900 dark:text-gray-300">{asset}</span>
-                </label>
-              ))}
+          {!isCustomPlan && (
+            <div>
+              <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Website Assets You'll Provide (the raw material for your story)
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {['Logo', 'Images', 'Text Content', 'Videos', 'Product Data', 'Branding Guidelines'].map(asset => (
+                  <label key={asset} className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value={asset}
+                      checked={assets.includes(asset)}
+                      onChange={handleAssetChange}
+                      className="form-checkbox h-5 w-5 text-orange-500 rounded transition-colors duration-300"
+                    />
+                    <span className="text-gray-900 dark:text-gray-300">{asset}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Service Add-ons & Enhancements */}
-          <div>
-            <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Service Add-ons & Enhancements (each adds {currency}{addOnCostPerItem.toFixed(2)}/month)
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {['Advanced SEO Package', 'Content Writing Service', 'Premium Theme Customization', 'Monthly Maintenance Plan', 'Booking System Integration', 'Multilingual Support'].map(feature => (
-                <label key={feature} className="flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    value={feature}
-                    checked={additionalFeatures.includes(feature)}
-                    onChange={handleAdditionalFeatureChange}
-                    className="form-checkbox h-5 w-5 text-orange-500 rounded transition-colors duration-300"
-                  />
-                  <span className="text-gray-900 dark:text-gray-300">{feature}</span>
-                </label>
-              ))}
+          {/* Service Add-ons & Enhancements (only for non-custom plans) */}
+          {!isCustomPlan && (
+            <div>
+              <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Service Add-ons & Enhancements (each adds {currency}{addOnCostPerItem.toFixed(2)}/month, to enhance your journey)
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {['Advanced SEO Package', 'Content Writing Service', 'Premium Theme Customization', 'Monthly Maintenance Plan', 'Booking System Integration', 'Multilingual Support'].map(feature => (
+                  <label key={feature} className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value={feature}
+                      checked={additionalFeatures.includes(feature)}
+                      onChange={handleAdditionalFeatureChange}
+                      className="form-checkbox h-5 w-5 text-orange-500 rounded transition-colors duration-300"
+                    />
+                    <span className="text-gray-900 dark:text-gray-300">{feature}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div>
             <label htmlFor="requirements" className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Specific Requirements / Notes
+              Specific Requirements / Notes (your opportunity to shape your unique story)
             </label>
             <textarea
               id="requirements"
@@ -1384,7 +1494,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               value={requirements}
               onChange={(e) => setRequirements(e.target.value)}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-500"
-              placeholder="e.g., specific color scheme, integration needs, desired functionalities..."
+              placeholder="Tell us about your unique vision, specific needs, or any challenges you've faced with previous websites. We're listening!"
             ></textarea>
           </div>
 
@@ -1394,13 +1504,13 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               onClick={() => setCurrentPage('home')}
               className="px-6 py-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300"
             >
-              Back
+              Review Your Plan
             </button>
             <button
               type="submit"
               className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105"
             >
-              Proceed to Payment
+              {isCustomPlan ? 'Submit Custom Request' : 'Confirm & Begin Your Online Journey'}
             </button>
           </div>
         </form>
@@ -1412,24 +1522,28 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
 // Payment Page Component
 function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, darkMode, toggleDarkMode, selectedCountry, pricingData, isMobileMenuOpen, setIsMobileMenuOpen }) {
   const plan = purchaseDetails.plan;
+  const isCustomPlan = plan?.name === 'Custom';
+
   const currency = pricingData[selectedCountry]?.currency || '$';
-  const baseAmount = plan ? plan.price : 0;
+  const baseAmount = isCustomPlan ? 0 : (plan ? plan.price : 0);
   const addOnCostPerItem = baseAmount * 0.20; // 20% of base plan price per add-on
-  const totalAddOnCost = purchaseDetails.additionalFeatures.length * addOnCostPerItem;
+  const totalAddOnCost = isCustomPlan ? 0 : (purchaseDetails.additionalFeatures.length * addOnCostPerItem);
   const totalAmount = baseAmount + totalAddOnCost;
 
   const [loadingPayment, setLoadingPayment] = useState(false);
 
-  // Load Paystack script dynamically
+  // Load Paystack script dynamically (only if not a custom plan)
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://js.paystack.co/v1/inline.js';
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+    if (!isCustomPlan) {
+      const script = document.createElement('script');
+      script.src = 'https://js.paystack.co/v1/inline.js';
+      script.async = true;
+      document.body.appendChild(script);
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, [isCustomPlan]);
 
   const handlePaystackPayment = () => {
     setLoadingPayment(true);
@@ -1463,6 +1577,11 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
       setLoadingPayment(false);
       setCurrentPage('checkout');
     }, 2000);
+  };
+
+  const handleCustomRequestConfirmation = () => {
+    setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'requested' }));
+    setCurrentPage('checkout');
   };
 
   return (
@@ -1517,21 +1636,23 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
 
       <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-black p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
-          Confirm Your Order & Pay
+          One Step Closer: Confirm Your Investment in Online Success
         </h2>
         <div className="space-y-4 mb-8">
           <p className="text-lg text-gray-900 dark:text-gray-200">
             <span className="font-semibold">Plan:</span> {plan?.name}
           </p>
-          <p className="text-lg text-gray-900 dark:text-gray-200">
-            <span className="font-semibold">Base Price:</span> {currency}{baseAmount.toFixed(2)}/month
-          </p>
-          {purchaseDetails.websiteType && (
+          {!isCustomPlan && (
+            <p className="text-lg text-gray-900 dark:text-gray-200">
+              <span className="font-semibold">Base Price:</span> {currency}{baseAmount.toFixed(2)}/month
+            </p>
+          )}
+          {purchaseDetails.websiteType && !isCustomPlan && (
             <p className="text-lg text-gray-900 dark:text-gray-200">
               <span className="font-semibold">Website Type:</span> {purchaseDetails.websiteType}
             </p>
           )}
-          {purchaseDetails.websiteType === 'E-commerce' && (
+          {purchaseDetails.websiteType === 'E-commerce' && !isCustomPlan && (
             <>
               <p className="text-lg text-gray-900 dark:text-gray-200">
                 <span className="font-semibold">Est. Products:</span> {purchaseDetails.numProducts || 'N/A'}
@@ -1541,7 +1662,7 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
               </p>
             </>
           )}
-          {purchaseDetails.websiteType === 'Blog' && (
+          {purchaseDetails.websiteType === 'Blog' && !isCustomPlan && (
             <>
               <p className="text-lg text-gray-900 dark:text-gray-200">
                 <span className="font-semibold">Est. Blog Posts:</span> {purchaseDetails.numBlogPosts || 'N/A'}
@@ -1551,7 +1672,7 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
               </p>
             </>
           )}
-          {(purchaseDetails.websiteType === 'Corporate' || purchaseDetails.websiteType === 'Service') && (
+          {(!isCustomPlan && (purchaseDetails.websiteType === 'Corporate' || purchaseDetails.websiteType === 'Service')) && (
             <>
               <p className="text-lg text-gray-900 dark:text-gray-200">
                 <span className="font-semibold">Est. Pages:</span> {purchaseDetails.numPages || 'N/A'}
@@ -1561,12 +1682,12 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
               </p>
             </>
           )}
-          {purchaseDetails.websiteType === 'Portfolio' && (
+          {purchaseDetails.websiteType === 'Portfolio' && !isCustomPlan && (
             <p className="text-lg text-gray-900 dark:text-gray-200">
               <span className="font-semibold">Est. Projects/Items:</span> {purchaseDetails.numProjects || 'N/A'}
             </p>
           )}
-          {purchaseDetails.assets.length > 0 && (
+          {purchaseDetails.assets.length > 0 && !isCustomPlan && (
             <p className="text-lg text-gray-900 dark:text-gray-200">
               <span className="font-semibold">Assets Provided:</span> {purchaseDetails.assets.join(', ')}
             </p>
@@ -1577,14 +1698,14 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
             </p>
           )}
 
-          {purchaseDetails.additionalFeatures.length > 0 && (
+          {!isCustomPlan && purchaseDetails.additionalFeatures.length > 0 && (
             <>
               <p className="text-lg text-gray-900 dark:text-gray-200">
                 <span className="font-semibold">Selected Add-ons:</span>
               </p>
               <ul className="list-disc list-inside ml-4 text-gray-900 dark:text-gray-200">
                 {purchaseDetails.additionalFeatures.map((feature, index) => (
-                  <li key={index}>{feature} (+{currency}{addOnCostPerItem.toFixed(2)})</li>
+                  <li key={index}>{feature} (+{addOnCostPerItem.toFixed(2)})</li>
                 ))}
               </ul>
               <p className="text-lg text-gray-900 dark:text-gray-200">
@@ -1593,20 +1714,31 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
             </>
           )}
 
-          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-6">
-            Total: {currency}{totalAmount.toFixed(2)}/month
-          </p>
+          {!isCustomPlan && (
+            <p className="2xl font-bold text-gray-900 dark:text-gray-100 mt-6">
+              Total Investment in Your Digital Future: {totalAmount.toFixed(2)}/month
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col items-center space-y-4">
-          <button
-            onClick={handlePaystackPayment}
-            className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto"
-            disabled={loadingPayment}
-          >
-            {loadingPayment ? 'Processing Payment...' : 'Pay with Paystack'}
-          </button>
-          {loadingPayment && (
+          {isCustomPlan ? (
+            <button
+              onClick={handleCustomRequestConfirmation}
+              className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 w-full md:w-auto"
+            >
+              Confirm Custom Request
+            </button>
+          ) : (
+            <button
+              onClick={handlePaystackPayment}
+              className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto"
+              disabled={loadingPayment}
+            >
+              {loadingPayment ? 'Processing Payment...' : 'Activate Your Online Presence'}
+            </button>
+          )}
+          {loadingPayment && !isCustomPlan && (
             <p className="text-gray-700 dark:text-gray-300">Please wait, do not close this page...</p>
           )}
           <button
@@ -1615,7 +1747,7 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
             className="px-6 py-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300 w-full md:w-auto"
             disabled={loadingPayment}
           >
-            Back to Details
+            Review Your Choices
           </button>
         </div>
       </div>
@@ -1626,11 +1758,12 @@ function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dark
 // Checkout Page Component
 function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMode, isMobileMenuOpen, setIsMobileMenuOpen }) {
   const { plan, websiteType, assets, requirements, numProducts, paymentGateways, numBlogPosts, commentSystem, numPages, serviceCategories, numProjects, additionalFeatures, paymentStatus } = purchaseDetails;
+  const isCustomPlan = plan?.name === 'Custom';
 
   // Recalculate total for display consistency
-  const baseAmount = plan ? plan.price : 0;
+  const baseAmount = isCustomPlan ? 0 : (plan ? plan.price : 0);
   const addOnCostPerItem = baseAmount * 0.20;
-  const totalAddOnCost = additionalFeatures.length * addOnCostPerItem;
+  const totalAddOnCost = isCustomPlan ? 0 : (additionalFeatures.length * addOnCostPerItem);
   const totalAmount = baseAmount + totalAddOnCost;
 
   return (
@@ -1685,7 +1818,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
 
       <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-black p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500 text-center">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-          Order Confirmation
+          Your Digital Journey Has Begun!
         </h2>
         {paymentStatus === 'successful' ? (
           <>
@@ -1696,8 +1829,19 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
               Payment Successful!
             </p>
             <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
-              Thank you for choosing Swift90. Your order has been confirmed.
-              We will be in touch shortly to begin crafting your website.
+              Congratulations! Your journey to a powerful online presence has officially begun. We're thrilled to partner with you and will reach out within 24 hours to kickstart the creation of your stunning new website.
+            </p>
+          </>
+        ) : paymentStatus === 'requested' ? (
+          <>
+            <div className="text-blue-500 text-6xl mb-4">
+              &#x2139; {/* Information icon */}
+            </div>
+            <p className="text-2xl font-semibold text-blue-600 dark:text-blue-400 mb-4">
+              Custom Quote Request Submitted!
+            </p>
+            <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
+              Thank you for your custom request! Our team of experts will review your specific needs and get back to you with a personalized quote within 1-2 business days. We're excited to bring your unique vision to life!
             </p>
           </>
         ) : (
@@ -1709,7 +1853,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
               Payment Failed
             </p>
             <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
-              There was an issue processing your payment. Please try again or contact support.
+              A Small Detour: It looks like there was an issue with your payment. Please try again, or reach out to our support team – we're here to help you get back on track!
             </p>
           </>
         )}
@@ -1718,15 +1862,17 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
           <p className="text-lg text-gray-900 dark:text-gray-200">
             <span className="font-semibold">Plan:</span> {plan?.name}
           </p>
-          <p className="text-lg text-gray-900 dark:text-gray-200">
-            <span className="font-semibold">Base Price:</span> {baseAmount.toFixed(2)}/month
-          </p>
-          {websiteType && (
+          {!isCustomPlan && (
+            <p className="text-lg text-gray-900 dark:text-gray-200">
+              <span className="font-semibold">Base Price:</span> {baseAmount.toFixed(2)}/month
+            </p>
+          )}
+          {websiteType && !isCustomPlan && (
             <p className="text-lg text-gray-900 dark:text-gray-200">
               <span className="font-semibold">Website Type:</span> {websiteType}
             </p>
           )}
-          {websiteType === 'E-commerce' && (
+          {websiteType === 'E-commerce' && !isCustomPlan && (
             <>
               <p className="text-lg text-gray-900 dark:text-gray-200">
                 <span className="font-semibold">Est. Products:</span> {numProducts || 'N/A'}
@@ -1736,7 +1882,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
               </p>
             </>
           )}
-          {websiteType === 'Blog' && (
+          {websiteType === 'Blog' && !isCustomPlan && (
             <>
               <p className="text-lg text-gray-900 dark:text-gray-200">
                 <span className="font-semibold">Est. Blog Posts:</span> {numBlogPosts || 'N/A'}
@@ -1746,7 +1892,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
               </p>
             </>
           )}
-          {(websiteType === 'Corporate' || websiteType === 'Service') && (
+          {(!isCustomPlan && (websiteType === 'Corporate' || websiteType === 'Service')) && (
             <>
               <p className="text-lg text-gray-900 dark:text-gray-200">
                 <span className="font-semibold">Est. Pages:</span> {numPages || 'N/A'}
@@ -1756,12 +1902,12 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
               </p>
             </>
           )}
-          {websiteType === 'Portfolio' && (
+          {websiteType === 'Portfolio' && !isCustomPlan && (
             <p className="text-lg text-gray-900 dark:text-gray-200">
               <span className="font-semibold">Est. Projects/Items:</span> {numProjects || 'N/A'}
             </p>
           )}
-          {assets.length > 0 && (
+          {assets.length > 0 && !isCustomPlan && (
             <p className="text-lg text-gray-900 dark:text-gray-200">
               <span className="font-semibold">Assets Provided:</span> {assets.join(', ')}
             </p>
@@ -1772,7 +1918,7 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
             </p>
           )}
 
-          {additionalFeatures.length > 0 && (
+          {!isCustomPlan && additionalFeatures.length > 0 && (
             <>
               <p className="text-lg text-gray-900 dark:text-gray-200">
                 <span className="font-semibold">Selected Add-ons:</span>
@@ -1788,16 +1934,18 @@ function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMod
             </>
           )}
 
-          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-6">
-            Final Total: {totalAmount.toFixed(2)}/month
-          </p>
+          {!isCustomPlan && (
+            <p className="2xl font-bold text-gray-900 dark:text-gray-100 mt-6">
+              Final Total: {totalAmount.toFixed(2)}/month
+            </p>
+          )}
         </div>
 
         <button
           onClick={() => setCurrentPage('home')}
           className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105"
         >
-          Back to Home
+          Explore More Success Stories
         </button>
       </div>
     </div>
@@ -1862,7 +2010,7 @@ function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, to
       </header>
 
       <div className="container mx-auto mt-24 max-w-4xl bg-white dark:bg-black p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">Our Blog & Resources</h2>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">Your Guide to Digital Success: Insights from the Swift90 Blog</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {blogPosts.map(post => (
             <div key={post.id} className="bg-gray-50 dark:bg-gray-950 rounded-lg shadow-sm p-6 transform hover:scale-[1.02] hover:shadow-md transition duration-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
