@@ -515,7 +515,7 @@ function App() {
           )}
 
           {/* Header Section */}
-          <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-30 transition-colors duration-500">
+          <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 transition-colors duration-500"> {/* Increased z-index to 50 */}
             <nav className="container mx-auto flex justify-between items-center">
               {/* Mobile Menu Button (Hamburger Icon) - Always visible */}
               <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-[#1F1A2A] dark:text-[#CAC4D0] focus:outline-none hover:text-orange-500 transition-colors duration-300">
@@ -607,7 +607,7 @@ function App() {
               </a>
 
               {/* Four Selling Points Squares */}
-              <div className="mt-16 flex  justify-center gap-6 md:gap-8 relative z-30">
+              <div className="mt-16 flex flex-wrap md:flex-nowrap justify-center gap-6 md:gap-8 relative z-30">
                 {/* Selling Point 1: Speed */}
                 <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800">
                   <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
