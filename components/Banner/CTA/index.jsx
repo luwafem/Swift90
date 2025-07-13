@@ -609,28 +609,28 @@ function App() {
               <div className="mt-16 flex flex-wrap md:flex-nowrap justify-center gap-6 md:gap-8 relative z-30">
                 {/* Selling Point 1: Speed */}
                 <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800">
-                  <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-12 h-12 text-[#1F1A2A] dark:text-[#CAC4D0] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                   </svg>
                   <p className="text-lg font-semibold text-gray-900 dark:text-[#CAC4D0]">Launch in Days, Not Months</p>
                 </div>
                 {/* Selling Point 2: Simplicity */}
                 <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800">
-                  <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-12 h-12 text-[#1F1A2A] dark:text-[#CAC4D0] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
                   </svg>
                   <p className="text-lg font-semibold text-gray-900 dark:text-[#CAC4D0]">Hassle-Free Management</p>
                 </div>
                 {/* Selling Point 3: Security */}
                 <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800">
-                  <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-12 h-12 text-[#1F1A2A] dark:text-[#CAC4D0] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002 12c0 2.757 1.25 5.232 3.248 7.072A11.955 11.955 0 0112 21.056c2.757 0 5.232-1.25 7.072-3.248A11.955 11.955 0 0022 12c0-2.757-1.25-5.232-3.248-7.072z"></path>
                   </svg>
                   <p className="text-lg font-semibold text-gray-900 dark:text-[#CAC4D0]">Ironclad Protection</p>
                 </div>
                 {/* Selling Point 4: Support */}
                 <div className="w-full sm:w-1/2 md:w-1/4 p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-lg flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-300 animate-fade-in-up delay-400 border border-gray-200 dark:border-gray-800">
-                  <svg className="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-12 h-12 text-[#1F1A2A] dark:text-[#CAC4D0] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
                   <p className="text-lg font-semibold text-gray-900 dark:text-[#CAC4D0]">24/7 Expert Guidance</p>
@@ -685,19 +685,19 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {/* Step 1 */}
                 <div className="flex flex-col items-center p-8 bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="w-16 h-16 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-sm">1</div>
+                  <div className="w-16 h-16 bg-[#1F1A2A] dark:bg-[#CAC4D0] text-[#CAC4D0] dark:text-[#1F1A2A] rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-sm">1</div>
                   <h3 className="text-xl font-semibold mb-4 text-[#1F1A2A] dark:text-[#CAC4D0]">Your Vision, Your Plan</h3>
                   <p className="text-gray-700 dark:text-gray-300 leading-relaxed">Choose the foundation for your digital future. Our flexible tiers are designed to scale with your ambition.</p>
                 </div>
                 {/* Step 2 */}
                 <div className="flex flex-col items-center p-8 bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="w-16 h-16 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-sm">2</div>
+                  <div className="w-16 h-16 bg-[#1F1A2A] dark:bg-[#CAC4D0] text-[#CAC4D0] dark:text-[#1F1A2A] rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-sm">2</div>
                   <h3 className="text-xl font-semibold mb-4 text[#1F1A2A] dark:text-[#CAC4D0]">Tell Us Your Story</h3>
                   <p className="text-gray-700 dark:text-gray-300 leading-relaxed">We'll listen, learn, and translate your unique vision into a stunning digital experience, pixel by pixel.</p>
                 </div>
                 {/* Step 3 */}
                 <div className="flex flex-col items-center p-8 bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="w-16 h-16 bg-orange-100 dark:bg-orange-950 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-sm">3</div>
+                  <div className="w-16 h-16 bg-[#1F1A2A] dark:bg-[#CAC4D0] text-[#CAC4D0] dark:text-[#1F1A2A] rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-sm">3</div>
                   <h3 className="text-xl font-semibold mb-4 text-[#1F1A2A] dark:text-[#CAC4D0]">Go Live, Grow Limitlessly</h3>
                   <p className="text-gray-700 dark:text-gray-300 leading-relaxed">Your expertly crafted website launches, ready to attract, convert, and empower your business for unstoppable growth.</p>
                 </div>
@@ -712,7 +712,7 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* Feature 1 */}
                 <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-100 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-[#1F1A2A] dark:bg-[#CAC4D0] text-[#CAC4D0] dark:text-[#1F1A2A] rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h4l-1-1v-3.25m-1.25 0h-3.5m4.75 0h3.5m-3.5 0v-4.5m-3.5 0v-4.5m4.75 0h3.5m-3.5 0v-4.5m-3.5 0v-4.5m4.75 0h3.5m-3.5 0v-4.5M12 12h.01M12 16h.01M12 8h.01M12 4h.01M12 20h.01M12 24h.01M12 0h.01"></path></svg>
                   </div>
                   <div>
@@ -722,7 +722,7 @@ function App() {
                 </div>
                 {/* Feature 2 */}
                 <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-200 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-[#1F1A2A] dark:bg-[#CAC4D0] text-[#CAC4D0] dark:text-[#1F1A2A] rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                   </div>
                   <div>
@@ -732,7 +732,7 @@ function App() {
                 </div>
                 {/* Feature 3 */}
                 <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-[#1F1A2A] dark:bg-[#CAC4D0] text-[#CAC4D0] dark:text-[#1F1A2A] rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-2-6V4m2 11h2m-2 4h2m-6-4h6m-6 0H6a2 2 0 00-2 2v2a2 2 0 002 2h2m0-4h.01M17 12h.01M17 16h.01M17 8h.01M17 4h.01M17 20h.01M17 24h.01M17 0h.01"></path></svg>
                   </div>
                   <div>
@@ -742,7 +742,7 @@ function App() {
                 </div>
                 {/* Feature 4 */}
                 <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-400 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-[#1F1A2A] dark:bg-[#CAC4D0] text-[#CAC4D0] dark:text-[#1F1A2A] rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2zM12 14c-1.657 0-3 .895-3 2v2h6v-2c0-1.105-1.343-2-3-2z"></path></svg>
                   </div>
                   <div>
@@ -752,7 +752,7 @@ function App() {
                 </div>
                 {/* Feature 5 */}
                 <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-500 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-[#1F1A2A] dark:bg-[#CAC4D0] text-[#CAC4D0] dark:text-[#1F1A2A] rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 012-2h14zM4 9h16a2 2 0 002-2V5a2 2 0 00-2-2H4a2 2 0 00-2 2v2a2 2 0 002 2z"></path></svg>
                   </div>
                   <div>
@@ -762,7 +762,7 @@ function App() {
                 </div>
                 {/* Feature 6 */}
                 <div className="flex items-start p-6 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm transform hover:scale-[1.02] hover:shadow-md transition duration-300 animate-fade-in-up delay-600 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-                  <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-gray-300 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mr-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-[#1F1A2A] dark:bg-[#CAC4D0] text-[#CAC4D0] dark:text-[#1F1A2A] rounded-full flex items-center justify-center mr-4">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                   </div>
                   <div>
