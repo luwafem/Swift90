@@ -152,16 +152,15 @@ function App() {
   // Re-run effect if the number of hero images changes
 
 
-
-  // Dummy pricing data - Added currencyCode for Paystack
+  // Dummy pricing data - Added currencyCode and paystackPlanCode for Paystack
   const pricingData = {
     "USA": {
       currency: '$',
       currencyCode: 'USD', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 29, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 79, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 199, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 45000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_pi46n98lssw3p90' }, // Updated price and plan code
+        pro: { name: 'Pro', price: 118500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_x6o01vr72wd6157' }, // Updated price and plan code
+        enterprise: { name: 'Enterprise', price: 298500, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_eaops7fc8vchc8v' }, // Updated price and plan code
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -169,9 +168,9 @@ function App() {
       currency: '₦',
       currencyCode: 'NGN', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 100, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 100000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_i8848v389v94cga' }, // Updated price and plan code
+        pro: { name: 'Pro', price: 60000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_po6k9pskjr6c6y4' }, // Updated price and plan code
+        enterprise: { name: 'Enterprise', price: 100000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_hb5osqdsmf09ypk' }, // Updated price and plan code
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -179,9 +178,9 @@ function App() {
       currency: '£',
       currencyCode: 'GBP', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 25, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 65, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 170, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 46250, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_oiw7p5snz7evuo4' }, // Updated price and plan code
+        pro: { name: 'Pro', price: 120250, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_mj1lgmnupqyoynr' }, // Updated price and plan code
+        enterprise: { name: 'Enterprise', price: 314500, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_0eu82fwzb13j5zn' }, // Updated price and plan code
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -189,9 +188,9 @@ function App() {
       currency: 'C$',
       currencyCode: 'CAD', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 35, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 89, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 220, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 38500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_o3p55fz00z4wvkv' }, // Updated price and plan code
+        pro: { name: 'Pro', price: 97900, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_v9kvtwmp8v85aeh' }, // Updated price and plan code
+        enterprise: { name: 'Enterprise', price: 242000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_0uv0gk0epv5p1nb' }, // Updated price and plan code
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -199,9 +198,9 @@ function App() {
       currency: 'A$',
       currencyCode: 'AUD', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 39, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 99, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 250, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 39000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_AU_BASIC_MONTHLY' }, // Price remains same, plan code updated
+        pro: { name: 'Pro', price: 99000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_AU_PRO_MONTHLY' }, // Price remains same, plan code updated
+        enterprise: { name: 'Enterprise', price: 250000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_AU_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -209,9 +208,9 @@ function App() {
       currency: '€',
       currencyCode: 'EUR', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 27, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 75, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 180, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 43200, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_jlc97ah1shc7uhw' }, // Updated price and plan code
+        pro: { name: 'Pro', price: 120000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_jb58o2q6sux01sw' }, // Updated price and plan code
+        enterprise: { name: 'Enterprise', price: 288000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_626mkoymysxt87w' }, // Updated price and plan code
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -219,9 +218,9 @@ function App() {
       currency: '€',
       currencyCode: 'EUR', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 27, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 75, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 180, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 43200, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_jlc97ah1shc7uhw' }, // Updated price and plan code (same as Germany for EUR, as per user's list)
+        pro: { name: 'Pro', price: 120000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_jb58o2q6sux01sw' }, // Updated price and plan code (same as Germany for EUR, as per user's list)
+        enterprise: { name: 'Enterprise', price: 288000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_626mkoymysxt87w' }, // Updated price and plan code (same as Germany for EUR, as per user's list)
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -229,9 +228,9 @@ function App() {
       currency: '₹',
       currencyCode: 'INR', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 2000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 5500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 15000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 36000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_IN_BASIC_MONTHLY' }, // Price remains same, plan code updated
+        pro: { name: 'Pro', price: 99000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_IN_PRO_MONTHLY' }, // Price remains same, plan code updated
+        enterprise: { name: 'Enterprise', price: 270000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_IN_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -239,9 +238,9 @@ function App() {
       currency: 'R$',
       currencyCode: 'BRL', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 120, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 350, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 900, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 36000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_BR_BASIC_MONTHLY' }, // Price remains same, plan code updated
+        pro: { name: 'Pro', price: 105000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_BR_PRO_MONTHLY' }, // Price remains same, plan code updated
+        enterprise: { name: 'Enterprise', price: 270000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_BR_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -249,9 +248,9 @@ function App() {
       currency: 'R',
       currencyCode: 'ZAR', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 450, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 1200, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 3000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 36000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_v09dez7ldkuk5yo' }, // Updated price and plan code
+        pro: { name: 'Pro', price: 96000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_l794gtpminaki2w' }, // Updated price and plan code
+        enterprise: { name: 'Enterprise', price: 250000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_8ef8l1nsob1oa0m' }, // Updated price and plan code
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -259,9 +258,9 @@ function App() {
       currency: '¥',
       currencyCode: 'JPY', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 3500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 9500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 25000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 35000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_JP_BASIC_MONTHLY' }, // Price remains same, plan code updated
+        pro: { name: 'Pro', price: 95000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_JP_PRO_MONTHLY' }, // Price remains same, plan code updated
+        enterprise: { name: 'Enterprise', price: 250000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_JP_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -269,9 +268,9 @@ function App() {
       currency: 'MX$',
       currencyCode: 'MXN', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
-        pro: { name: 'Pro', price: 1500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
-        enterprise: { name: 'Enterprise', price: 4000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
+        basic: { name: 'Basic', price: 45000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_MX_BASIC_MONTHLY' }, // Price remains same, plan code updated
+        pro: { name: 'Pro', price: 135000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_MX_PRO_MONTHLY' }, // Price remains same, plan code updated
+        enterprise: { name: 'Enterprise', price: 360000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_MX_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
       },
     },
@@ -1598,7 +1597,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
     const [loadingPayment, setLoadingPayment] = useState(false);
     const [messageBox, setMessageBox] = useState(null); // State for custom message box
     const [exchangeNotice, setExchangeNotice] = useState(''); // New state for exchange rate notice
-    const [showPaymentGateway, setShowPaymentGateway] = useState(false); // New state to control gateway display
+    // Removed showPaymentGateway state as it's no longer needed for a delayed pop-up
 
     // Simulated exchange rates for demonstration purposes (as of a recent hour)
     // In a real application, you would fetch these from a reliable currency exchange API.
@@ -1628,25 +1627,24 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
       }
     }, [isCustomPlan]);
 
-    useEffect(() => {
-      if (showPaymentGateway && window.PaystackPop) {
+    const handleInitiatePayment = () => {
+      setLoadingPayment(true);
+      let currentExchangeNotice = '';
+
+      // Determine exchange rate notice. Now that prices are in NGN,
+      // the notice is simpler: it's just about the payment being in NGN.
+      if (currencyCode !== 'NGN') {
+        currentExchangeNotice = `Note: Your payment for this plan will be processed in NGN (Nigerian Naira). The displayed price of ${currency}${totalAmount.toFixed(2)} is the equivalent of ₦${totalAmount.toFixed(2)} at the time of purchase.`;
+      } else {
+        currentExchangeNotice = `Note: Your payment for this plan will be processed in NGN (Nigerian Naira) for ₦${totalAmount.toFixed(2)}.`;
+      }
+      setExchangeNotice(currentExchangeNotice);
+
+      // Trigger Paystack immediately
+      if (window.PaystackPop) {
         const PAYSTACK_PUBLIC_KEY = 'pk_live_2ba1413aaaf5091188571ea6f87cca34945d943c'; // Live Public Key
-        let amountForPaystack = totalAmount * 100; // Default conversion (to kobo)
-        let paystackCurrency = currencyCode; // Default to selected country's currency
-
-        // Check if conversion to NGN is needed
-        if (currencyCode !== 'NGN') {
-          const exchangeRateKey = `${currencyCode}_NGN`;
-          const rate = simulatedExchangeRates[exchangeRateKey];
-
-          if (rate) {
-            amountForPaystack = (totalAmount * rate) * 100; // Convert to NGN, then to kobo
-            paystackCurrency = 'NGN';
-          } else {
-            paystackCurrency = 'NGN'; // Still force NGN for Paystack demo
-            amountForPaystack = 15000 * 100; // Fallback to a basic NGN price for demo
-          }
-        }
+        let amountForPaystack = totalAmount * 100; // Total amount is already in NGN, convert to kobo
+        let paystackCurrency = 'NGN'; // Force Paystack currency to NGN as per user's setup
 
         const handler = window.PaystackPop.setup({
           key: PAYSTACK_PUBLIC_KEY,
@@ -1654,12 +1652,12 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
           amount: Math.round(amountForPaystack), // Ensure amount is an integer (kobo)
           currency: paystackCurrency, // Use the adjusted currency (NGN)
           ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference
+          plan: purchaseDetails.plan.paystackPlanCode, // <-- ADDED FOR RECURRING PAYMENTS
           onClose: function () {
             setMessageBox({ message: 'Payment window closed.', type: 'info' });
             setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'failed' }));
             setLoadingPayment(false);
             setExchangeNotice(''); // Clear notice on close
-            setShowPaymentGateway(false); // Reset gateway display
           },
           callback: function (response) {
             setMessageBox({ message: 'Payment successful! Reference: ' + response.reference, type: 'success' });
@@ -1667,7 +1665,6 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             setLoadingPayment(false);
             setCurrentPage('checkout');
             setExchangeNotice(''); // Clear notice on success
-            setShowPaymentGateway(false); // Reset gateway display
             console.log('Paystack Response:', response);
 
             // Example: Call your backend to verify the transaction
@@ -1693,35 +1690,11 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
           },
         });
         handler.openIframe();
-      } else if (showPaymentGateway && !window.PaystackPop) {
+      } else {
         setMessageBox({ message: 'Paystack script not loaded. Please ensure the inline.js script is included in your HTML.', type: 'error' });
         setLoadingPayment(false);
         setExchangeNotice(''); // Clear notice on script load error
-        setShowPaymentGateway(false); // Reset gateway display
       }
-    }, [showPaymentGateway, totalAmount, currencyCode, simulatedExchangeRates, setMessageBox, setPurchaseDetails, setLoadingPayment, setCurrentPage]);
-
-
-    const handleInitiatePayment = () => {
-      setLoadingPayment(true);
-      let currentExchangeNotice = '';
-
-      // Determine exchange rate notice
-      if (currencyCode !== 'NGN') {
-        const exchangeRateKey = `${currencyCode}_NGN`;
-        const rate = simulatedExchangeRates[exchangeRateKey];
-        if (rate) {
-          currentExchangeNotice = `Note: Your payment of ${currency}${totalAmount.toFixed(2)} is being processed in NGN (Nigerian Naira) at a simulated exchange rate of 1 ${currencyCode} = ₦${rate.toFixed(2)}. Total NGN: ₦${(totalAmount * rate).toFixed(2)}.`;
-        } else {
-          currentExchangeNotice = `Note: For demonstration purposes, your payment will be processed in NGN (Nigerian Naira) at a fallback rate due to missing exchange rate data. In a real application, live exchange rates would be used.`;
-        }
-      }
-      setExchangeNotice(currentExchangeNotice);
-
-      // Start the 10-second timer to show the payment gateway
-      setTimeout(() => {
-        setShowPaymentGateway(true);
-      }, 10000); // 10 seconds delay
     };
 
     const handleCustomRequestConfirmation = () => {
@@ -1817,16 +1790,16 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             {(!isCustomPlan && (purchaseDetails.websiteType === 'Corporate' || purchaseDetails.websiteType === 'Service')) && (
               <>
                 <p className="text-lg text-gray-900 dark:text-gray-200">
-                  <span className="font-semibold">Est. Pages:</span> {purchaseDetails.numPages || 'N/A'}
+                  <span className="font-semibold">Est. Pages:</span> {numPages || 'N/A'}
                 </p>
                 <p className="text-lg text-gray-900 dark:text-gray-200">
-                  <span className="font-semibold">Service Categories:</span> {purchaseDetails.serviceCategories || 'N/A'}
+                  <span className="font-semibold">Service Categories:</span> {serviceCategories || 'N/A'}
                 </p>
               </>
             )}
             {purchaseDetails.websiteType === 'Portfolio' && !isCustomPlan && (
               <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Est. Projects/Items:</span> {purchaseDetails.numProjects || 'N/A'}
+                <span className="font-semibold">Est. Projects/Items:</span> {numProjects || 'N/A'}
               </p>
             )}
             {purchaseDetails.assets.length > 0 && !isCustomPlan && (
