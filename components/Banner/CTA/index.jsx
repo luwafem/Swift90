@@ -116,6 +116,8 @@ function App() {
     numProjects: '',
     additionalFeatures: [], // Now explicitly for add-ons
     paymentStatus: 'pending', // 'pending', 'successful', 'failed', 'requested'
+    customerName: '', // Added for contact form
+    customerEmail: '', // Added for contact form
   });
   const [selectedBlogPost, setSelectedBlogPost] = useState(null); // State to hold data for the currently viewed blog post
   const [showIntro, setShowIntro] = useState(true);
@@ -585,9 +587,9 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
               </button>
-              <div className="text-2xl font-bold text-[#1F1A2A] dark:text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+              <a href="#" onClick={() => setCurrentPage('home')} className="text-2xl font-bold text-[#1F1A2A] dark:text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
                 Swift90
-              </div>
+              </a>
               <div className="flex items-center space-x-4">
                 {/* Desktop Menu - visible on medium screens and up */}
                 <div className="hidden md:flex items-center space-x-6">
@@ -1286,9 +1288,9 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
-          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+          <a href="#" onClick={() => setCurrentPage('home')} className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
             Swift90
-          </div>
+          </a>
           <div className="flex items-center space-x-4">
             <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
               {darkMode ? (
@@ -1594,8 +1596,8 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
     const totalAddOnCost = isCustomPlan ? 0 : (additionalFeatures.length * addOnCostPerItem);
     const totalAmount = baseAmount + totalAddOnCost;
 
-    const [customerName, setCustomerName] = useState('');
-    const [customerEmail, setCustomerEmail] = useState('');
+    const [customerName, setCustomerName] = useState(purchaseDetails.customerName); // Use state from purchaseDetails
+    const [customerEmail, setCustomerEmail] = useState(purchaseDetails.customerEmail); // Use state from purchaseDetails
     const [loadingPayment, setLoadingPayment] = useState(false);
     const [messageBox, setMessageBox] = useState(null);
     const [exchangeNotice, setExchangeNotice] = useState('');
@@ -1629,14 +1631,14 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
         assetsProvided: purchaseDetails.assets.join(', '),
         requirements: purchaseDetails.requirements,
         numProducts: purchaseDetails.numProducts,
-        paymentGateways: purchaseDetails.paymentGateways.join(', '),
+        paymentGateways: purchaseDetails.paymentGateways.length > 0 ? purchaseDetails.paymentGateways.join(', ') : 'N/A',
         numBlogPosts: purchaseDetails.numBlogPosts,
         commentSystem: purchaseDetails.commentSystem,
         numPages: purchaseDetails.numPages,
         serviceCategories: purchaseDetails.serviceCategories,
         numProjects: purchaseDetails.numProjects,
-        additionalFeatures: purchaseDetails.additionalFeatures.join(', '),
-        paymentStatus: status,
+        additionalFeatures: purchaseDetails.additionalFeatures.length > 0 ? purchaseDetails.additionalFeatures.join(', ') : 'N/A',
+        paymentStatus: status, // 'successful' or 'requested'
         paystackReference: paystackRef,
         timestamp: new Date().toISOString(),
       };
@@ -1653,14 +1655,11 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
 
         if (response.ok) {
           console.log('Purchase details sent to Formspree successfully!');
-          // Optionally show a success message to the user about the details being sent
         } else {
           console.error('Failed to send purchase details to Formspree:', response.statusText);
-          // Optionally show an error message
         }
       } catch (error) {
         console.error('Error sending purchase details to Formspree:', error);
-        // Optionally show an error message
       } finally {
         setFormspreeLoading(false);
       }
@@ -1671,6 +1670,9 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
         setMessageBox({ message: 'Please provide your name and email to proceed.', type: 'error' });
         return;
       }
+
+      // Update purchaseDetails with customer info before proceeding
+      setPurchaseDetails(prev => ({ ...prev, customerName, customerEmail }));
 
       setLoadingPayment(true);
       let currentExchangeNotice = '';
@@ -1695,11 +1697,11 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
           ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference
           plan: purchaseDetails.plan.paystackPlanCode, // <-- ADDED FOR RECURRING PAYMENTS
           onClose: function () {
-            setMessageBox({ message: 'Payment window closed.', type: 'info' });
+            setMessageBox({ message: 'Payment window closed. You can try again or contact support.', type: 'info' });
             setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'failed' }));
             setLoadingPayment(false);
             setExchangeNotice(''); // Clear notice on close
-            sendPurchaseDetailsToFormspree('failed'); // Send failed status to Formspree
+            // Do NOT send to Formspree on close/failure as per user's request
           },
           callback: function (response) {
             setMessageBox({ message: 'Payment successful! Reference: ' + response.reference, type: 'success' });
@@ -1724,7 +1726,8 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
         setMessageBox({ message: 'Please provide your name and email to submit your custom request.', type: 'error' });
         return;
       }
-      setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'requested' }));
+      // Update purchaseDetails with customer info before proceeding
+      setPurchaseDetails(prev => ({ ...prev, customerName, customerEmail, paymentStatus: 'requested' }));
       sendPurchaseDetailsToFormspree('requested'); // Send custom request status to Formspree
       setCurrentPage('checkout');
     };
@@ -1739,9 +1742,9 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
-            <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+            <a href="#" onClick={() => setCurrentPage('home')} className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
               Swift90
-            </div>
+            </a>
             <div className="flex items-center space-x-4">
               <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
                 {darkMode ? (
@@ -1945,7 +1948,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
 
   // Checkout Page Component
   function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMode, isMobileMenuOpen, setIsMobileMenuOpen }) {
-    const { plan, websiteType, assets, requirements, numProducts, paymentGateways, numBlogPosts, commentSystem, numPages, serviceCategories, numProjects, additionalFeatures, paymentStatus } = purchaseDetails;
+    const { plan, websiteType, assets, requirements, numProducts, paymentGateways, numBlogPosts, commentSystem, numPages, serviceCategories, numProjects, additionalFeatures, paymentStatus, customerEmail } = purchaseDetails;
     const isCustomPlan = plan?.name === 'Custom';
 
     // Recalculate total for display consistency
@@ -1964,9 +1967,9 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
-            <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+            <a href="#" onClick={() => setCurrentPage('home')} className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
               Swift90
-            </div>
+            </a>
             <div className="flex items-center space-x-4">
               <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
                 {darkMode ? (
@@ -2013,8 +2016,11 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               <p className="text-2xl font-semibold text-green-600 dark:text-green-400 mb-4">
                 Payment Successful!
               </p>
+              <p className="text-lg text-gray-900 dark:text-gray-200 mb-2">
+                Congratulations! Your journey to a powerful online presence has officially begun.
+              </p>
               <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
-                Congratulations! Your journey to a powerful online presence has officially begun. We're thrilled to partner with you and will reach out within 24 hours to kickstart the creation of your stunning new website.
+                A confirmation email has been sent to <span className="font-semibold">{customerEmail}</span>, and we will reach out to you within 1 hour to kickstart the creation of your stunning new website.
               </p>
             </>
           ) : paymentStatus === 'requested' ? (
@@ -2025,8 +2031,11 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               <p className="text-2xl font-semibold text-blue-600 dark:text-blue-400 mb-4">
                 Custom Quote Request Submitted!
               </p>
+              <p className="text-lg text-gray-900 dark:text-gray-200 mb-2">
+                Thank you for your custom request!
+              </p>
               <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
-                Thank you for your custom request! Our team of experts will review your specific needs and get back to you with a personalized quote within 1-2 business days. We're excited to bring your unique vision to life!
+                Our team of experts will review your specific needs and get back to you with a personalized quote within 1-2 business days. We're excited to bring your unique vision to life!
               </p>
             </>
           ) : (
@@ -2154,9 +2163,9 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
-            <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+            <a href="#" onClick={() => setCurrentPage('home')} className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
               Swift90
-            </div>
+            </a>
             <div className="flex items-center space-x-4">
               <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
                 {darkMode ? (
@@ -2239,9 +2248,9 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
-            <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+            <a href="#" onClick={() => setCurrentPage('home')} className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
               Swift90
-            </div>
+            </a>
             <div className="flex items-center space-x-4">
               <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
                 {darkMode ? (
