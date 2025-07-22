@@ -5,15 +5,13 @@ function IntroAnimation({ onAnimationEnd }) {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    // Start fade out after 2 seconds (adjust as needed)
     const fadeOutTimer = setTimeout(() => {
       setFadeOut(true);
-    }, 2000); // Duration before fade out starts
+    }, 2000);
 
-    // End animation and call callback after fade out completes
     const animationEndTimer = setTimeout(() => {
       onAnimationEnd();
-    }, 2500); // Total duration (2s for slide-in + 0.5s for fade-out)
+    }, 2500);
 
     return () => {
       clearTimeout(fadeOutTimer);
@@ -40,15 +38,70 @@ function IntroAnimation({ onAnimationEnd }) {
   );
 }
 
+// Custom Message Box Component (Replaces alert())
+const MessageBox = ({ message, type, onClose }) => {
+  let bgColor = '';
+  let textColor = '';
+  let icon = '';
+
+  switch (type) {
+    case 'success':
+      bgColor = 'bg-green-100 dark:bg-green-900';
+      textColor = 'text-green-800 dark:text-green-200';
+      icon = (
+        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      );
+      break;
+    case 'error':
+      bgColor = 'bg-red-100 dark:bg-red-900';
+      textColor = 'text-red-800 dark:text-red-200';
+      icon = (
+        <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2A9 9 0 111 12a9 9 0 0118 0z"></path>
+        </svg>
+      );
+      break;
+    case 'info':
+    default:
+      bgColor = 'bg-blue-100 dark:bg-blue-900';
+      textColor = 'text-blue-800 dark:text-blue-200';
+      icon = (
+        <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      );
+      break;
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[9999]">
+      <div className={`p-6 rounded-lg shadow-xl max-w-sm w-full text-center ${bgColor} ${textColor}`}>
+        <div className="flex justify-center mb-4">{icon}</div>
+        <p className="text-lg font-semibold mb-4">{message}</p>
+        <button
+          onClick={onClose}
+          className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition duration-300"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  );
+};
+
 
 // Main App Component
 function App() {
   // Global States
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [showLocationModal, setShowLocationModal] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Controls the hamburger menu overlay
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // Controls the hamburger menu overlay
   const [darkMode, setDarkMode] = useState(false);
-  const [currentPage, setCurrentPage] = useState('home'); // 'home', 'purchase', 'payment', 'checkout', 'blog', 'blogPost'
+  const [currentPage, setCurrentPage] = useState('home');
+  // 'home', 'purchase', 'payment', 'checkout', 'blog', 'blogPost'
   const [purchaseDetails, setPurchaseDetails] = useState({
     plan: null,
     websiteType: '',
@@ -65,7 +118,8 @@ function App() {
     paymentStatus: 'pending', // 'pending', 'successful', 'failed', 'requested'
   });
   const [selectedBlogPost, setSelectedBlogPost] = useState(null); // State to hold data for the currently viewed blog post
-  const [showIntro, setShowIntro] = useState(true); // State to control intro animation
+  const [showIntro, setShowIntro] = useState(true);
+  // State to control intro animation
 
   // Hero Section Image Carousel States
   const heroImages = [
@@ -78,7 +132,6 @@ function App() {
   // isFadingOut controls the opacity of the current image layer (fades out)
   // The next image layer's opacity will be the inverse (fades in)
   const [isFadingOut, setIsFadingOut] = useState(false);
-
   // Effect for Hero Section Image Carousel
   useEffect(() => {
     // Set an interval to change the image every 30 seconds
@@ -95,13 +148,15 @@ function App() {
 
     // Cleanup function to clear the interval when the component unmounts
     return () => clearInterval(interval);
-  }, [heroImages.length]); // Re-run effect if the number of hero images changes
+  }, [heroImages.length]);
+  // Re-run effect if the number of hero images changes
 
 
-  // Dummy pricing data
+  // Dummy pricing data - Added currencyCode for Paystack
   const pricingData = {
     "USA": {
       currency: '$',
+      currencyCode: 'USD', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 29, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 79, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -111,8 +166,9 @@ function App() {
     },
     "Nigeria": {
       currency: '₦',
+      currencyCode: 'NGN', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 15000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
+        basic: { name: 'Basic', price: 5000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 40000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
         enterprise: { name: 'Enterprise', price: 100000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'] },
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
@@ -120,6 +176,7 @@ function App() {
     },
     "UK": {
       currency: '£',
+      currencyCode: 'GBP', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 25, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 65, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -129,6 +186,7 @@ function App() {
     },
     "Canada": {
       currency: 'C$',
+      currencyCode: 'CAD', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 35, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 89, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -138,6 +196,7 @@ function App() {
     },
     "Australia": {
       currency: 'A$',
+      currencyCode: 'AUD', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 39, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 99, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -147,6 +206,7 @@ function App() {
     },
     "Germany": {
       currency: '€',
+      currencyCode: 'EUR', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 27, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 75, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -156,6 +216,7 @@ function App() {
     },
     "France": {
       currency: '€',
+      currencyCode: 'EUR', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 27, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 75, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -165,6 +226,7 @@ function App() {
     },
     "India": {
       currency: '₹',
+      currencyCode: 'INR', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 2000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 5500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -174,6 +236,7 @@ function App() {
     },
     "Brazil": {
       currency: 'R$',
+      currencyCode: 'BRL', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 120, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 350, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -183,6 +246,7 @@ function App() {
     },
     "South Africa": {
       currency: 'R',
+      currencyCode: 'ZAR', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 450, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 1200, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -192,6 +256,7 @@ function App() {
     },
     "Japan": {
       currency: '¥',
+      currencyCode: 'JPY', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 3500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 9500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -201,6 +266,7 @@ function App() {
     },
     "Mexico": {
       currency: 'MX$',
+      currencyCode: 'MXN', // Added for Paystack
       plans: {
         basic: { name: 'Basic', price: 500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'] },
         pro: { name: 'Pro', price: 1500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'] },
@@ -209,10 +275,8 @@ function App() {
       },
     },
   };
-
   // State for FAQ accordion
   const [openFAQ, setOpenFAQ] = useState(null);
-
   // Effect to check for stored country and theme on component mount
   useEffect(() => {
     // Only check for stored country and theme AFTER the intro animation
@@ -231,7 +295,8 @@ function App() {
         setDarkMode(false); // Default to light mode
       }
     }
-  }, [showIntro]); // Depend on showIntro
+  }, [showIntro]);
+  // Depend on showIntro
 
   // Handler for country selection in the modal
   const handleCountrySelect = (event) => {
@@ -400,8 +465,6 @@ function App() {
       `
     },
   ];
-
-
   // Render different pages based on currentPage state
   switch (currentPage) {
     case 'purchase':
@@ -493,7 +556,7 @@ function App() {
                     ))}
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-200">
-                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                   </div>
                 </div>
                 <button
@@ -526,36 +589,41 @@ function App() {
                 Swift90
               </div>
               <div className="flex items-center space-x-4">
+                {/* Desktop Menu - visible on medium screens and up */}
+                <div className="hidden md:flex items-center space-x-6">
+                  {/* Removed navigation links */}
+                </div>
                 <button onClick={toggleDarkMode} className="text-[#1F1A2A] dark:text-[#CAC4D0] focus:outline-none hover:text-orange-500 transition-colors duration-300">
-                  {darkMode ? (
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
-                    </svg>
-                  ) : (
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
-                    </svg>
-                  )}
+                  {darkMode ?
+                    (
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
+                      </svg>
+                    ) : (
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
+                      </svg>
+                    )}
                 </button>
               </div>
             </nav>
             {/* Mobile Menu Overlay - now the primary navigation overlay */}
             {isMobileMenuOpen && (
-              <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A]  bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+              <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
                 <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-[#CAC4D0] focus:outline-none hover:text-orange-500 transition-colors duration-300">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                   </svg>
                 </button>
-                <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
-                <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
-                <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
-                <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
-                <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
-                <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
-                <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
-                <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
-                <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-[#CAC4D0] text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
+                <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
+                <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
+                <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
+                <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
+                <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
+                <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
+                <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
+                <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
+                <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
                 <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="bg-orange-500 text-white px-8 py-3 rounded-full text-xl font-semibold hover:bg-orange-600 transition duration-300 shadow-md">
                   Get Started
                 </a>
@@ -596,7 +664,7 @@ function App() {
 
             <div className="container mx-auto text-center px-6 animate-fade-in-up relative z-30"> {/* Increased z-index for text */}
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-slide-in-left tracking-tight text-[#CAC4D0]">
-                Tired of Website Headaches? <br className="hidden sm:inline"/> We Build Your Online Success, So You Don't Have To.
+                Tired of Website Headaches? <br className="hidden sm:inline" /> We Build Your Online Success, So You Don't Have To.
               </h1>
               <p className="text-lg sm:text-xl mb-10 max-w-3xl mx-auto text-gray-200 animate-fade-in leading-relaxed">
                 We transform your digital dreams into thriving online realities, handling every technical detail so you can focus on what truly matters: your business growth.
@@ -940,22 +1008,22 @@ function App() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-100">
                   <img
-                    src={"https://icon.icepanel.io/Technology/svg/React.svg"} alt="React Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=React'; }}/>
+                    src={"https://icon.icepanel.io/Technology/svg/React.svg"} alt="React Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=React'; }} />
                   <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">React</p>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-200">
                   <img
-                    src={"https://icon.icepanel.io/Technology/svg/Node.js.svg"} alt="Node.js Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Node'; }}/>
+                    src={"https://icon.icepanel.io/Technology/svg/Node.js.svg"} alt="Node.js Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Node'; }} />
                   <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Node.js</p>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-300">
                   <img
-                    src={"https://icon.icepanel.io/Technology/svg/Google-Cloud.svg"} alt="Cloud Hosting Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Cloud'; }}/>
+                    src={"https://icon.icepanel.io/Technology/svg/Google-Cloud.svg"} alt="Cloud Hosting Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Cloud'; }} />
                   <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Cloud Hosting</p>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white dark:bg-[#2B253B] rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 transform hover:scale-[1.05] transition duration-300 animate-fade-in-up delay-400">
                   <img
-                    src={"https://icon.icepanel.io/Technology/svg/Tailwind-CSS.svg"} alt="Tailwind CSS Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Tailwind'; }}/>
+                    src={"https://icon.icepanel.io/Technology/svg/Tailwind-CSS.svg"} alt="Tailwind CSS Logo" className="h-16 mb-2" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/E0E0E0/333333?text=Tailwind'; }} />
                   <p className="text-lg font-semibold text-[#1F1A2A] dark:text-[#CAC4D0]">Tailwind CSS</p>
                 </div>
               </div>
@@ -1028,7 +1096,6 @@ function App() {
                     <label htmlFor="message" className="block text-left text-sm font-medium text-[#1F1A2A] dark:text-gray-300 mb-1">Message</label>
                     <textarea
                       id="message"
-                      name="message"
                       rows="4"
                       value={purchaseDetails.requirements} // Pre-fill from purchase details
                       onChange={(e) => setPurchaseDetails(prev => ({ ...prev, requirements: e.target.value }))}
@@ -1252,9 +1319,6 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
             <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
             <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
-            <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="bg-orange-500 text-white px-8 py-3 rounded-full text-xl font-semibold hover:bg-orange-600 transition duration-300 shadow-md">
-              Get Started
-            </a>
           </div>
         )}
       </header>
@@ -1275,7 +1339,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
           {!isCustomPlan && additionalFeatures.length > 0 && (
             <>
               <p className="text-md text-gray-600 dark:text-gray-400">
-                Add-ons ({additionalFeatures.length} selected): +{currency}{totalAddOnCost.toFixed(2)}
+                Add-ons ({additionalFeatures.length} selected): +{currency}{addOnCostPerItem.toFixed(2)}
               </p>
             </>
           )}
@@ -1431,684 +1495,766 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 value={numProjects}
                 onChange={(e) => setNumProjects(e.target.value)}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-500"
-                placeholder="e.g., 15"
-                min="0"
-              />
-            </div>
-          )}
-
-          {/* General Assets */}
-          {!isCustomPlan && (
-            <div>
-              <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Website Assets You'll Provide (the raw material for your story)
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {['Logo', 'Images', 'Text Content', 'Videos', 'Product Data', 'Branding Guidelines'].map(asset => (
-                  <label key={asset} className="flex items-center space-x-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      value={asset}
-                      checked={assets.includes(asset)}
-                      onChange={handleAssetChange}
-                      className="form-checkbox h-5 w-5 text-orange-500 rounded transition-colors duration-300"
-                    />
-                    <span className="text-gray-900 dark:text-gray-300">{asset}</span>
-                  </label>
-                ))}
+                  placeholder="e.g., 15"
+                  min="0"
+                />
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Service Add-ons & Enhancements (only for non-custom plans) */}
-          {!isCustomPlan && (
-            <div>
-              <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Service Add-ons & Enhancements (each adds {currency}{addOnCostPerItem.toFixed(2)}/month, to enhance your journey)
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {['Advanced SEO Package', 'Content Writing Service', 'Premium Theme Customization', 'Monthly Maintenance Plan', 'Booking System Integration', 'Multilingual Support'].map(feature => (
-                  <label key={feature} className="flex items-center space-x-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      value={feature}
-                      checked={additionalFeatures.includes(feature)}
-                      onChange={handleAdditionalFeatureChange}
-                      className="form-checkbox h-5 w-5 text-orange-500 rounded transition-colors duration-300"
-                    />
-                    <span className="text-gray-900 dark:text-gray-300">{feature}</span>
-                  </label>
-                ))}
+            {/* General Assets */}
+            {!isCustomPlan && (
+              <div>
+                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Website Assets You'll Provide (the raw material for your story)
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {['Logo', 'Images', 'Text Content', 'Videos', 'Product Data', 'Branding Guidelines'].map(asset => (
+                    <label key={asset} className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        value={asset}
+                        checked={assets.includes(asset)}
+                        onChange={handleAssetChange}
+                        className="form-checkbox h-5 w-5 text-orange-500 rounded transition-colors duration-300"
+                      />
+                      <span className="text-gray-900 dark:text-gray-300">{asset}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
+            )}
+
+            {/* Service Add-ons & Enhancements (only for non-custom plans) */}
+            {!isCustomPlan && (
+              <div>
+                <label className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Service Add-ons & Enhancements (each adds {currency}{addOnCostPerItem.toFixed(2)}/month, to enhance your journey)
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {['Advanced SEO Package', 'Content Writing Service', 'Premium Theme Customization', 'Monthly Maintenance Plan', 'Booking System Integration', 'Multilingual Support'].map(feature => (
+                    <label key={feature} className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        value={feature}
+                        checked={additionalFeatures.includes(feature)}
+                        onChange={handleAdditionalFeatureChange}
+                        className="form-checkbox h-5 w-5 text-orange-500 rounded transition-colors duration-300"
+                      />
+                      <span className="text-gray-900 dark:text-gray-300">{feature}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="requirements" className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Specific Requirements / Notes (your opportunity to shape your unique story)
+              </label>
+              <textarea
+                id="requirements"
+                rows="5"
+                value={requirements}
+                onChange={(e) => setRequirements(e.target.value)}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-500"
+                placeholder="Tell us about your unique vision, specific needs, or any challenges you've faced with previous websites. We're listening!"
+              ></textarea>
             </div>
-          )}
 
-          <div>
-            <label htmlFor="requirements" className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Specific Requirements / Notes (your opportunity to shape your unique story)
-            </label>
-            <textarea
-              id="requirements"
-              rows="5"
-              value={requirements}
-              onChange={(e) => setRequirements(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-500"
-              placeholder="Tell us about your unique vision, specific needs, or any challenges you've faced with previous websites. We're listening!"
-            ></textarea>
-          </div>
-
-          <div className="flex justify-between items-center mt-8">
-            <button
-              type="button"
-              onClick={() => setCurrentPage('home')}
-              className="px-6 py-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300"
-            >
-              Review Your Plan
-            </button>
-            <button
-              type="submit"
-              className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105"
-            >
-              {isCustomPlan ? 'Submit Custom Request' : 'Confirm & Begin Your Online Journey'}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}
-
-// Payment Page Component
-function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, darkMode, toggleDarkMode, selectedCountry, pricingData, isMobileMenuOpen, setIsMobileMenuOpen }) {
-  const plan = purchaseDetails.plan;
-  const isCustomPlan = plan?.name === 'Custom';
-
-  const currency = pricingData[selectedCountry]?.currency || '$';
-  const baseAmount = isCustomPlan ? 0 : (plan ? plan.price : 0);
-  const addOnCostPerItem = baseAmount * 0.20; // 20% of base plan price per add-on
-  const totalAddOnCost = isCustomPlan ? 0 : (purchaseDetails.additionalFeatures.length * addOnCostPerItem);
-  const totalAmount = baseAmount + totalAddOnCost;
-
-  const [loadingPayment, setLoadingPayment] = useState(false);
-
-  // Load Paystack script dynamically (only if not a custom plan)
-  useEffect(() => {
-    if (!isCustomPlan) {
-      const script = document.createElement('script');
-      script.src = 'https://js.paystack.co/v1/inline.js';
-      script.async = true;
-      document.body.appendChild(script);
-      return () => {
-        document.body.removeChild(script);
-      };
-    }
-  }, [isCustomPlan]);
-
-  const handlePaystackPayment = () => {
-    setLoadingPayment(true);
-    // Simulate Paystack payment
-    // In a real app, you would initialize PaystackPop here with your public key
-    // and handle success/failure callbacks.
-    // Example:
-    // const handler = PaystackPop.setup({
-    //   key: 'YOUR_PAYSTACK_PUBLIC_KEY', // Replace with your actual public key
-    //   email: 'customer@example.com', // Replace with actual customer email
-    //   amount: totalAmount * 100, // Amount in kobo/cents
-    //   currency: currency === '₦' ? 'NGN' : (currency === '$' ? 'USD' : 'GBP'), // Map currency to Paystack codes
-    //   ref: '' + Math.floor((Math.random() * 1000000000) + 1), // unique ref for each transaction
-    //   callback: function(response){
-    //     // Payment successful! Verify on your backend.
-    //     setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'successful' }));
-    //     setCurrentPage('checkout');
-    //   },
-    //   onClose: function(){
-    //     // User closed the modal
-    //     setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'failed' }));
-    //     setLoadingPayment(false);
-    //     alert('Payment cancelled.'); // Replace with custom message box
-    //   }
-    // });
-    // handler.openIframe();
-
-    // Simulating successful payment after 2 seconds
-    setTimeout(() => {
-      setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'successful' }));
-      setLoadingPayment(false);
-      setCurrentPage('checkout');
-    }, 2000);
-  };
-
-  const handleCustomRequestConfirmation = () => {
-    setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'requested' }));
-    setCurrentPage('checkout');
-  };
-
-  return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
-        <nav className="container mx-auto flex justify-between items-center">
-          {/* Hamburger Icon */}
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
-            Swift90
-          </div>
-          <div className="flex items-center space-x-4">
-            <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-              {darkMode ? (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
-                </svg>
-              )}
-            </button>
-          </div>
-        </nav>
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
-            <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
-            <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
-            <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
-            <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
-            <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
-            <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
-            <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
-            <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
-            <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
-            <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="bg-orange-500 text-white px-8 py-3 rounded-full text-xl font-semibold hover:bg-orange-600 transition duration-300 shadow-md">
-              Get Started
-            </a>
-          </div>
-        )}
-      </header>
-
-      <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
-          One Step Closer: Confirm Your Investment in Online Success
-        </h2>
-        <div className="space-y-4 mb-8">
-          <p className="text-lg text-gray-900 dark:text-gray-200">
-            <span className="font-semibold">Plan:</span> {plan?.name}
-          </p>
-          {!isCustomPlan && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Base Price:</span> {currency}{baseAmount.toFixed(2)}/month
-            </p>
-          )}
-          {purchaseDetails.websiteType && !isCustomPlan && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Website Type:</span> {purchaseDetails.websiteType}
-            </p>
-          )}
-          {purchaseDetails.websiteType === 'E-commerce' && !isCustomPlan && (
-            <>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Est. Products:</span> {purchaseDetails.numProducts || 'N/A'}
-              </p>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Payment Gateways:</span> {purchaseDetails.paymentGateways.length > 0 ? purchaseDetails.paymentGateways.join(', ') : 'N/A'}
-              </p>
-            </>
-          )}
-          {purchaseDetails.websiteType === 'Blog' && !isCustomPlan && (
-            <>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Est. Blog Posts:</span> {purchaseDetails.numBlogPosts || 'N/A'}
-              </p>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Comment System:</span> {purchaseDetails.commentSystem || 'N/A'}
-              </p>
-            </>
-          )}
-          {(!isCustomPlan && (purchaseDetails.websiteType === 'Corporate' || purchaseDetails.websiteType === 'Service')) && (
-            <>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Est. Pages:</span> {purchaseDetails.numPages || 'N/A'}
-              </p>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Service Categories:</span> {purchaseDetails.serviceCategories || 'N/A'}
-              </p>
-            </>
-          )}
-          {purchaseDetails.websiteType === 'Portfolio' && !isCustomPlan && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Est. Projects/Items:</span> {purchaseDetails.numProjects || 'N/A'}
-            </p>
-          )}
-          {purchaseDetails.assets.length > 0 && !isCustomPlan && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Assets Provided:</span> {purchaseDetails.assets.join(', ')}
-            </p>
-          )}
-          {purchaseDetails.requirements && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Requirements:</span> {purchaseDetails.requirements}
-            </p>
-          )}
-
-          {!isCustomPlan && purchaseDetails.additionalFeatures.length > 0 && (
-            <>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Selected Add-ons:</span>
-              </p>
-              <ul className="list-disc list-inside ml-4 text-gray-900 dark:text-gray-200">
-                {purchaseDetails.additionalFeatures.map((feature, index) => (
-                  <li key={index}>{feature} (+{addOnCostPerItem.toFixed(2)})</li>
-                ))}
-              </ul>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Total Add-on Cost:</span> {totalAddOnCost.toFixed(2)}
-              </p>
-            </>
-          )}
-
-          {!isCustomPlan && (
-            <p className="2xl font-bold text-gray-900 dark:text-gray-100 mt-6">
-              Total Investment in Your Digital Future: {totalAmount.toFixed(2)}/month
-            </p>
-          )}
-        </div>
-
-        <div className="flex flex-col items-center space-y-4">
-          {isCustomPlan ? (
-            <button
-              onClick={handleCustomRequestConfirmation}
-              className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 w-full md:w-auto"
-            >
-              Confirm Custom Request
-            </button>
-          ) : (
-            <button
-              onClick={handlePaystackPayment}
-              className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto"
-              disabled={loadingPayment}
-            >
-              {loadingPayment ? 'Processing Payment...' : 'Activate Your Online Presence'}
-            </button>
-          )}
-          {loadingPayment && !isCustomPlan && (
-            <p className="text-gray-700 dark:text-gray-300">Please wait, do not close this page...</p>
-          )}
-          <button
-            type="button"
-            onClick={() => setCurrentPage('purchase')}
-            className="px-6 py-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300 w-full md:w-auto"
-            disabled={loadingPayment}
-          >
-            Review Your Choices
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Checkout Page Component
-function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMode, isMobileMenuOpen, setIsMobileMenuOpen }) {
-  const { plan, websiteType, assets, requirements, numProducts, paymentGateways, numBlogPosts, commentSystem, numPages, serviceCategories, numProjects, additionalFeatures, paymentStatus } = purchaseDetails;
-  const isCustomPlan = plan?.name === 'Custom';
-
-  // Recalculate total for display consistency
-  const baseAmount = isCustomPlan ? 0 : (plan ? plan.price : 0);
-  const addOnCostPerItem = baseAmount * 0.20;
-  const totalAddOnCost = isCustomPlan ? 0 : (additionalFeatures.length * addOnCostPerItem);
-  const totalAmount = baseAmount + totalAddOnCost;
-
-  return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
-        <nav className="container mx-auto flex justify-between items-center">
-          {/* Hamburger Icon */}
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
-            Swift90
-          </div>
-          <div className="flex items-center space-x-4">
-            <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-              {darkMode ? (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
-                </svg>
-              )}
-            </button>
-          </div>
-        </nav>
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
-            <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
-            <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
-            <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
-            <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
-            <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
-            <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
-            <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
-            <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
-            <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
-            <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="bg-orange-500 text-white px-8 py-3 rounded-full text-xl font-semibold hover:bg-orange-600 transition duration-300 shadow-md">
-              Get Started
-            </a>
-          </div>
-        )}
-      </header>
-
-      <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500 text-center">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-          Your Digital Journey Has Begun!
-        </h2>
-        {paymentStatus === 'successful' ? (
-          <>
-            <div className="text-green-500 text-6xl mb-4">
-              &#10003; {/* Checkmark icon */}
-            </div>
-            <p className="text-2xl font-semibold text-green-600 dark:text-green-400 mb-4">
-              Payment Successful!
-            </p>
-            <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
-              Congratulations! Your journey to a powerful online presence has officially begun. We're thrilled to partner with you and will reach out within 24 hours to kickstart the creation of your stunning new website.
-            </p>
-          </>
-        ) : paymentStatus === 'requested' ? (
-          <>
-            <div className="text-blue-500 text-6xl mb-4">
-              &#x2139; {/* Information icon */}
-            </div>
-            <p className="text-2xl font-semibold text-blue-600 dark:text-blue-400 mb-4">
-              Custom Quote Request Submitted!
-            </p>
-            <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
-              Thank you for your custom request! Our team of experts will review your specific needs and get back to you with a personalized quote within 1-2 business days. We're excited to bring your unique vision to life!
-            </p>
-          </>
-        ) : (
-          <>
-            <div className="text-red-500 text-6xl mb-4">
-              &#x2717; {/* X icon */}
-            </div>
-            <p className="text-2xl font-semibold text-red-600 dark:text-red-400 mb-4">
-              Payment Failed
-            </p>
-            <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
-              A Small Detour: It looks like there was an issue with your payment. Please try again, or reach out to our support team – we're here to help you get back on track!
-            </p>
-          </>
-        )}
-
-        <div className="text-left space-y-3 mb-8 bg-gray-50 dark:bg-[#2B253B] p-6 rounded-lg border border-gray-200 dark:border-gray-800">
-          <p className="text-lg text-gray-900 dark:text-gray-200">
-            <span className="font-semibold">Plan:</span> {plan?.name}
-          </p>
-          {!isCustomPlan && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Base Price:</span> {baseAmount.toFixed(2)}/month
-            </p>
-          )}
-          {websiteType && !isCustomPlan && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Website Type:</span> {websiteType}
-            </p>
-          )}
-          {websiteType === 'E-commerce' && !isCustomPlan && (
-            <>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Est. Products:</span> {numProducts || 'N/A'}
-              </p>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Payment Gateways:</span> {paymentGateways.length > 0 ? paymentGateways.join(', ') : 'N/A'}
-              </p>
-            </>
-          )}
-          {websiteType === 'Blog' && !isCustomPlan && (
-            <>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Est. Blog Posts:</span> {numBlogPosts || 'N/A'}
-              </p>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Comment System:</span> {commentSystem || 'N/A'}
-              </p>
-            </>
-          )}
-          {(!isCustomPlan && (websiteType === 'Corporate' || websiteType === 'Service')) && (
-            <>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Est. Pages:</span> {numPages || 'N/A'}
-              </p>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Service Categories:</span> {serviceCategories || 'N/A'}
-              </p>
-            </>
-          )}
-          {websiteType === 'Portfolio' && !isCustomPlan && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Est. Projects/Items:</span> {numProjects || 'N/A'}
-            </p>
-          )}
-          {assets.length > 0 && !isCustomPlan && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Assets Provided:</span> {assets.join(', ')}
-            </p>
-          )}
-          {requirements && (
-            <p className="text-lg text-gray-900 dark:text-gray-200">
-              <span className="font-semibold">Requirements:</span> {requirements}
-            </p>
-          )}
-
-          {!isCustomPlan && additionalFeatures.length > 0 && (
-            <>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Selected Add-ons:</span>
-              </p>
-              <ul className="list-disc list-inside ml-4 text-gray-900 dark:text-gray-200">
-                {additionalFeatures.map((feature, index) => (
-                  <li key={index}>{feature} (+{addOnCostPerItem.toFixed(2)})</li>
-                ))}
-              </ul>
-              <p className="text-lg text-gray-900 dark:text-gray-200">
-                <span className="font-semibold">Total Add-on Cost:</span> {totalAddOnCost.toFixed(2)}
-              </p>
-            </>
-          )}
-
-          {!isCustomPlan && (
-            <p className="2xl font-bold text-gray-900 dark:text-gray-100 mt-6">
-              Final Total: {totalAmount.toFixed(2)}/month
-            </p>
-          )}
-        </div>
-
-        <button
-          onClick={() => setCurrentPage('home')}
-          className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105"
-        >
-          Explore More Success Stories
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// Blog Page Component
-function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, toggleDarkMode, isMobileMenuOpen, setIsMobileMenuOpen }) {
-  const handleReadMore = (post) => {
-    setSelectedBlogPost(post);
-    setCurrentPage('blogPost');
-  };
-
-  return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
-        <nav className="container mx-auto flex justify-between items-center">
-          {/* Hamburger Icon */}
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
-            Swift90
-          </div>
-          <div className="flex items-center space-x-4">
-            <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-              {darkMode ? (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
-                </svg>
-              )}
-            </button>
-          </div>
-        </nav>
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
-            <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
-            <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
-            <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
-            <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
-            <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
-            <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
-            <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
-            <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
-            <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
-            <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="bg-orange-500 text-white px-8 py-3 rounded-full text-xl font-semibold hover:bg-orange-600 transition duration-300 shadow-md">
-              Get Started
-            </a>
-          </div>
-        )}
-      </header>
-
-      <div className="container mx-auto mt-24 max-w-4xl bg-white dark:bg-[#1F1A2A] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">Your Guide to Digital Success: Insights from the Swift90 Blog</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {blogPosts.map(post => (
-            <div key={post.id} className="bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm p-6 transform hover:scale-[1.02] hover:shadow-md transition duration-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{post.title}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{post.date}</p>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">{post.excerpt}</p>
+            <div className="flex justify-between items-center mt-8">
               <button
-                onClick={() => handleReadMore(post)}
-                className="text-orange-500 hover:text-orange-600 font-semibold transition-colors duration-300"
+                type="button"
+                onClick={() => setCurrentPage('home')}
+                className="px-6 py-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300"
               >
-                Read More &rarr;
+                Review Your Plan
+              </button>
+              <button
+                type="submit"
+                className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105"
+              >
+                {isCustomPlan ? 'Submit Custom Request' : 'Confirm & Begin Your Online Journey'}
               </button>
             </div>
-          ))}
+          </form>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// Blog Post Page Component
-function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobileMenuOpen, setIsMobileMenuOpen }) {
-  if (!post) {
-    return (
-      <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#2B253B] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6 flex items-center justify-center`}>
-        <p className="text-xl">Blog post not found.</p>
-        <button
-          onClick={() => setCurrentPage('blog')}
-          className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition duration-300 shadow-md ml-4"
-        >
-          Back to Blog
-        </button>
       </div>
     );
   }
 
-  return (
-    <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
-      <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
-        <nav className="container mx-auto flex justify-between items-center">
-          {/* Hamburger Icon */}
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-          <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
-            Swift90
-          </div>
-          <div className="flex items-center space-x-4">
-            <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-              {darkMode ? (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
-                </svg>
-              )}
-            </button>
-          </div>
-        </nav>
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
-            <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+  // Payment Page Component
+  function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, darkMode, toggleDarkMode, selectedCountry, pricingData, isMobileMenuOpen, setIsMobileMenuOpen }) {
+    const { plan, additionalFeatures } = purchaseDetails; // Destructure additionalFeatures here
+    const isCustomPlan = plan?.name === 'Custom';
+
+    const currency = pricingData[selectedCountry]?.currency || '$';
+    const currencyCode = pricingData[selectedCountry]?.currencyCode || 'USD'; // Get currency code
+    const baseAmount = isCustomPlan ? 0 : (plan ? plan.price : 0);
+    const addOnCostPerItem = baseAmount * 0.20; // 20% of base plan price per add-on
+    const totalAddOnCost = isCustomPlan ? 0 : (additionalFeatures.length * addOnCostPerItem);
+    const totalAmount = baseAmount + totalAddOnCost;
+
+    const [loadingPayment, setLoadingPayment] = useState(false);
+    const [messageBox, setMessageBox] = useState(null); // State for custom message box
+    const [exchangeNotice, setExchangeNotice] = useState(''); // New state for exchange rate notice
+    const [showPaymentGateway, setShowPaymentGateway] = useState(false); // New state to control gateway display
+
+    // Simulated exchange rates for demonstration purposes (as of a recent hour)
+    // In a real application, you would fetch these from a reliable currency exchange API.
+    const simulatedExchangeRates = {
+      'USD_NGN': 1500, // 1 USD = 1500 NGN (example rate)
+      'GBP_NGN': 1850, // 1 GBP = 1850 NGN (example rate)
+      'CAD_NGN': 1100, // 1 CAD = 1100 NGN (example rate)
+      'AUD_NGN': 1000, // 1 AUD = 1000 NGN (example rate)
+      'EUR_NGN': 1600, // 1 EUR = 1600 NGN (example rate)
+      'INR_NGN': 18,   // 1 INR = 18 NGN (example rate)
+      'BRL_NGN': 300,  // 1 BRL = 300 NGN (example rate)
+      'ZAR_NGN': 80,   // 1 ZAR = 80 NGN (example rate)
+      'JPY_NGN': 10,   // 1 JPY = 10 NGN (adjusted for 100 JPY for easier calculation, so 1 JPY = 0.1 NGN)
+      'MXN_NGN': 90,   // 1 MXN = 90 NGN (example rate)
+    };
+
+    // Load Paystack script dynamically (only if not a custom plan)
+    useEffect(() => {
+      if (!isCustomPlan) {
+        const script = document.createElement('script');
+        script.src = 'https://js.paystack.co/v1/inline.js';
+        script.async = true;
+        document.body.appendChild(script);
+        return () => {
+          document.body.removeChild(script);
+        };
+      }
+    }, [isCustomPlan]);
+
+    useEffect(() => {
+      if (showPaymentGateway && window.PaystackPop) {
+        const PAYSTACK_PUBLIC_KEY = 'pk_live_2ba1413aaaf5091188571ea6f87cca34945d943c'; // Live Public Key
+        let amountForPaystack = totalAmount * 100; // Default conversion (to kobo)
+        let paystackCurrency = currencyCode; // Default to selected country's currency
+
+        // Check if conversion to NGN is needed
+        if (currencyCode !== 'NGN') {
+          const exchangeRateKey = `${currencyCode}_NGN`;
+          const rate = simulatedExchangeRates[exchangeRateKey];
+
+          if (rate) {
+            amountForPaystack = (totalAmount * rate) * 100; // Convert to NGN, then to kobo
+            paystackCurrency = 'NGN';
+          } else {
+            paystackCurrency = 'NGN'; // Still force NGN for Paystack demo
+            amountForPaystack = 15000 * 100; // Fallback to a basic NGN price for demo
+          }
+        }
+
+        const handler = window.PaystackPop.setup({
+          key: PAYSTACK_PUBLIC_KEY,
+          email: 'customer@example.com', // Replace with actual customer email or dynamic value
+          amount: Math.round(amountForPaystack), // Ensure amount is an integer (kobo)
+          currency: paystackCurrency, // Use the adjusted currency (NGN)
+          ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference
+          onClose: function () {
+            setMessageBox({ message: 'Payment window closed.', type: 'info' });
+            setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'failed' }));
+            setLoadingPayment(false);
+            setExchangeNotice(''); // Clear notice on close
+            setShowPaymentGateway(false); // Reset gateway display
+          },
+          callback: function (response) {
+            setMessageBox({ message: 'Payment successful! Reference: ' + response.reference, type: 'success' });
+            setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'successful' }));
+            setLoadingPayment(false);
+            setCurrentPage('checkout');
+            setExchangeNotice(''); // Clear notice on success
+            setShowPaymentGateway(false); // Reset gateway display
+            console.log('Paystack Response:', response);
+
+            // Example: Call your backend to verify the transaction
+            // fetch('/api/verify-paystack-payment', {
+            //   method: 'POST',
+            //   headers: { 'Content-Type': 'application/json' },
+            //   body: JSON.stringify({ reference: response.reference })
+            // })
+            // .then(res => res.json())
+            // .then(data => {
+            //   if (data.status === 'success') {
+            //     console.log('Transaction verified by backend:', data);
+            //     // Update UI or grant access based on successful verification
+            //   } else {
+            //     console.error('Backend verification failed:', data);
+            //     setMessageBox({ message: 'Payment could not be verified. Please contact support.', type: 'error' });
+            //   }
+            // })
+            // .catch(error => {
+            //   console.error('Error during backend verification:', error);
+            //   setMessageBox({ message: 'An error occurred during payment verification.', type: 'error' });
+            // });
+          },
+        });
+        handler.openIframe();
+      } else if (showPaymentGateway && !window.PaystackPop) {
+        setMessageBox({ message: 'Paystack script not loaded. Please ensure the inline.js script is included in your HTML.', type: 'error' });
+        setLoadingPayment(false);
+        setExchangeNotice(''); // Clear notice on script load error
+        setShowPaymentGateway(false); // Reset gateway display
+      }
+    }, [showPaymentGateway, totalAmount, currencyCode, simulatedExchangeRates, setMessageBox, setPurchaseDetails, setLoadingPayment, setCurrentPage]);
+
+
+    const handleInitiatePayment = () => {
+      setLoadingPayment(true);
+      let currentExchangeNotice = '';
+
+      // Determine exchange rate notice
+      if (currencyCode !== 'NGN') {
+        const exchangeRateKey = `${currencyCode}_NGN`;
+        const rate = simulatedExchangeRates[exchangeRateKey];
+        if (rate) {
+          currentExchangeNotice = `Note: Your payment of ${currency}${totalAmount.toFixed(2)} is being processed in NGN (Nigerian Naira) at a simulated exchange rate of 1 ${currencyCode} = ₦${rate.toFixed(2)}. Total NGN: ₦${(totalAmount * rate).toFixed(2)}.`;
+        } else {
+          currentExchangeNotice = `Note: For demonstration purposes, your payment will be processed in NGN (Nigerian Naira) at a fallback rate due to missing exchange rate data. In a real application, live exchange rates would be used.`;
+        }
+      }
+      setExchangeNotice(currentExchangeNotice);
+
+      // Start the 10-second timer to show the payment gateway
+      setTimeout(() => {
+        setShowPaymentGateway(true);
+      }, 10000); // 10 seconds delay
+    };
+
+    const handleCustomRequestConfirmation = () => {
+      setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'requested' }));
+      setCurrentPage('checkout');
+    };
+
+    return (
+      <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
+        <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+          <nav className="container mx-auto flex justify-between items-center">
+            {/* Hamburger Icon */}
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
-            <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
-            <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
-            <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
-            <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
-            <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
-            <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
-            <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
-            <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
-            <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
-            <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="bg-orange-500 text-white px-8 py-3 rounded-full text-xl font-semibold hover:bg-orange-600 transition duration-300 shadow-md">
-              Get Started
-            </a>
-          </div>
-        )}
-      </header>
+            <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+              Swift90
+            </div>
+            <div className="flex items-center space-x-4">
+              <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+                {darkMode ? (
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
+                  </svg>
+                )}
+              </button>
+            </div>
+          </nav>
+          {isMobileMenuOpen && (
+            <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+              <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+              <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
+              <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
+              <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
+              <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
+              <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
+              <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
+              <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
+              <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
+              <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
+            </div>
+          )}
+        </header>
 
-      <div className="container mx-auto mt-24 max-w-4xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
-        <button
-          onClick={() => setCurrentPage('blog')}
-          className="mb-6 inline-flex items-center text-orange-500 hover:text-orange-600 font-semibold transition-colors duration-300"
-        >
-          &larr; Back to Blog
-        </button>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{post.title}</h2>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">{post.date}</p>
-        <div className="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
+            One Step Closer: Confirm Your Investment in Online Success
+          </h2>
+          <div className="space-y-4 mb-8">
+            <p className="text-lg text-gray-900 dark:text-gray-200">
+              <span className="font-semibold">Plan:</span> {plan?.name}
+            </p>
+            {!isCustomPlan && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Base Price:</span> {currency}{baseAmount.toFixed(2)}/month
+              </p>
+            )}
+            {purchaseDetails.websiteType && !isCustomPlan && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Website Type:</span> {purchaseDetails.websiteType}
+              </p>
+            )}
+            {purchaseDetails.websiteType === 'E-commerce' && !isCustomPlan && (
+              <>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Est. Products:</span> {purchaseDetails.numProducts || 'N/A'}
+                </p>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Payment Gateways:</span> {purchaseDetails.paymentGateways.length > 0 ? purchaseDetails.paymentGateways.join(', ') : 'N/A'}
+                </p>
+              </>
+            )}
+            {purchaseDetails.websiteType === 'Blog' && !isCustomPlan && (
+              <>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Est. Blog Posts:</span> {purchaseDetails.numBlogPosts || 'N/A'}
+                </p>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Comment System:</span> {purchaseDetails.commentSystem || 'N/A'}
+                </p>
+              </>
+            )}
+            {(!isCustomPlan && (purchaseDetails.websiteType === 'Corporate' || purchaseDetails.websiteType === 'Service')) && (
+              <>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Est. Pages:</span> {purchaseDetails.numPages || 'N/A'}
+                </p>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Service Categories:</span> {purchaseDetails.serviceCategories || 'N/A'}
+                </p>
+              </>
+            )}
+            {purchaseDetails.websiteType === 'Portfolio' && !isCustomPlan && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Est. Projects/Items:</span> {purchaseDetails.numProjects || 'N/A'}
+              </p>
+            )}
+            {purchaseDetails.assets.length > 0 && !isCustomPlan && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Assets Provided:</span> {purchaseDetails.assets.join(', ')}
+              </p>
+            )}
+            {purchaseDetails.requirements && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Requirements:</span> {purchaseDetails.requirements}
+              </p>
+            )}
+
+            {!isCustomPlan && additionalFeatures.length > 0 && (
+              <>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Selected Add-ons:</span>
+                </p>
+                <ul className="list-disc list-inside ml-4 text-gray-900 dark:text-gray-200">
+                  {additionalFeatures.map((feature, index) => (
+                    <li key={index}>{feature} (+{addOnCostPerItem.toFixed(2)})</li>
+                  ))}
+                </ul>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Total Add-on Cost:</span> {totalAddOnCost.toFixed(2)}
+                </p>
+              </>
+            )}
+
+            {!isCustomPlan && (
+              <p className="2xl font-bold text-gray-900 dark:text-gray-100 mt-6">
+                Total Investment in Your Digital Future: {totalAmount.toFixed(2)}/month
+              </p>
+            )}
+          </div>
+
+          {exchangeNotice && (
+            <div className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 p-4 rounded-lg mb-6 text-center text-sm font-medium border border-yellow-200 dark:border-yellow-700">
+              {exchangeNotice}
+            </div>
+          )}
+
+          <div className="flex flex-col items-center space-y-4">
+            {isCustomPlan ? (
+              <button
+                onClick={handleCustomRequestConfirmation}
+                className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 w-full md:w-auto"
+              >
+                Confirm Custom Request
+              </button>
+            ) : (
+              <button
+                onClick={handleInitiatePayment} // Call the new initiation function
+                className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto"
+                disabled={loadingPayment}
+              >
+                {loadingPayment ? 'Loading Payment Gateway...' : 'Activate Your Online Presence'}
+              </button>
+            )}
+            {loadingPayment && !isCustomPlan && (
+              <p className="text-gray-700 dark:text-gray-300">Please wait, do not close this page...</p>
+            )}
+            <button
+              type="button"
+              onClick={() => setCurrentPage('purchase')}
+              className="px-6 py-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300 w-full md:w-auto"
+              disabled={loadingPayment}
+            >
+              Review Your Choices
+            </button>
+          </div>
+        </div>
+        {messageBox && (
+          <MessageBox
+            message={messageBox.message}
+            type={messageBox.type}
+            onClose={() => setMessageBox(null)}
+          />
+        )}
       </div>
-    </div>
-  );
-}
+    );
+  }
+
+  // Checkout Page Component
+  function CheckoutPage({ purchaseDetails, setCurrentPage, darkMode, toggleDarkMode, isMobileMenuOpen, setIsMobileMenuOpen }) {
+    const { plan, websiteType, assets, requirements, numProducts, paymentGateways, numBlogPosts, commentSystem, numPages, serviceCategories, numProjects, additionalFeatures, paymentStatus } = purchaseDetails;
+    const isCustomPlan = plan?.name === 'Custom';
+
+    // Recalculate total for display consistency
+    const baseAmount = isCustomPlan ? 0 : (plan ? plan.price : 0);
+    const addOnCostPerItem = baseAmount * 0.20;
+    const totalAddOnCost = isCustomPlan ? 0 : (additionalFeatures.length * addOnCostPerItem);
+    const totalAmount = baseAmount + totalAddOnCost;
+
+    return (
+      <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
+        <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+          <nav className="container mx-auto flex justify-between items-center">
+            {/* Hamburger Icon */}
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+            <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+              Swift90
+            </div>
+            <div className="flex items-center space-x-4">
+              <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+                {darkMode ? (
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
+                  </svg>
+                )}
+              </button>
+            </div>
+          </nav>
+          {isMobileMenuOpen && (
+            <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+              <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+              <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
+              <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
+              <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
+              <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
+              <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
+              <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
+              <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
+              <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
+              <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
+            </div>
+          )}
+        </header>
+
+        <div className="container mx-auto mt-24 max-w-2xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+            Your Digital Journey Has Begun!
+          </h2>
+          {paymentStatus === 'successful' ? (
+            <>
+              <div className="text-green-500 text-6xl mb-4">
+                &#10003; {/* Checkmark icon */}
+              </div>
+              <p className="text-2xl font-semibold text-green-600 dark:text-green-400 mb-4">
+                Payment Successful!
+              </p>
+              <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
+                Congratulations! Your journey to a powerful online presence has officially begun. We're thrilled to partner with you and will reach out within 24 hours to kickstart the creation of your stunning new website.
+              </p>
+            </>
+          ) : paymentStatus === 'requested' ? (
+            <>
+              <div className="text-blue-500 text-6xl mb-4">
+                &#x2139; {/* Information icon */}
+              </div>
+              <p className="text-2xl font-semibold text-blue-600 dark:text-blue-400 mb-4">
+                Custom Quote Request Submitted!
+              </p>
+              <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
+                Thank you for your custom request! Our team of experts will review your specific needs and get back to you with a personalized quote within 1-2 business days. We're excited to bring your unique vision to life!
+              </p>
+            </>
+          ) : (
+            <>
+              <div className="text-red-500 text-6xl mb-4">
+                &#x2717; {/* X icon */}
+              </div>
+              <p className="text-2xl font-semibold text-red-600 dark:text-red-400 mb-4">
+                Payment Failed
+              </p>
+              <p className="text-lg text-gray-900 dark:text-gray-200 mb-8">
+                A Small Detour: It looks like there was an issue with your payment. Please try again, or reach out to our support team – we're here to help you get back on track!
+              </p>
+            </>
+          )}
+
+          <div className="text-left space-y-3 mb-8 bg-gray-50 dark:bg-[#2B253B] p-6 rounded-lg border border-gray-200 dark:border-gray-800">
+            <p className="text-lg text-gray-900 dark:text-gray-200">
+              <span className="font-semibold">Plan:</span> {plan?.name}
+            </p>
+            {!isCustomPlan && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Base Price:</span> {baseAmount.toFixed(2)}/month
+              </p>
+            )}
+            {websiteType && !isCustomPlan && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Website Type:</span> {websiteType}
+              </p>
+            )}
+            {websiteType === 'E-commerce' && !isCustomPlan && (
+              <>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Est. Products:</span> {numProducts || 'N/A'}
+                </p>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Payment Gateways:</span> {paymentGateways.length > 0 ? paymentGateways.join(', ') : 'N/A'}
+                </p>
+              </>
+            )}
+            {websiteType === 'Blog' && !isCustomPlan && (
+              <>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Est. Blog Posts:</span> {numBlogPosts || 'N/A'}
+                </p>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Comment System:</span> {commentSystem || 'N/A'}
+                </p>
+              </>
+            )}
+            {(!isCustomPlan && (websiteType === 'Corporate' || websiteType === 'Service')) && (
+              <>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Est. Pages:</span> {numPages || 'N/A'}
+                </p>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Service Categories:</span> {serviceCategories || 'N/A'}
+                </p>
+              </>
+            )}
+            {websiteType === 'Portfolio' && !isCustomPlan && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Est. Projects/Items:</span> {numProjects || 'N/A'}
+              </p>
+            )}
+            {assets.length > 0 && !isCustomPlan && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Assets Provided:</span> {assets.join(', ')}
+              </p>
+            )}
+            {requirements && (
+              <p className="text-lg text-gray-900 dark:text-gray-200">
+                <span className="font-semibold">Requirements:</span> {requirements}
+              </p>
+            )}
+
+            {!isCustomPlan && additionalFeatures.length > 0 && (
+              <>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Selected Add-ons:</span>
+                </p>
+                <ul className="list-disc list-inside ml-4 text-gray-900 dark:text-gray-200">
+                  {additionalFeatures.map((feature, index) => (
+                    <li key={index}>{feature} (+{addOnCostPerItem.toFixed(2)})</li>
+                  ))}
+                </ul>
+                <p className="text-lg text-gray-900 dark:text-gray-200">
+                  <span className="font-semibold">Total Add-on Cost:</span> {totalAddOnCost.toFixed(2)}
+                </p>
+              </>
+            )}
+
+            {!isCustomPlan && (
+              <p className="2xl font-bold text-gray-900 dark:text-gray-100 mt-6">
+                Final Total: {totalAmount.toFixed(2)}/month
+              </p>
+            )}
+          </div>
+
+          <button
+            onClick={() => setCurrentPage('home')}
+            className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105"
+          >
+            Explore More Success Stories
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Blog Page Component
+  function BlogPage({ blogPosts, setSelectedBlogPost, setCurrentPage, darkMode, toggleDarkMode, isMobileMenuOpen, setIsMobileMenuOpen }) {
+    const handleReadMore = (post) => {
+      setSelectedBlogPost(post);
+      setCurrentPage('blogPost');
+    };
+
+    return (
+      <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
+        <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+          <nav className="container mx-auto flex justify-between items-center">
+            {/* Hamburger Icon */}
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+            <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+              Swift90
+            </div>
+            <div className="flex items-center space-x-4">
+              <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+                {darkMode ? (
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
+                  </svg>
+                )}
+              </button>
+            </div>
+          </nav>
+          {isMobileMenuOpen && (
+            <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+              <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+              <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
+              <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
+              <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
+              <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
+              <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
+              <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
+              <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
+              <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
+              <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
+            </div>
+          )}
+        </header>
+
+        <div className="container mx-auto mt-24 max-w-4xl bg-white dark:bg-[#1F1A2A] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">Your Guide to Digital Success: Insights from the Swift90 Blog</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {blogPosts.map(post => (
+              <div key={post.id} className="bg-gray-50 dark:bg-[#2B253B] rounded-lg shadow-sm p-6 transform hover:scale-[1.02] hover:shadow-md transition duration-300 border border-gray-200 dark:border-gray-800 hover:border-orange-500">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{post.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{post.date}</p>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">{post.excerpt}</p>
+                <button
+                  onClick={() => handleReadMore(post)}
+                  className="text-orange-500 hover:text-orange-600 font-semibold transition-colors duration-300"
+                >
+                  Read More &rarr;
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Blog Post Page Component
+  function BlogPostPage({ post, setCurrentPage, darkMode, toggleDarkMode, isMobileMenuOpen, setIsMobileMenuOpen }) {
+    if (!post) {
+      return (
+        <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#2B253B] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6 flex items-center justify-center`}>
+          <p className="text-xl">Blog post not found.</p>
+          <button
+            onClick={() => setCurrentPage('blog')}
+            className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition duration-300 shadow-md ml-4"
+          >
+            Back to Blog
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-[#1F1A2A] font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500 py-16 md:py-24 px-6`}>
+        <header className="bg-white dark:bg-[#1F1A2A] shadow-md py-4 px-6 md:px-12 fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-900 transition-colors duration-500">
+          <nav className="container mx-auto flex justify-between items-center">
+            {/* Hamburger Icon */}
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+            <div className="text-2xl font-bold text-[#CAC4D0] rounded-lg p-2 transition-colors duration-500">
+              Swift90
+            </div>
+            <div className="flex items-center space-x-4">
+              <button onClick={toggleDarkMode} className="text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+                {darkMode ? (
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.996 5.996 0 01-5.65-5.65c-.44-.06-.9-.1-1.36-.1z"></path>
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 18.894a.75.75 0 10-1.06-1.06l-1.591 1.59a.75.75 0 001.06 1.06l1.59-1.59zm-10.606 0a.75.75 0 10-1.06 1.06l-1.59 1.59a.75.75 0 001.06 1.06l1.59-1.59zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM4.343 5.757a.75.75 0 011.06-1.06l1.59 1.59a.75.75 0 01-1.06 1.06l-1.59-1.59z"></path>
+                  </svg>
+                )}
+              </button>
+            </div>
+          </nav>
+          {isMobileMenuOpen && (
+            <div className="fixed inset-0 bg-white dark:bg-[#1F1A2A] bg-opacity-95 dark:bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transition-colors duration-500">
+              <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-700 dark:text-gray-300 focus:outline-none hover:text-orange-500 transition-colors duration-300">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+              <a href="#why-terraace" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Why Swift90?</a>
+              <a href="#how-it-works" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">How it Works</a>
+              <a href="#features" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Features</a>
+              <a href="#portfolio" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Portfolio</a>
+              <a href="#testimonials" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Testimonials</a>
+              <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Pricing</a>
+              <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">FAQ</a>
+              <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300">Contact</a>
+              <button onClick={() => { setCurrentPage('blog'); setIsMobileMenuOpen(false); }} className="text-gray-900 dark:text-gray-100 text-2xl font-semibold hover:text-orange-500 transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer">Blog</button>
+            </div>
+          )}
+        </header>
+
+        <div className="container mx-auto mt-24 max-w-4xl bg-white dark:bg-[#2B253B] p-8 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 animate-fade-in-up transition-colors duration-500">
+          <button
+            onClick={() => setCurrentPage('blog')}
+            className="mb-6 inline-flex items-center text-orange-500 hover:text-orange-600 font-semibold transition-colors duration-300"
+          >
+            &larr; Back to Blog
+          </button>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{post.title}</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">{post.date}</p>
+          <div className="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: post.content }} />
+        </div>
+      </div>
+    );
+  }
 
 export default App;
