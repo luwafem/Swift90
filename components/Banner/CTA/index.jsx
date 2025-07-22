@@ -168,7 +168,7 @@ function App() {
       currency: '₦',
       currencyCode: 'NGN', // Added for Paystack
       plans: {
-        basic: { name: 'Basic', price: 500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_i8848v389v94cga' }, // Updated price and plan code
+        basic: { name: 'Basic', price: 20000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_ptb1hb41va33pe0' }, // Updated price and plan code
         pro: { name: 'Pro', price: 60000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_po6k9pskjr6c6y4' }, // Updated price and plan code
         enterprise: { name: 'Enterprise', price: 100000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_hb5osqdsmf09ypk' }, // Updated price and plan code
         custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
@@ -1584,35 +1584,22 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
 
   // Payment Page Component
   function PaymentPage({ purchaseDetails, setPurchaseDetails, setCurrentPage, darkMode, toggleDarkMode, selectedCountry, pricingData, isMobileMenuOpen, setIsMobileMenuOpen }) {
-    const { plan, additionalFeatures } = purchaseDetails; // Destructure additionalFeatures here
+    const { plan, additionalFeatures } = purchaseDetails;
     const isCustomPlan = plan?.name === 'Custom';
 
     const currency = pricingData[selectedCountry]?.currency || '$';
-    const currencyCode = pricingData[selectedCountry]?.currencyCode || 'USD'; // Get currency code
+    const currencyCode = pricingData[selectedCountry]?.currencyCode || 'USD';
     const baseAmount = isCustomPlan ? 0 : (plan ? plan.price : 0);
-    const addOnCostPerItem = baseAmount * 0.20; // 20% of base plan price per add-on
+    const addOnCostPerItem = baseAmount * 0.20;
     const totalAddOnCost = isCustomPlan ? 0 : (additionalFeatures.length * addOnCostPerItem);
     const totalAmount = baseAmount + totalAddOnCost;
 
+    const [customerName, setCustomerName] = useState('');
+    const [customerEmail, setCustomerEmail] = useState('');
     const [loadingPayment, setLoadingPayment] = useState(false);
-    const [messageBox, setMessageBox] = useState(null); // State for custom message box
-    const [exchangeNotice, setExchangeNotice] = useState(''); // New state for exchange rate notice
-    // Removed showPaymentGateway state as it's no longer needed for a delayed pop-up
-
-    // Simulated exchange rates for demonstration purposes (as of a recent hour)
-    // In a real application, you would fetch these from a reliable currency exchange API.
-    const simulatedExchangeRates = {
-      'USD_NGN': 1500, // 1 USD = 1500 NGN (example rate)
-      'GBP_NGN': 1850, // 1 GBP = 1850 NGN (example rate)
-      'CAD_NGN': 1100, // 1 CAD = 1100 NGN (example rate)
-      'AUD_NGN': 1000, // 1 AUD = 1000 NGN (example rate)
-      'EUR_NGN': 1600, // 1 EUR = 1600 NGN (example rate)
-      'INR_NGN': 18,   // 1 INR = 18 NGN (example rate)
-      'BRL_NGN': 300,  // 1 BRL = 300 NGN (example rate)
-      'ZAR_NGN': 80,   // 1 ZAR = 80 NGN (example rate)
-      'JPY_NGN': 10,   // 1 JPY = 10 NGN (adjusted for 100 JPY for easier calculation, so 1 JPY = 0.1 NGN)
-      'MXN_NGN': 90,   // 1 MXN = 90 NGN (example rate)
-    };
+    const [messageBox, setMessageBox] = useState(null);
+    const [exchangeNotice, setExchangeNotice] = useState('');
+    const [formspreeLoading, setFormspreeLoading] = useState(false);
 
     // Load Paystack script dynamically (only if not a custom plan)
     useEffect(() => {
@@ -1627,12 +1614,67 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
       }
     }, [isCustomPlan]);
 
+    const sendPurchaseDetailsToFormspree = async (status, paystackRef = null) => {
+      setFormspreeLoading(true);
+      const formspreeEndpoint = 'https://formspree.io/f/xyzpewbr'; // Your Formspree endpoint
+
+      const detailsToSend = {
+        planName: plan?.name,
+        country: selectedCountry,
+        basePrice: plan?.price,
+        totalAmount: totalAmount,
+        customerName: customerName,
+        customerEmail: customerEmail,
+        websiteType: purchaseDetails.websiteType,
+        assetsProvided: purchaseDetails.assets.join(', '),
+        requirements: purchaseDetails.requirements,
+        numProducts: purchaseDetails.numProducts,
+        paymentGateways: purchaseDetails.paymentGateways.join(', '),
+        numBlogPosts: purchaseDetails.numBlogPosts,
+        commentSystem: purchaseDetails.commentSystem,
+        numPages: purchaseDetails.numPages,
+        serviceCategories: purchaseDetails.serviceCategories,
+        numProjects: purchaseDetails.numProjects,
+        additionalFeatures: purchaseDetails.additionalFeatures.join(', '),
+        paymentStatus: status,
+        paystackReference: paystackRef,
+        timestamp: new Date().toISOString(),
+      };
+
+      try {
+        const response = await fetch(formspreeEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(detailsToSend),
+        });
+
+        if (response.ok) {
+          console.log('Purchase details sent to Formspree successfully!');
+          // Optionally show a success message to the user about the details being sent
+        } else {
+          console.error('Failed to send purchase details to Formspree:', response.statusText);
+          // Optionally show an error message
+        }
+      } catch (error) {
+        console.error('Error sending purchase details to Formspree:', error);
+        // Optionally show an error message
+      } finally {
+        setFormspreeLoading(false);
+      }
+    };
+
     const handleInitiatePayment = () => {
+      if (!customerName || !customerEmail) {
+        setMessageBox({ message: 'Please provide your name and email to proceed.', type: 'error' });
+        return;
+      }
+
       setLoadingPayment(true);
       let currentExchangeNotice = '';
 
-      // Determine exchange rate notice. Now that prices are in NGN,
-      // the notice is simpler: it's just about the payment being in NGN.
       if (currencyCode !== 'NGN') {
         currentExchangeNotice = `Note: Your payment for this plan will be processed in NGN (Nigerian Naira). The displayed price of ${currency}${totalAmount.toFixed(2)} is the equivalent of ₦${totalAmount.toFixed(2)} at the time of purchase.`;
       } else {
@@ -1640,7 +1682,6 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
       }
       setExchangeNotice(currentExchangeNotice);
 
-      // Trigger Paystack immediately
       if (window.PaystackPop) {
         const PAYSTACK_PUBLIC_KEY = 'pk_live_2ba1413aaaf5091188571ea6f87cca34945d943c'; // Live Public Key
         let amountForPaystack = totalAmount * 100; // Total amount is already in NGN, convert to kobo
@@ -1648,7 +1689,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
 
         const handler = window.PaystackPop.setup({
           key: PAYSTACK_PUBLIC_KEY,
-          email: 'customer@example.com', // Replace with actual customer email or dynamic value
+          email: customerEmail, // Use customer's email
           amount: Math.round(amountForPaystack), // Ensure amount is an integer (kobo)
           currency: paystackCurrency, // Use the adjusted currency (NGN)
           ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference
@@ -1658,6 +1699,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'failed' }));
             setLoadingPayment(false);
             setExchangeNotice(''); // Clear notice on close
+            sendPurchaseDetailsToFormspree('failed'); // Send failed status to Formspree
           },
           callback: function (response) {
             setMessageBox({ message: 'Payment successful! Reference: ' + response.reference, type: 'success' });
@@ -1666,27 +1708,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             setCurrentPage('checkout');
             setExchangeNotice(''); // Clear notice on success
             console.log('Paystack Response:', response);
-
-            // Example: Call your backend to verify the transaction
-            // fetch('/api/verify-paystack-payment', {
-            //   method: 'POST',
-            //   headers: { 'Content-Type': 'application/json' },
-            //   body: JSON.stringify({ reference: response.reference })
-            // })
-            // .then(res => res.json())
-            // .then(data => {
-            //   if (data.status === 'success') {
-            //     console.log('Transaction verified by backend:', data);
-            //     // Update UI or grant access based on successful verification
-            //   } else {
-            //     console.error('Backend verification failed:', data);
-            //     setMessageBox({ message: 'Payment could not be verified. Please contact support.', type: 'error' });
-            //   }
-            // })
-            // .catch(error => {
-            //   console.error('Error during backend verification:', error);
-            //   setMessageBox({ message: 'An error occurred during payment verification.', type: 'error' });
-            // });
+            sendPurchaseDetailsToFormspree('successful', response.reference); // Send successful status to Formspree
           },
         });
         handler.openIframe();
@@ -1698,7 +1720,12 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
     };
 
     const handleCustomRequestConfirmation = () => {
+      if (!customerName || !customerEmail) {
+        setMessageBox({ message: 'Please provide your name and email to submit your custom request.', type: 'error' });
+        return;
+      }
       setPurchaseDetails(prev => ({ ...prev, paymentStatus: 'requested' }));
+      sendPurchaseDetailsToFormspree('requested'); // Send custom request status to Formspree
       setCurrentPage('checkout');
     };
 
@@ -1836,6 +1863,38 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             )}
           </div>
 
+          {/* Contact Form for Name and Email */}
+          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Your Contact Information</h3>
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="customerName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Your Name</label>
+                <input
+                  type="text"
+                  id="customerName"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 transition-colors duration-300"
+                  placeholder="Full Name"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="customerEmail" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Your Email</label>
+                <input
+                  type="email"
+                  id="customerEmail"
+                  value={customerEmail}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 transition-colors duration-300"
+                  placeholder="your@example.com"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+
           {exchangeNotice && (
             <div className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 p-4 rounded-lg mb-6 text-center text-sm font-medium border border-yellow-200 dark:border-yellow-700">
               {exchangeNotice}
@@ -1846,27 +1905,28 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             {isCustomPlan ? (
               <button
                 onClick={handleCustomRequestConfirmation}
-                className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 w-full md:w-auto"
+                className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={formspreeLoading}
               >
-                Confirm Custom Request
+                {formspreeLoading ? 'Submitting Request...' : 'Confirm Custom Request'}
               </button>
             ) : (
               <button
                 onClick={handleInitiatePayment} // Call the new initiation function
                 className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto"
-                disabled={loadingPayment}
+                disabled={loadingPayment || formspreeLoading}
               >
                 {loadingPayment ? 'Loading Payment Gateway...' : 'Activate Your Online Presence'}
               </button>
             )}
-            {loadingPayment && !isCustomPlan && (
+            {(loadingPayment || formspreeLoading) && !isCustomPlan && (
               <p className="text-gray-700 dark:text-gray-300">Please wait, do not close this page...</p>
             )}
             <button
               type="button"
               onClick={() => setCurrentPage('purchase')}
               className="px-6 py-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300 w-full md:w-auto"
-              disabled={loadingPayment}
+              disabled={loadingPayment || formspreeLoading}
             >
               Review Your Choices
             </button>
