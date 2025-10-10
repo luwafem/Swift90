@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
+import { TypeAnimation } from 'react-type-animation';
 import { BsMoonStarsFill, BsSunFill } from 'react-icons/bs';
 import { HiOutlineLightningBolt, HiOutlineCog, HiOutlinePlus, HiOutlineMinus, HiOutlinePaperAirplane, HiOutlineShieldCheck, HiOutlineChatAlt2, HiOutlineSupport, HiOutlineTrendingUp, HiOutlineDeviceMobile, HiOutlineSearch, HiArrowLeft, HiArrowRight, HiCheckCircle, HiOutlineRocketLaunch, HiOutlineClock, HiLockClosed, HiInformationCircle, HiExclamationCircle, HiOutlineDocumentText} from 'react-icons/hi';
 
@@ -8,14 +9,15 @@ import { HiOutlineLightningBolt, HiOutlineCog, HiOutlinePlus, HiOutlineMinus, Hi
 function IntroAnimation({ onAnimationEnd }) {
   const [fadeOut, setFadeOut] = useState(false);
 
+  // This effect will trigger the fade-out and end the animation
   useEffect(() => {
     const fadeOutTimer = setTimeout(() => {
       setFadeOut(true);
-    }, 2000);
+    }, 4500); // Start fade-out after the typing animation finishes
 
     const animationEndTimer = setTimeout(() => {
       onAnimationEnd();
-    }, 2500);
+    }, 5000); // End the animation after the fade-out completes
 
     return () => {
       clearTimeout(fadeOutTimer);
@@ -24,24 +26,32 @@ function IntroAnimation({ onAnimationEnd }) {
   }, [onAnimationEnd]);
 
   return (
-    <div className={`fixed inset-0 bg-white dark:bg-[#1F1A2A] flex items-center justify-center z-[9999] transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
-      <h1 className="text-2xl md:text-6xl font-extrabold text-[#1F1A2A] dark:text-[#CAC4D0] animate-slide-in-left-intro">
-        Swift90
-      </h1>
-      {/* Ensure dark mode transition is smooth even during intro */}
-      <style>{`
-        @keyframes slideInLeftIntro {
-          from { opacity: 0; transform: translateX(-100px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        .animate-slide-in-left-intro {
-          animation: slideInLeftIntro 1s ease-out forwards;
-        }
-      `}</style>
+    <div
+      className={`fixed inset-0 bg-tech-bg flex items-center justify-center z-[9999] transition-opacity duration-500 font-mono ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
+    >
+      <div className="text-center">
+        <TypeAnimation
+          sequence={[
+            'INITIATING CONNECTION...',
+            500,
+            'LOADING CORE MODULES...',
+            500,
+            'SYSTEM ONLINE.',
+            500,
+          ]}
+          wrapper="p"
+          speed={50}
+          className="text-lg md:text-2xl text-green-400"
+        />
+        <h1 className="text-4xl md:text-7xl font-bold mt-4">
+          <span className="text-white">SWIFT</span>
+          <span className="text-tech-cyan">90</span>
+          <span className="animate-blink">_</span>
+        </h1>
+      </div>
     </div>
   );
 }
-
 // Custom Message Box Component (Replaces alert())
 const MessageBox = ({ message, type, onClose }) => {
   let bgColor = '';

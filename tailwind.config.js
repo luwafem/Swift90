@@ -15,27 +15,28 @@ module.exports = {
         'tech-magenta': '#FF00FF',
       },
       fontFamily: {
-        // Here, we link our 'mono' utility to a CSS variable
-        // that will be provided by next/font.
         mono: ['var(--font-roboto-mono)', 'monospace'],
       },
       animationDelay: {
         300: '300ms',
         500: '500ms',
       },
-
-      // --- ADD THIS SECTION ---
       keyframes: {
         'pulse-once': {
           '0%, 100%': { boxShadow: '0 0 20px rgba(0, 191, 255, 0.0)' },
           '50%': { boxShadow: '0 0 20px rgba(0, 191, 255, 0.4)' },
         },
+        // --- ADD THIS ---
+        blink: {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0 },
+        },
       },
       animation: {
         'pulse-once': 'pulse-once 1.5s ease-in-out',
+        // --- ADD THIS ---
+        blink: 'blink 1s step-end infinite',
       },
-      // --- END OF ADDED SECTION ---
-      
     },
   },
   plugins: [
