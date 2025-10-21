@@ -96,7 +96,7 @@ const MessageBox = ({ message, type, onClose }) => {
         <p className="text-lg font-semibold mb-4">{message}</p>
         <button
           onClick={onClose}
-          className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition duration-300"
+          className="bg-tech-cyan text-white px-6 py-2 rounded-full hover:bg-tech-cyan transition duration-300"
         >
           OK
         </button>
@@ -492,7 +492,7 @@ function App() {
                 </p>
                 <div className="relative mb-6">
                   <select
-                    className="block appearance-none w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-200 py-3 px-6 pr-8 rounded-lg leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors duration-500 shadow-sm"
+                    className="block appearance-none w-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-200 py-3 px-6 pr-8 rounded-lg leading-tight focus:outline-none focus:ring-2 focus:ring-tech-cyan focus:border-transparent transition-colors duration-500 shadow-sm"
                     onChange={handleCountrySelect}
                     defaultValue="" // Set a default empty value for prompt
                   >
@@ -515,7 +515,7 @@ function App() {
                       console.log("Please select a country to continue.");
                     }
                   }}
-                  className="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-md transform hover:scale-105"
+                  className="bg-white text-tech-cyan px-8 py-2 rounded-md text-lg font-semibold hover:bg-tech-cyan hover:text-white transition duration-300 shadow-md transform hover:scale-105"
                   disabled={!selectedCountry} // Disable if no country is selected
                 >
                   Confirm
