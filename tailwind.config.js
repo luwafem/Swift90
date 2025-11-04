@@ -11,7 +11,7 @@ module.exports = {
       colors: {
         primary: "#E86512",
         'tech-bg': '#0D0D10',
-        'tech-cyan': '#00BFFF',
+        'tech-cyan': '#FFFF00',
         'tech-magenta': '#FF00FF',
       },
       fontFamily: {
@@ -26,16 +26,26 @@ module.exports = {
           '0%, 100%': { boxShadow: '0 0 20px rgba(0, 191, 255, 0.0)' },
           '50%': { boxShadow: '0 0 20px rgba(0, 191, 255, 0.4)' },
         },
-        // --- ADD THIS ---
         blink: {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0 },
         },
+        // --- ADDED FOR NEW HERO SECTION EFFECTS ---
+        'background-pan': {
+          '0%': { backgroundPosition: '0% center' },
+          '100%': { backgroundPosition: '200% center' },
+        },
+        'pulse-glow': {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(0, 191, 255, 0.5)' },
+          '50%': { boxShadow: '0 0 35px rgba(0, 191, 255, 0.8)' },
+        },
       },
       animation: {
         'pulse-once': 'pulse-once 1.5s ease-in-out',
-        // --- ADD THIS ---
         blink: 'blink 1s step-end infinite',
+        // --- ADDED FOR NEW HERO SECTION EFFECTS ---
+        'background-pan': 'background-pan 15s linear infinite',
+        'pulse-glow': 'pulse-glow 4s infinite',
       },
     },
   },

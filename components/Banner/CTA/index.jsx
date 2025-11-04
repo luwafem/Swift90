@@ -352,6 +352,64 @@ function App() {
     setCurrentPage('purchase');
   };
 
+
+  const CostIcon = () => (
+  <svg 
+    className="w-full h-24 " 
+    viewBox="0 0 100 100" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect x="10" y="60" width="15" height="30" fill="currentColor" rx="2" />
+    <rect x="35" y="40" width="15" height="50" fill="currentColor" rx="2" />
+    <rect x="60" y="20" width="15" height="70" fill="currentColor" rx="2" />
+    <rect x="85" y="50" width="15" height="40" fill="currentColor" rx="2" />
+    <path d="M5 90 H 95" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+// Icon for "Total Management" (a shield with a checkmark)
+const ManagementIcon = () => (
+  <svg 
+    className="w-full h-24 " 
+    viewBox="0 0 100 100" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path 
+      d="M50 10 L90 25 V 55 C 90 80, 50 95, 50 95 C 50 95, 10 80, 10 55 V 25 L50 10 Z" 
+      stroke="currentColor" 
+      strokeWidth="4" 
+      fill="currentColor" 
+      fillOpacity="0.1"
+    />
+    <path 
+      d="M35 50 L45 60 L65 40" 
+      stroke="white" 
+      strokeWidth="6" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+    />
+  </svg>
+);
+
+// Icon for "Business Focus" (a simple target/focus reticle)
+const FocusIcon = () => (
+  <svg 
+    className="w-full h-24 " 
+    viewBox="0 0 100 100" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="4" />
+    <circle cx="50" cy="50" r="20" stroke="currentColor" strokeWidth="4" />
+    <path d="M50 5 L50 20 M50 80 L50 95 M5 50 L20 50 M80 50 L95 50" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+    />
+  </svg>
+);
   
 
   // Dummy testimonials data
@@ -479,7 +537,7 @@ function App() {
       );
     default: // 'home' page
       return (
-        <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-black font-inter text-gray-900 dark:text-gray-100 transition-colors duration-500`}>
+        <div className={`${darkMode ? 'dark' : ''} min-h-screen bg-white dark:bg-tech-bgfont-inter text-gray-900 dark:text-gray-100 transition-colors duration-500`}>
           {showIntro && <IntroAnimation onAnimationEnd={() => setShowIntro(false)} />}
 
           {/* Location Selection Modal */}
@@ -525,7 +583,7 @@ function App() {
           )}
 
           {/* Header Section */}
-          <header className="bg-tech-bg border-b border-tech-cyan/20 fixed top-0 w-full z-50 transition-colors duration-500"> {/* MODIFIED: Matched footer style */}
+          <header className="bg-tech-bg  fixed top-0 w-full z-50 transition-colors duration-500"> {/* MODIFIED: Matched footer style */}
   <nav className="container mx-auto flex justify-between items-center px-6 py-4"> {/* MODIFIED: Adjusted padding */}
     
     {/* Mobile Menu Button (Hamburger Icon) */}
@@ -568,7 +626,7 @@ function App() {
       <a href="#faq" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-200 text-2xl font-semibold hover:text-tech-cyan transition-colors duration-300">FAQ</a>
       <a href="#contact-us" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="text-gray-200 text-2xl font-semibold hover:text-tech-cyan transition-colors duration-300">Contact</a>
      
-      <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="bg-tech-cyan text-tech-bg px-8 py-3 rounded-md text-xl font-semibold hover:bg-white hover:text-tech-cyan transition duration-300 shadow-md">
+      <a href="#pricing" onClick={() => { setCurrentPage('home'); setIsMobileMenuOpen(false); }} className="bg-tech-cyan text-tech-bg px-8 py-3 rounded-md text-xl font-semibold hover:bg-slate-500 hover:text-tech-cyan transition duration-300 shadow-md">
         Get Started
       </a>
     </div>
@@ -576,363 +634,284 @@ function App() {
 </header>
 
           {/* Hero Section */}
-          <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0D0D10] text-white p-6">
-            {/* Background Grid Overlay */}
-            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,191,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,191,255,0.1)_1px,transparent_1px)] bg-[size:2rem_2rem]"></div>
+          <div 
+      className="relative w-full min-h-screen  text-gray-200 overflow-hidden bg-cover bg-center"
+      // MODIFIED: Pointing to the new UI/UX background image
+      style={{ backgroundImage: "url('/ui-ux-bg.jpg')" }} 
+    >
+      {/* MODIFIED: Increased overlay darkness for better text contrast */}
+      <div className="absolute inset-0 bg-tech-bg z-0"></div> 
+      
+      {/* Hero Content Section */}
+      <main className="relative z-10 w-full flex flex-col items-center justify-center text-center pt-20 md:pt-28 px-4">
+        
+        {/* Pill Badge */}
+        <div className="border border-gray-700 rounded-full px-4 py-1.5 text-sm text-gray-400 mb-6">
+          The Future of Website Ownership is Here
+        </div>
+
+        {/* Main Headline */}
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold max-w-4xl tracking-tight bg-gradient-to-b from-gray-100 to-gray-500 text-transparent bg-clip-text">
+          Your Custom Website, On One Simple Subscription
+        </h1>
+        
+        {/* Sub-headline / Paragraph */}
+        <p className="mt-6 max-w-2xl text-lg text-gray-400 leading-relaxed">
+          We build, host, and maintain your perfect website for one fixed monthly fee. No huge upfront costs, no technical headaches.
+        </p>
+
+        {/* Button Group */}
+        <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+          <a href="#pricing" className="bg-tech-cyan text-tech-bg font-bold px-6 py-3 rounded-md flex items-center gap-2 hover:bg-opacity-80 transition-all">
+            <span>Explore Plans</span>
+            {/* MODIFIED: Replaced FiArrowRight with inline SVG */}
+            <svg 
+              stroke="currentColor" 
+              fill="none" 
+              strokeWidth="2" 
+              viewBox="0 0 24 24" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              className="w-5 h-5" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          
+        </div>
+      </main>
+
+      {/* Dashboard Preview Image Section */}
+      <div className="relative z-10 w-full flex justify-center mt-20 px-4 pb-16"> {/* ADDED pb-16 for some bottom padding */}
+        <div className="relative w-full max-w-5xl">
+            {/* Subtle glow behind the image */}
+            <div className="absolute inset-0 bg-tech-cyan/20 blur-xl rounded-xl"></div>
             
-            {/* Background Glow Effect */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-1/2 h-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(0,191,255,0.2)_0%,_transparent_70%)]"></div>
-
-            {/* Main Content Container */}
-            <div className="relative z-10 flex flex-col items-center text-center w-full max-w-4xl">
-              
-              {/* HUD Element Wrapper */}
-              <div className="relative p-8 w-full">
-                {/* HUD Corner Brackets - Created with simple divs */}
-                <div className="absolute top-0 left-0 h-8 w-8 border-t-2 border-l-2 border-tech-cyan/70 animate-pulse"></div>
-                <div className="absolute top-0 right-0 h-8 w-8 border-t-2 border-r-2 border-tech-cyan/70 animate-pulse"></div>
-                <div className="absolute bottom-0 left-0 h-8 w-8 border-b-2 border-l-2 border-tech-cyan/70 animate-pulse"></div>
-                <div className="absolute bottom-0 right-0 h-8 w-8 border-b-2 border-r-2 border-tech-cyan/70 animate-pulse"></div>
-
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6 tracking-tight bg-gradient-to-r from-white via-gray-300 to-tech-cyan text-transparent bg-clip-text animate-fade-in-up">
-                  Tired of Website Headaches? <br className="hidden sm:inline" /> We Build Your Online Success.
-                </h1>
-                <p className="text-lg sm:text-xl mb-10 max-w-3xl mx-auto text-gray-300 leading-relaxed animate-fade-in-up animation-delay-300">
-                  We transform your digital dreams into thriving online realities, handling every technical detail so you can focus on what truly matters: your business growth.
-                </p>
-                <a href="#pricing" className="bg-tech-cyan text-tech-bg px-8 py-3 rounded-md text-lg font-bold hover:bg-white hover:text-tech-cyan transition-all duration-300 shadow-[0_0_20px_rgba(0,191,255,0.5)] animate-fade-in-up animation-delay-500">
-                  Start Your Transformation
-                </a>
-              </div>
-
-              {/* Selling Points "Glass" Cards */}
-              <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full">
-                {/* Card 1: Speed */}
-                <div className="bg-slate-800/40 backdrop-blur-sm border border-tech-cyan/30 rounded-lg p-4 flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-tech-cyan hover:bg-slate-800/60">
-                  <HiOutlineLightningBolt className="w-10 h-10 text-tech-cyan mb-3" />
-                  <p className="text-base font-semibold">Launch in Days</p>
-                </div>
-                {/* Card 2: Simplicity */}
-                <div className="bg-slate-800/40 backdrop-blur-sm border border-tech-cyan/30 rounded-lg p-4 flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-tech-cyan hover:bg-slate-800/60">
-                  <HiOutlineCog className="w-10 h-10 text-tech-cyan mb-3" />
-                  <p className="text-base font-semibold">Hassle-Free</p>
-                </div>
-                {/* Card 3: Security */}
-                <div className="bg-slate-800/40 backdrop-blur-sm border border-tech-cyan/30 rounded-lg p-4 flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-tech-cyan hover:bg-slate-800/60">
-                  <HiOutlineShieldCheck className="w-10 h-10 text-tech-cyan mb-3" />
-                  <p className="text-base font-semibold">Ironclad Security</p>
-                </div>
-                {/* Card 4: Support */}
-                <div className="bg-slate-800/40 backdrop-blur-sm border border-tech-cyan/30 rounded-lg p-4 flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-tech-cyan hover:bg-slate-800/60">
-                  <HiOutlineChatAlt2 className="w-10 h-10 text-tech-cyan mb-3" />
-                  <p className="text-base font-semibold">24/7 Expert Support</p>
-                </div>
-              </div>
-            </div>
-          </section>
+            {/* IMPORTANT: 
+              Make sure this image is in your /public folder!
+            */}
+            <img 
+              src="https://i.pinimg.com/736x/87/50/77/8750777e7efb5480f1d31a41f52dcace.jpg" 
+              alt="Platform dashboard preview" 
+              className="relative w-full rounded-xl shadow-2xl shadow-tech-cyan/10"
+            />
+        </div>
+      </div>
+    </div>
 
                     {/* Why Choose Swift90 Section */}
-                    <section id="why-terraace" className="relative py-16 md:py-24 px-6 font-mono">
-            <div className="container mx-auto max-w-6xl text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-16 bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
-                Your Business Deserves a Digital Command Center
-              </h2>
-              
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                
-                {/* LEFT COLUMN: HUD-Framed Image */}
-                <div className="lg:col-span-5">
-                  <div className="relative hud-element p-4">
-                    <img
-                      // SUGGESTION: Replace this with a more abstract/techy image.
-                      // Search for "plexus," "wireframe globe," or "data visualization."
-                      src="https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=1740&auto=format&fit=crop"
-                      alt="Abstract technology visualization"
-                      className="rounded-lg w-full h-auto object-cover border border-tech-cyan/20"
-                    />
-                  </div>
-                </div>
+                    <section id="why-swift90" className="relative py-16 md:py-24 px-6 bg-tech-bg text-white">
+      <div className="container mx-auto max-w-7xl text-center">
 
-                {/* RIGHT COLUMN: "Glass" Text Panel */}
-                <div className="lg:col-span-7">
-                  <div className="glass-card p-8 text-left">
-                    <h3 className="text-2xl font-bold mb-4 text-white leading-tight">
-                      Reclaim Your Time: We Manage Your Digital Presence, So You Can Build Your Empire.
-                    </h3>
-                    <p className="text-gray-300 mb-4 leading-relaxed">
-                      Imagine a world where your website just *works*. No late-night updates, no security scares, no performance worries. That's the peace of mind Swift90 delivers, giving you back precious hours to innovate and drive your business forward[cite: 161, 162].
-                    </p>
-                    <p className="text-gray-300 leading-relaxed">
-                      Experience the freedom of a fully managed website that's always secure and performing at its peak, giving you a distinct advantage in the digital landscape[cite: 163, 164].
-                    </p>
-                  </div>
-                </div>
+        {/* Top Label */}
+        <p className="text-sm font-semibold text-tech-cyan mb-3">
+          — Why Choose Swift90 —
+        </p>
 
-              </div>
+        {/* Main Headline */}
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 max-w-3xl mx-auto bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
+          Your Business Deserves a Digital Command Center
+        </h2>
+
+        {/* Sub-paragraph */}
+        <p className="text-lg text-gray-400 mb-16 max-w-3xl mx-auto leading-relaxed">
+          We don't just build websites, we build growth platforms. Swift90 empowers your business with a custom digital presence, eliminating common headaches and freeing you to focus on what truly matters.
+        </p>
+
+        {/* Three Pillars/Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          {/* Card 1: Predictable Costs */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-xl p-8 flex flex-col items-center text-center transition-all duration-300 ">
+            
+            <h3 className="text-lg font-medium text-tech-bg mb-2">No Upfront Surprises</h3>
+            <p className="text-3xl font-black text-tech-bg mb-4">Low, Fixed Monthly</p>
+            <p className="text-tech-bg text-sm leading-relaxed">
+              Forget massive initial investments. Our subscription model protects your cash flow and simplifies budgeting.
+            </p>
+          </div>
+
+          {/* Card 2: Technical Freedom */}
+          <div className="bg-tech-cyan  backdrop-blur-sm rounded-xl p-8 flex flex-col items-center text-center transition-all duration-300 ">
+           
+            <h3 className="text-lg font-medium text-tech-bg mb-2">Zero Technical Headaches</h3>
+            <p className="text-3xl font-black text-tech-bg mb-4">Fully Managed Solution</p>
+            <p className="text-tech-bg text-sm leading-relaxed">
+              We host, secure, update, and fix everything. Enjoy guaranteed uptime and worry-free operation.
+            </p>
+          </div>
+
+          {/* Card 3: Business Focus */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-xl p-8 flex flex-col items-center text-center transition-all duration-300 ">
+            
+            <h3 className="text-lg font-medium text-tech-bg mb-2">Focus on Your Growth</h3>
+            <p className="text-3xl font-black text-tech-bg mb-4">Your True Digital Partner</p>
+            <p className="text-tech-bg text-sm leading-relaxed">
+              Offload the technical complexities and dedicate your energy to innovation, strategy, and business expansion.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    
+    
+    
+    
+    
+    
+     <section id="why-swift90" className="relative py-16 md:py-24 px-6 bg-tech-bg text-white">
+      <div className="container mx-auto max-w-7xl">
+        
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-start mb-16">
+          <div className="w-full md:w-2/3">
+            <p className="text-sm font-semibold text-tech-cyan mb-2">
+              — The Swift90 Difference —
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
+              The Smartest Way to Build
+              <br />
+               Without Compromise
+            </h2>
+          </div>
+          <p className="w-full md:w-1/3 text-lg text-gray-400 mt-4 md:mt-2 md:pl-8">
+            Whether you're starting fresh or migrating an empire, Swift90 gives you the tools, speed, and service to stay ahead of the curve.
+          </p>
+        </div>
+
+        {/* Feature Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+
+          {/* Card 1: Predictable Costs */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 ">
+            <div>
+              <p className="text-sm font-medium text-tech-bg mb-2">Fixed Subscription</p>
+              <h3 className="text-3xl font-black text-tech-bg mb-4">
+                Predictable Costs
+              </h3>
             </div>
-          </section>
+            <p className="text-tech-bg text-base leading-relaxed">
+              No crippling upfront costs. Just one low, fixed monthly fee that protects your cash flow and makes budgeting simple.
+            </p>
+          </div>
 
-          {/* How It Works Section */}
-          <section id="how-it-works" className="relative py-16 md:py-24 px-6 font-mono">
-            <div className="container mx-auto max-w-6xl text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-16 bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
-                From Idea to Impact: A Streamlined Protocol
-              </h2>
-
-              {/* Process Timeline Container */}
-              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-
-                {/* STEP 1 */}
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-full border-2 border-tech-cyan bg-tech-cyan/10 flex items-center justify-center text-2xl font-bold text-tech-cyan shadow-[0_0_15px_rgba(0,191,255,0.5)] mb-6">
-                    1
-                  </div>
-                  <div className="glass-card p-6 max-w-xs">
-                    <h3 className="text-xl font-bold mb-3 text-white">Your Vision, Your Plan</h3>
-                    <p className="text-gray-300 leading-relaxed">Choose the foundation for your digital future. Our flexible tiers are designed to scale with your ambition.</p>
-                  </div>
-                </div>
-
-                {/* Connector Line 1 -> 2 */}
-                <div className="flex-grow h-1 w-24 border-t-2 border-dashed border-tech-cyan/30 md:rotate-0 rotate-90"></div>
-
-                {/* STEP 2 */}
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-full border-2 border-tech-cyan bg-tech-cyan/10 flex items-center justify-center text-2xl font-bold text-tech-cyan shadow-[0_0_15px_rgba(0,191,255,0.5)] mb-6">
-                    2
-                  </div>
-                  <div className="glass-card p-6 max-w-xs">
-                    <h3 className="text-xl font-bold mb-3 text-white">Tell Us Your Story</h3>
-                    <p className="text-gray-300 leading-relaxed">We'll listen, learn, and translate your unique vision into a stunning digital experience, pixel by pixel.</p>
-                  </div>
-                </div>
-
-                {/* Connector Line 2 -> 3 */}
-                <div className="flex-grow h-1 w-24 border-t-2 border-dashed border-tech-cyan/30 md:rotate-0 rotate-90"></div>
-
-                {/* STEP 3 */}
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-full border-2 border-tech-cyan bg-tech-cyan/10 flex items-center justify-center text-2xl font-bold text-tech-cyan shadow-[0_0_15px_rgba(0,191,255,0.5)] mb-6">
-                    3
-                  </div>
-                  <div className="glass-card p-6 max-w-xs">
-                    <h3 className="text-xl font-bold mb-3 text-white">Go Live & Grow</h3>
-                    <p className="text-gray-300 leading-relaxed">Your expertly crafted website launches, ready to attract, convert, and empower your business for unstoppable growth.</p>
-                  </div>
-                </div>
-
-              </div>
+          {/* Card 2: Total Management */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 flex flex-col justify-between transition-all duration-300  transform md:scale-105">
+            <div>
+              <p className="text-sm font-medium text-tech-bg mb-2">Worry-Free WaaS</p>
+              <h3 className="text-3xl font-black text-tech-bg mb-4">
+                Total Management
+              </h3>
             </div>
-          </section>
+            <p className="text-tech-bg text-base leading-relaxed">
+              We manage all technical risk. Hosting, security, updates, and fixes are all included. Enjoy guaranteed uptime.
+            </p>
+          </div>
+
+          {/* Card 3: Business Focus */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 flex flex-col justify-between transition-all duration-300  ">
+            <div>
+              <p className="text-sm font-medium text-tech-bg mb-2">Your Digital Partner</p>
+              <h3 className="text-3xl font-black text-tech-bg mb-4">
+                Reclaim Your Time
+              </h3>
+            </div>
+            <p className="text-tech-bg text-base leading-relaxed">
+              Stop managing developers and fighting fires. Focus 100% on what you do best: building your business.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
 
           {/* Features Section */}
-          <section id="features" className="relative py-16 md:py-24 px-6 font-mono">
-          <div className="container mx-auto max-w-6xl text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-16 bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
-              Core System Specifications
-            </h2>
+          <section className="relative py-16 md:py-24 px-6 bg-tech-bg text-white">
+      <div className="container mx-auto max-w-7xl">
+        {/* Optional: Section Title/Intro - if needed */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
+             — Our Impact & Your Advantages —
+          </h2>
+        </div> 
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-              {/* Feature 1: Responsive Design */}
-              <div className="glass-card p-6 text-left">
-                <HiOutlineDeviceMobile className="w-10 h-10 text-tech-cyan mb-4" />
-                <h3 className="text-xl font-bold text-white mb-2">Fully Responsive</h3>
-                <p className="text-gray-300 leading-relaxed">Your website beautifully adapts to any screen, ensuring a perfect user experience on phones, tablets, and desktops.</p>
-              </div>
-              
-              {/* Feature 2: Performance */}
-              <div className="glass-card p-6 text-left">
-                <HiOutlineLightningBolt className="w-10 h-10 text-tech-cyan mb-4" />
-                <h3 className="text-xl font-bold text-white mb-2">Blazing-Fast Speed</h3>
-                <p className="text-gray-300 leading-relaxed">Blazing-fast load times keep visitors engaged, reducing bounce rates and boosting conversions for your business.</p>
-              </div>
-
-              {/* Feature 3: SEO */}
-              <div className="glass-card p-6 text-left">
-                <HiOutlineSearch className="w-10 h-10 text-tech-cyan mb-4" />
-                <h3 className="text-xl font-bold text-white mb-2">SEO Optimized</h3>
-                <p className="text-gray-300 leading-relaxed">Built from the ground up with SEO in mind, ensuring your business ranks higher and attracts more qualified leads.</p>
-              </div>
-
-              {/* Feature 4: Security */}
-              <div className="glass-card p-6 text-left">
-                <HiOutlineShieldCheck className="w-10 h-10 text-tech-cyan mb-4" />
-                <h3 className="text-xl font-bold text-white mb-2">Ironclad Security</h3>
-                <p className="text-gray-300 leading-relaxed">We protect your online investment with robust security, global hosting, and automatic backups, so you never have to worry.</p>
-              </div>
-
-              {/* Feature 5: Support */}
-              <div className="glass-card p-6 text-left">
-                <HiOutlineSupport className="w-10 h-10 text-tech-cyan mb-4" />
-                <h3 className="text-xl font-bold text-white mb-2">24/7 Expert Support</h3>
-                <p className="text-gray-300 leading-relaxed">Never feel alone. Our expert support means we're always here to guide you, troubleshoot, and ensure your online journey is seamless.</p>
-              </div>
-
-              {/* Feature 6: Scalability */}
-              <div className="glass-card p-6 text-left">
-                <HiOutlineTrendingUp className="w-10 h-10 text-tech-cyan mb-4" />
-                <h3 className="text-xl font-bold text-white mb-2">Limitless Scalability</h3>
-                <p className="text-gray-300 leading-relaxed">Your website evolves with your ambition. Seamlessly upgrade your plan as your business expands, ensuring your digital presence always keeps pace.</p>
-              </div>
-
-            </div>
+          {/* Card 1: Conversion Rate */}
+          <div className="bg-tech-bg  backdrop-blur-sm border border-white/10 rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:border-tech-cyan/50 hover:bg-tech-bg  lg:col-span-1">
+            <h3 className="text-5xl font-bold text-white mb-2">x2</h3>
+            <p className="text-lg text-gray-400">the conversion rate</p>
+            {/* Arrow icon */}
+            <a href="#" className="absolute bottom-6 right-6 p-2 rounded-full bg-tech-cyan/20 text-tech-cyan hover:bg-tech-cyan hover:text-white transition-all duration-300">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
           </div>
-        </section>
 
-          {/* Portfolio Section */}
-         <section id="portfolio" className="relative py-16 md:py-24 px-6 font-mono">
-          <div className="container mx-auto max-w-6xl text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-8 bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
-              Case Study Archive
-            </h2>
-            <p className="text-lg text-gray-300 mb-12 max-w-2xl mx-auto">
-              These aren't just websites; they're thriving digital presences. Imagine what we can build for you.
+          {/* Card 2: Mobile UI Image */}
+          <div className="bg-white/5 rounded-2xl relative overflow-hidden flex items-center justify-center lg:col-span-2 min-h-[200px]">
+            <img
+              src="https://i.pinimg.com/736x/b3/4f/fb/b34ffbc90e48bddb8c662c75d8588f9a.jpg"
+              alt="Mobile UI Preview"
+              className="w-full h-full object-cover object-center scale-110  "
+            />
+            
+          </div>
+
+          {/* Card 3: Product Request */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-6 relative overflow-hidden transition-all duration-300 lg:col-span-1">
+            <h3 className="text-5xl font-bold text-tech-bg mb-2">50%</h3>
+            <p className="text-lg text-tech-bg">more product requests</p>
+            {/* Arrow icon */}
+            <a href="#" className="absolute bottom-6 right-6 p-2 rounded-full bg-tech-bg text-tech-cyan hover:bg-tech-cyan hover:text-white transition-all duration-300">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+
+          {/* Card 4: Detailed Analysis / Description */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-left transition-all duration-300 lg:col-span-1">
+            <p className="text-tech-bg leading-relaxed text-base">
+              We conduct a thorough analysis of your <span className="font-bold">competitors</span>  and  <span className="font-bold">target audience</span>, crafting an adaptable website and setting up <span className="font-bold">SEO strategies</span> to promote it.
             </p>
-
-            {/* Tab Navigation */}
-            <div className="flex justify-center space-x-4 mb-12">
-              <button
-                onClick={() => setActivePortfolioTab('ecommerce')}
-                className={`px-6 py-2 rounded-md text-sm font-bold transition-all duration-300 ${activePortfolioTab === 'ecommerce' ? 'bg-tech-cyan text-tech-bg' : 'bg-slate-800/40 text-gray-300 hover:bg-slate-800/80'}`}
-              >
-                E-COMMERCE
-              </button>
-              <button
-                onClick={() => setActivePortfolioTab('corporate')}
-                className={`px-6 py-2 rounded-md text-sm font-bold transition-all duration-300 ${activePortfolioTab === 'corporate' ? 'bg-tech-cyan text-tech-bg' : 'bg-slate-800/40 text-gray-300 hover:bg-slate-800/80'}`}
-              >
-                CORPORATE
-              </button>
-              <button
-                onClick={() => setActivePortfolioTab('creative')}
-                className={`px-6 py-2 rounded-md text-sm font-bold transition-all duration-300 ${activePortfolioTab === 'creative' ? 'bg-tech-cyan text-tech-bg' : 'bg-slate-800/40 text-gray-300 hover:bg-slate-800/80'}`}
-              >
-                CREATIVE
-              </button>
-            </div>
-
-            {/* Tab Content */}
-            <div className="relative">
-              {/* E-commerce Content */}
-              {activePortfolioTab === 'ecommerce' && (
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center animate-fade-in">
-                  <div className="lg:col-span-7">
-                    <div className="relative hud-element p-4">
-                      <img src="https://placehold.co/600x400/0D0D10/00BFFF?text=Global+E-commerce" alt="Global E-commerce Website Example" className="rounded-lg w-full h-auto object-cover"/>
-                    </div>
-                  </div>
-                  <div className="lg:col-span-5 glass-card p-8 text-left">
-                    <h3 className="text-2xl font-bold text-white mb-4">Global E-commerce Expansion</h3>
-                    <p className="text-gray-300 mb-6">We built a high-converting e-commerce hub that connected our client with customers across continents.</p>
-                    <h4 className="font-bold text-tech-cyan mb-2">Key Metrics:</h4>
-                    <ul className="list-disc list-inside text-gray-300 space-y-1">
-                      <li>Conversion Rate Uplift: +35%</li>
-                      <li>Average Load Time: &lt;0.8s</li>
-                      <li>Global Sales Increase: +50% YoY</li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-              {/* Corporate Content */}
-              {activePortfolioTab === 'corporate' && (
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center animate-fade-in">
-                  <div className="lg:col-span-7">
-                    <div className="relative hud-element p-4">
-                      <img src="https://placehold.co/600x400/0D0D10/00BFFF?text=Corporate+Portfolio" alt="Corporate Website Example" className="rounded-lg w-full h-auto object-cover"/>
-                    </div>
-                  </div>
-                  <div className="lg:col-span-5 glass-card p-8 text-left">
-                    <h3 className="text-2xl font-bold text-white mb-4">Elevating a Corporate Brand</h3>
-                    <p className="text-gray-300 mb-6">Their new corporate site now commands respect, attracting high-value clients and solidifying their industry leadership.</p>
-                    <h4 className="font-bold text-tech-cyan mb-2">Key Metrics:</h4>
-                    <ul className="list-disc list-inside text-gray-300 space-y-1">
-                      <li>Lead Generation: +60%</li>
-                      <li>User Engagement: +40%</li>
-                      <li>Brand Trust Score: 9.2/10</li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-              {/* Creative Content */}
-              {activePortfolioTab === 'creative' && (
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center animate-fade-in">
-                  <div className="lg:col-span-7">
-                    <div className="relative hud-element p-4">
-                      <img src="https://placehold.co/600x400/0D0D10/00BFFF?text=Creative+Agency" alt="Creative Agency Website Example" className="rounded-lg w-full h-auto object-cover"/>
-                    </div>
-                  </div>
-                  <div className="lg:col-span-5 glass-card p-8 text-left">
-                    <h3 className="text-2xl font-bold text-white mb-4">Unleashing Creativity</h3>
-                    <p className="text-gray-300 mb-6">Their new interactive platform showcases their unique vision, drawing in exciting new projects and collaborations.</p>
-                    <h4 className="font-bold text-tech-cyan mb-2">Key Metrics:</h4>
-                    <ul className="list-disc list-inside text-gray-300 space-y-1">
-                      <li>Project Inquiries: +75%</li>
-                      <li>Session Duration: +90s</li>
-                      <li>Industry Awards: 3</li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-            </div>
-
           </div>
-        </section>
 
-          {/* Testimonials Section */}
-          <section id="testimonials" className="relative py-16 md:py-24 px-6 font-mono">
-          <div className="container mx-auto max-w-6xl text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-16 bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
-              Transmissions from the Field
-            </h2>
-
-            <div className="relative glass-card rounded-xl p-8 md:p-12 w-full max-w-4xl mx-auto">
-              {/* Large Decorative Quote Mark */}
-              <span className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 text-9xl text-tech-cyan/10">
-                “
-              </span>
-
-              {/* Testimonial Content */}
-              <div key={currentTestimonialIndex} className="animate-fade-in">
-                <p className="text-xl md:text-2xl italic text-gray-200 mb-8 leading-relaxed">
-                  "{testimonials[currentTestimonialIndex].quote}"
-                </p>
-                <div className="flex items-center justify-center">
-                  <img
-                    src={testimonials[currentTestimonialIndex].avatar}
-                    alt={testimonials[currentTestimonialIndex].name}
-                    className="w-16 h-16 rounded-full object-cover mr-4 border-2 border-tech-cyan/50 shadow-[0_0_15px_rgba(0,191,255,0.5)]"
-                  />
-                  <div className="text-left">
-                    <p className="font-bold text-white text-lg">{testimonials[currentTestimonialIndex].name}</p>
-                    <p className="text-sm text-gray-400">{testimonials[currentTestimonialIndex].title}, {testimonials[currentTestimonialIndex].country}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Navigation Buttons */}
-              <div className="absolute top-1/2 -translate-y-1/2 flex justify-between w-full left-0 px-4 md:-px-4">
-                <button
-                  onClick={() => setCurrentTestimonialIndex(prev => prev === 0 ? testimonials.length - 1 : prev - 1)}
-                  className="bg-slate-800/50 p-3 rounded-full text-white hover:bg-tech-cyan hover:text-tech-bg transition-all duration-300"
-                >
-                  <HiArrowLeft size={20} />
-                </button>
-                <button
-                  onClick={() => setCurrentTestimonialIndex(prev => prev === testimonials.length - 1 ? 0 : prev + 1)}
-                  className="bg-slate-800/50 p-3 rounded-full text-white hover:bg-tech-cyan hover:text-tech-bg transition-all duration-300"
-                >
-                  <HiArrowRight size={20} />
-                </button>
-              </div>
-            </div>
+          {/* Card 5: Client Retention */}
+          <div className="bg-tech-bg  backdrop-blur-sm border border-white/10 rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:border-tech-cyan/50 hover:bg-tech-bg  lg:col-span-1">
+            <h3 className="text-5xl font-bold text-white mb-2">90%</h3>
+            <p className="text-lg text-gray-400">our clients come back</p>
+            {/* Arrow icon */}
+            <a href="#" className="absolute bottom-6 right-6 p-2 rounded-full bg-tech-cyan/20 text-tech-cyan hover:bg-tech-cyan hover:text-white transition-all duration-300">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
           </div>
-        </section>
+
+          {/* Card 6: Mobile UI Image 2 */}
+          <div className="bg-white/5 rounded-2xl relative overflow-hidden flex items-center justify-center lg:col-span-2 min-h-[200px]">
+            <img
+              src="https://i.pinimg.com/736x/f0/32/e6/f032e6476d890535e5bb8e6ed27a6e7f.jpg"
+              alt="Another Mobile UI Preview"
+              className="w-full h-full object-cover object-center scale-110  brightness-75"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section> 
+        
+
 
           {/* Pricing Section */}
-          <section id="pricing" className="relative py-16 md:py-24 px-6 font-mono">
+          <section id="pricing" className="relative bg-tech-bg py-16 md:py-24 px-6 font-mono">
             <div className="container mx-auto max-w-6xl text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-8 bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-8 bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
                 Select Your Service Plan
               </h2>
               <p className="text-lg text-gray-300 mb-16 max-w-2xl mx-auto">
@@ -955,13 +934,13 @@ function App() {
                         className={`relative glass-card p-8 flex flex-col transition-all duration-300 ${isProPlan ? 'border-tech-cyan' : 'border-transparent'}`}
                       >
                         {isProPlan && (
-                          <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-gradient-to-r from-tech-cyan to-tech-magenta text-white px-4 py-1 rounded-full text-sm font-bold">
+                          <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-gradient-to-r from-tech-cyan to-tech-cyan text-tech-bg px-3 py-1 rounded-md text-xs font-bold">
                             MOST POPULAR
                           </div>
                         )}
                         
                         <h3 className="text-2xl font-bold text-white mb-4">{plan.name}</h3>
-                        <p className="text-5xl font-extrabold text-white mb-6">
+                        <p className="text-5xl font-extrabold text-tech-cyan mb-6">
                           {plan.name === 'Custom' ? 'Quote' : `${currency}${plan.price}`}
                           <span className="text-lg font-medium text-gray-400">
                             {plan.name === 'Custom' ? '' : '/mon'}
@@ -977,7 +956,7 @@ function App() {
                         </ul>
                         <button
                           onClick={() => startPurchase(planKey)}
-                          className={`mt-auto w-full py-3 rounded-md font-bold transition-all duration-300 ${isProPlan ? 'bg-tech-cyan text-tech-bg hover:bg-white hover:text-tech-cyan' : 'bg-slate-800/60 text-tech-cyan hover:bg-tech-cyan hover:text-tech-bg'}`}
+                          className={`mt-auto w-full py-3 rounded-md font-bold transition-all duration-300 ${isProPlan ? 'bg-tech-cyan text-tech-bg hover:bg-slate-500 hover:text-tech-cyan' : 'bg-slate-800/60 text-tech-cyan hover:bg-tech-cyan hover:text-tech-bg'}`}
                         >
                           {plan.name === 'Basic' && 'Select Basic'}
                           {plan.name === 'Pro' && 'Select Pro'}
@@ -1003,113 +982,76 @@ function App() {
             </div>
           </section>
 
-          {/* Our Impact in Numbers Section */}
-          <section id="impact" className="relative py-16 md:py-24 px-6 font-mono">
-              <div className="container mx-auto max-w-6xl text-center">
-                <div className="flex items-center justify-center gap-4 mb-16">
-                  <div className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
-                    Live System Metrics
-                  </h2>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {/* Metric 1: Dreams Launched */}
-                  <ImpactCard 
-                    end={500} 
-                    suffix="+" 
-                    title="Dreams Launched" 
-                    description="Each project represents a business now thriving online." 
-                  />
 
-                  {/* Metric 2: Peace of Mind */}
-                  <ImpactCard 
-                    end={98} 
-                    suffix="%" 
-                    title="Peace of Mind" 
-                    description="Our clients trust us to deliver, and we consistently exceed expectations." 
-                  />
-
-                  {/* Metric 3: Uptime */}
-                  <ImpactCard 
-                    end={24} 
-                    suffix="/7" 
-                    title="Always On" 
-                    description="Our dedicated support ensures your online presence never sleeps, just like your ambition." 
-                  />
-                </div>
-              </div>
-            </section>
-
-          {/* Our Technology Stack Section */}
-          <section id="tech-stack" className="relative py-16 md:py-24 px-6 font-mono">
-          {/* Subtle background pattern */}
-          <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,191,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,191,255,0.05)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"></div>
           
-          <div className="relative z-10 container mx-auto max-w-6xl text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-8 bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
-              Core Architecture
-            </h2>
-            <p className="text-lg text-gray-300 mb-16 max-w-2xl mx-auto">
-              Our platform is built on a foundation of cutting-edge technology, ensuring your online presence is future-proof, fast, and secure.
-            </p>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {/* Tech 1: React */}
-              <div className="group relative glass-card p-6 h-48 flex flex-col items-center justify-center text-center">
-                <div className="transition-opacity duration-300 group-hover:opacity-0">
-                  <img src={"https://icon.icepanel.io/Technology/svg/React.svg"} alt="React Logo" className="h-20" />
-                  <p className="text-lg font-bold text-white mt-4">React</p>
-                </div>
-                <div className="absolute inset-0 p-6 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <p className="text-gray-300">Blazing-fast user interfaces for a seamless user experience.</p>
-                </div>
-              </div>
-
-              {/* Tech 2: Node.js */}
-              <div className="group relative glass-card p-6 h-48 flex flex-col items-center justify-center text-center">
-                <div className="transition-opacity duration-300 group-hover:opacity-0">
-                  <img src={"https://icon.icepanel.io/Technology/svg/Node.js.svg"} alt="Node.js Logo" className="h-20" />
-                  <p className="text-lg font-bold text-white mt-4">Node.js</p>
-                </div>
-                <div className="absolute inset-0 p-6 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <p className="text-gray-300">Powering our robust and scalable server-side architecture.</p>
-                </div>
-              </div>
-
-              {/* Tech 3: Cloud Hosting */}
-              <div className="group relative glass-card p-6 h-48 flex flex-col items-center justify-center text-center">
-                <div className="transition-opacity duration-300 group-hover:opacity-0">
-                  <img src={"https://icon.icepanel.io/Technology/svg/Google-Cloud.svg"} alt="Cloud Hosting Logo" className="h-20" />
-                  <p className="text-lg font-bold text-white mt-4">Cloud Hosting</p>
-                </div>
-                <div className="absolute inset-0 p-6 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <p className="text-gray-300">Reliable, secure, and globally distributed for maximum uptime and speed.</p>
-                </div>
-              </div>
-
-              {/* Tech 4: Tailwind CSS */}
-              <div className="group relative glass-card p-6 h-48 flex flex-col items-center justify-center text-center">
-                <div className="transition-opacity duration-300 group-hover:opacity-0">
-                  <img src={"https://icon.icepanel.io/Technology/svg/Tailwind-CSS.svg"} alt="Tailwind CSS Logo" className="h-20" />
-                  <p className="text-lg font-bold text-white mt-4">Tailwind CSS</p>
-                </div>
-                <div className="absolute inset-0 p-6 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <p className="text-gray-300">Modern, utility-first CSS for rapid and consistent UI development.</p>
-                </div>
-              </div>
-            </div>
+          {/* Our Impact in Numbers Section */}
+          <section id="impact" className="relative py-16 md:py-24 px-6 bg-tech-bg text-white">
+      <div className="container mx-auto max-w-6xl text-center">
+        <div className="flex items-center justify-center gap-4 mb-16">
+          <div className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFFF00] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FFFF00]"></span>
           </div>
-        </section>
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
+            Live System Metrics
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          {/* Metric 1: Dreams Launched */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-center transition-all duration-300 ">
+            <div className="text-6xl font-extrabold text-tech-bg mb-2">
+              500<span className="text-5xl text-slate-500">+</span>
+            </div>
+            <h3 className="text-xl font-bold text-tech-bg mb-2">Dreams Launched</h3>
+            <p className="text-tech-bg leading-relaxed">
+              Each project represents a business now thriving online.
+            </p>
+          </div>
+
+          {/* Metric 2: Peace of Mind */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-center transition-all duration-300  ">
+            <div className="text-6xl font-extrabold text-tech-bg mb-2">
+              98<span className="text-5xl text-slate-500">%</span>
+            </div>
+            <h3 className="text-xl font-bold text-tech-bg mb-2">Peace of Mind</h3>
+            <p className="text-tech-bg leading-relaxed">
+              Our clients trust us to deliver, and we consistently exceed expectations.
+            </p>
+          </div>
+
+          {/* Metric 3: Uptime */}
+          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-center transition-all duration-300  ">
+            <div className="text-6xl font-extrabold text-tech-bg mb-2">
+              24<span className="text-5xl text-slate-500">/7</span>
+            </div>
+            <h3 className="text-xl font-bold text-tech-bg mb-2">Always On</h3>
+            <p className="text-tech-bg leading-relaxed">
+              Our dedicated support ensures your online presence never sleeps, just like your ambition.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+          {/* Testimonials Section */}
+          
+
+
+
+          
 
           {/* FAQ Section */}
-          <section id="faq" className="relative py-16 md:py-24 px-6 font-mono">
+          <section id="faq" className="relative bg-tech-bg py-16 md:py-24 px-6 font-mono">
           <div className="container mx-auto max-w-4xl text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-16 bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
-              Knowledge Base
+            <h2 className="text-3xl sm:text-4xl font-bold mb-16 bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
+             FAQ
             </h2>
 
             {/* Glass panel container for the entire FAQ list */}
@@ -1142,15 +1084,15 @@ function App() {
         </section>
 
           {/* Contact Us Section */}
-          <section id="contact-us" className="relative py-16 md:py-24 px-6 font-mono">
+          <section id="contact-us" className="relative py-16 bg-tech-bg md:py-24 px-6 font-mono">
             <div className="container mx-auto max-w-6xl">
               {/* We'll use a 2-column grid for the layout */}
               <div className="glass-card grid grid-cols-1 md:grid-cols-2 gap-8 items-center p-8 md:p-12">
 
                 {/* LEFT COLUMN: Title and Description */}
                 <div className="text-center md:text-left">
-                  <p className="text-tech-cyan mb-2">// ESTABLISH COMMS LINK</p>
-                  <h2 className="text-3xl sm:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
+                  <p className="text-tech-cyan mb-2">— Establish Comms Link —</p>
+                  <h2 className="text-3xl sm:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
                     Ready to Start Your Journey?
                   </h2>
                   <p className="text-lg text-gray-300">
@@ -1196,10 +1138,10 @@ function App() {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-tech-cyan to-tech-magenta text-white px-6 py-3 rounded-md text-lg font-bold hover:opacity-80 transition-opacity duration-300"
+                      className="w-full flex items-center justify-center gap-3 bg-slate-800/60 text-tech-cyan hover:bg-tech-cyan hover:text-tech-bg px-6 py-3 rounded-md text-lg font-bold  transition-opacity duration-300"
                     >
                       
-                      <span>Send</span>
+                      <span>Send Request</span>
                     </button>
                   </form>
                 </div>
@@ -1207,28 +1149,8 @@ function App() {
             </div>
           </section>
 
-          {/* Call to Action Section */}
-          <section className="relative py-16 md:py-24 px-6 font-mono bg-gradient-to-r from-[#0d1a2f] to-[#0d0d10]">
-          <div className="container mx-auto max-w-4xl text-center">
-            <div className="relative hud-element p-8">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                Ready to Launch Your Digital Success?
-              </h2>
-              <p className="text-lg sm:text-xl mb-10 max-w-3xl mx-auto text-gray-300">
-                Join the ranks of confident business owners who trust Swift90 to manage their digital presence. Your transformation begins now.
-              </p>
-              <a 
-                href="#pricing" 
-                className="bg-tech-cyan text-tech-bg px-8 py-3 rounded-md text-lg font-bold hover:bg-white hover:text-tech-cyan transition-all duration-300 shadow-[0_0_25px_rgba(0,191,255,0.6)] animate-pulse"
-              >
-                Engage Thrusters
-              </a>
-            </div>
-          </div>
-        </section>
-
           {/* Footer Section */}
-          <footer className="bg-tech-bg text-gray-400 py-10 px-6 md:px-12 font-mono border-t border-tech-cyan/20">
+          <footer className="bg-tech-bg text-gray-400 py-10 px-6 md:px-12 font-mono ">
           <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
             <div className="mb-4 md:mb-0">
               <p className="font-bold text-lg text-white">Swift<span className="text-tech-cyan">90</span></p>
@@ -1385,7 +1307,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
   return (
     <div className={`min-h-screen font-mono text-white bg-tech-bg ${darkMode ? 'dark' : ''}`}>
       {/* --- Simplified Header for Purchase Flow --- */}
-      <header className="bg-tech-bg border-b border-tech-cyan/20 fixed top-0 w-full z-50">
+      <header className="bg-tech-bg fixed top-0 w-full z-50">
         <nav className="container mx-auto flex justify-between items-center px-6 py-4">
           <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 text-gray-300 hover:text-tech-cyan transition-colors">
             <HiArrowLeft size={20} />
@@ -1403,14 +1325,14 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
       {/* --- Main Content --- */}
       <main className="pt-24 pb-12 px-6">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
             Project Configuration
           </h2>
           <p className="text-center text-gray-400 mb-8">Customize your <span className="text-tech-cyan">{purchaseDetails.plan?.name}</span> plan.</p>
 
           {/* --- Live Order Summary --- */}
           <div className="glass-card p-6 mb-8">
-            <h3 className="font-bold text-lg mb-4 text-tech-cyan">// CONFIGURATION SUMMARY</h3>
+            <h3 className="font-bold text-lg mb-4 text-white">— CONFIGURATION SUMMARY —</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               <div>
                 <p className="text-sm text-gray-400">Base Plan</p>
@@ -1424,8 +1346,8 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 <p className="text-sm text-gray-400">Add-on Cost</p>
                 <p className="text-xl font-bold">{currency}{totalAddOnCost.toFixed(2)}</p>
               </div>
-              <div className="bg-tech-cyan/10 p-2 rounded-md">
-                <p className="text-sm text-tech-cyan">Total Monthly</p>
+              <div className="bg-tech-bg p-2 rounded-md">
+                <p className="text-sm text-white">Total Monthly</p>
                 <p className="text-xl font-bold text-tech-cyan">{isCustomPlan ? 'Quote' : `${currency}${totalAmount.toFixed(2)}`}</p>
               </div>
             </div>
@@ -1471,7 +1393,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
             {/* Requirements Section */}
             <fieldset>
               <label htmlFor="requirements" className="block text-xl font-bold mb-4 text-white">
-                {isCustomPlan ? 'Describe Your Vision' : '3. Additional Requirements'}
+                {isCustomPlan ? 'Describe Your Vision And We Will Get Back To You In 24 Hours' : '3. Additional Requirements'}
               </label>
               <textarea id="requirements" rows="5" value={requirements} onChange={(e) => setRequirements(e.target.value)}
                 className="w-full bg-slate-900/50 p-3 rounded-md text-white border-2 border-slate-700 focus:border-tech-cyan focus:outline-none focus:ring-0 transition-colors duration-300"
@@ -1484,7 +1406,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
               <button type="button" onClick={() => setCurrentPage('home')} className="text-gray-300 hover:text-tech-cyan transition-colors">
                 Cancel
               </button>
-              <button type="submit" className="bg-gradient-to-r from-tech-cyan to-tech-magenta text-white px-6 py-3 rounded-md font-bold hover:opacity-80 transition-opacity duration-300">
+              <button type="submit" className="bg-slate-800/60 text-tech-cyan hover:bg-tech-cyan hover:text-tech-bg px-6 py-3 rounded-md font-bold hover:opacity-80 transition-opacity duration-300">
                 {isCustomPlan ? 'Submit Custom Request' : 'Confirm & Proceed to Payment'}
               </button>
             </div>
@@ -1643,7 +1565,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
      return (
     <div className={`min-h-screen font-mono text-white bg-tech-bg ${darkMode ? 'dark' : ''}`}>
       {/* --- Simplified Header --- */}
-      <header className="bg-tech-bg border-b border-tech-cyan/20 fixed top-0 w-full z-50">
+      <header className="bg-tech-bg  fixed top-0 w-full z-50">
         <nav className="container mx-auto flex justify-between items-center px-6 py-4">
           <button onClick={() => setCurrentPage('purchase')} className="flex items-center gap-2 text-gray-300 hover:text-tech-cyan transition-colors">
             <HiArrowLeft size={20} />
@@ -1661,14 +1583,14 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
       {/* --- Main Content --- */}
       <main className="pt-24 pb-12 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center bg-gradient-to-r from-white to-tech-cyan text-transparent bg-clip-text">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
             Secure Checkout
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* --- LEFT COLUMN: Order Summary --- */}
             <div className="glass-card p-8">
-              <h3 className="font-bold text-lg mb-6 text-tech-cyan">// ORDER SUMMARY</h3>
+              <h3 className="font-bold text-lg mb-6 text-white">ORDER SUMMARY</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center text-gray-300">
                   <span>{plan?.name} Plan (Base)</span>
@@ -1680,9 +1602,9 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                     <span className="font-bold text-white">{currency}{totalAddOnCost.toFixed(2)}</span>
                   </div>
                 )}
-                <div className="border-t border-tech-cyan/20 my-4"></div>
+                <div className="border-t border-tech-bg/80 my-4"></div>
                 <div className="flex justify-between items-center text-xl">
-                  <span className="text-tech-cyan">Total Monthly</span>
+                  <span className="text-white">Total Monthly</span>
                   <span className="font-bold text-tech-cyan">{isCustomPlan ? 'To be quoted' : `${currency}${totalAmount.toFixed(2)}`}</span>
                 </div>
               </div>
@@ -1690,7 +1612,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
 
             {/* --- RIGHT COLUMN: Payment Authorization --- */}
             <div className="glass-card p-8">
-              <h3 className="font-bold text-lg mb-6 text-tech-cyan">// PAYMENT AUTHORIZATION</h3>
+              <h3 className="font-bold text-lg mb-6 text-white">— PAYMENT AUTHORIZATION —</h3>
               <div className="space-y-6">
                 <div>
                   <label htmlFor="customerName" className="block text-sm font-bold text-gray-400 mb-1">Full Name</label>
@@ -1705,9 +1627,9 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 <button
                   onClick={isCustomPlan ? handleCustomRequestConfirmation : handleInitiatePayment}
                   disabled={loadingPayment}
-                  className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-tech-cyan to-tech-magenta text-white px-6 py-3 rounded-md text-lg font-bold hover:opacity-80 transition-opacity duration-300 disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-3 bg-slate-800/60 text-tech-cyan hover:bg-tech-cyan hover:text-tech-bg px-6 py-3 rounded-md text-lg font-bold hover:opacity-80 transition-opacity duration-300 disabled:opacity-50"
                 >
-                  <HiLockClosed className="w-6 h-6" />
+                  
                   <span>{isCustomPlan ? 'Submit Secure Request' : 'Authorize Payment'}</span>
                 </button>
                 <p className="text-xs text-center text-gray-500">
@@ -1756,7 +1678,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
   return (
     <div className={`min-h-screen font-mono text-white bg-tech-bg ${darkMode ? 'dark' : ''}`}>
       {/* --- Simplified Header --- */}
-      <header className="bg-tech-bg border-b border-tech-cyan/20 fixed top-0 w-full z-50">
+      <header className="bg-tech-bg fixed top-0 w-full z-50">
         <nav className="container mx-auto flex justify-between items-center px-6 py-4">
           <div className="flex-1"></div>
           <div className="flex-1 text-center">
