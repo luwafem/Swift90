@@ -1392,7 +1392,7 @@ const FocusIcon = () => (
                     </div>
                     <div className="flex items-center gap-2 text-center">
                         <p className="text-tech-cyan text-sm">3</p>
-                        <p className="text-gray-300 text-sm">We Deploy & You Explore</p>
+                        <p className="text-gray-300 text-sm">We Deploy</p>
                     </div>
                 </div>
             </div>
