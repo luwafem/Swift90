@@ -60,29 +60,29 @@ const MessageBox = ({ message, type, onClose }) => {
 
   switch (type) {
     case 'success':
-      bgColor = 'bg-green-100 dark:bg-green-900';
+      bgColor = 'bg-tech-bg dark:bg-tech-bg';
       textColor = 'text-green-800 dark:text-green-200';
       icon = (
-        <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       );
       break;
     case 'error':
-      bgColor = 'bg-red-100 dark:bg-red-900';
-      textColor = 'text-red-800 dark:text-red-200';
+      bgColor = 'bg-tech-bg dark:bg-tech-bg';
+      textColor = 'text-white dark:text-white';
       icon = (
-        <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2A9 9 0 111 12a9 9 0 0118 0z"></path>
         </svg>
       );
       break;
     case 'info':
     default:
-      bgColor = 'bg-blue-100 dark:bg-blue-900';
-      textColor = 'text-blue-800 dark:text-blue-200';
+      bgColor = 'bg-tech-bg dark:bg-tech-bg';
+      textColor = 'text-white dark:text-white';
       icon = (
-        <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
       );
@@ -96,7 +96,7 @@ const MessageBox = ({ message, type, onClose }) => {
         <p className="text-lg font-semibold mb-4">{message}</p>
         <button
           onClick={onClose}
-          className="bg-tech-cyan text-white px-6 py-2 rounded-full hover:bg-tech-cyan transition duration-300"
+          className="bg-tech-bg border-2 border-tech-cyan text-white px-6 py-2 rounded-lg hover:bg-tech-cyan hover:text-tech-bg transition duration-300"
         >
           OK
         </button>
@@ -179,7 +179,7 @@ function App() {
       currency: '$',
       currencyCode: 'USD',
       plans: {
-        launchpad: { 
+        Basic: { 
             name: 'Basic', 
             price: 45000, 
             // INTRODUCTORY OFFER FIELDS ADDED
@@ -192,9 +192,9 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.'
             ], 
-            paystackPlanCode: 'PLN_OFFER_USD34900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
-        commandCenter: { 
+        Pro: { 
             name: 'Pro', 
             price: 118500, 
             features: [
@@ -206,12 +206,12 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***', 
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ', 
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
-        digitalPartner: { 
+        Enterprise: { 
             name: 'Enterprise', 
             price: 298500, 
             features: [
@@ -221,8 +221,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***', 
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***' 
+                ' BONUS: Dedicated Onboarding Specialist ', 
+                ' BONUS: Emergency Content Update SLA (4-hour fix) ' 
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -243,7 +243,7 @@ function App() {
     currency: '₦',
     currencyCode: 'NGN', 
     plans: {
-        launchpad: { 
+        Basic: { 
             name: 'Basic', 
             price: 20000, 
             // INTRODUCTORY OFFER FIELDS ADDED
@@ -256,9 +256,9 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_NGN14999' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
-        commandCenter: { 
+        Pro: { 
             name: 'Pro', 
             price: 60000, 
             features: [
@@ -270,12 +270,12 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
-        digitalPartner: { 
+        Enterprise: { 
             name: 'Enterprise', 
             price: 100000, 
             features: [
@@ -285,8 +285,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -320,7 +320,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_GBP35900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -334,8 +334,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -349,8 +349,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -384,7 +384,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_CAD29900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -398,8 +398,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -413,8 +413,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -448,7 +448,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_AUD29900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -462,8 +462,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -477,8 +477,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -512,7 +512,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_EUR32900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -526,8 +526,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -541,8 +541,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -576,7 +576,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_EUR32900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -590,8 +590,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -605,8 +605,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -640,7 +640,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_INR26900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -654,8 +654,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -669,8 +669,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -704,7 +704,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_BRL28900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -718,8 +718,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -733,8 +733,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -768,7 +768,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_ZAR27500' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -782,8 +782,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -797,8 +797,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -832,7 +832,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_JPY26900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -846,8 +846,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -861,8 +861,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -896,7 +896,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_MXN34900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -910,8 +910,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -925,8 +925,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -1309,7 +1309,7 @@ const FocusIcon = () => (
   {/* Mobile Menu Overlay - now the primary navigation overlay */}
   {isMobileMenuOpen && (
     // MODIFIED: Restyled with "glass" effect and new theme colors
-    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8 font-mono">
+    <div className="fixed inset-0 bg-tech-bg backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8 font-mono">
       <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-6 right-6 text-white focus:outline-none hover:text-tech-cyan transition-colors duration-300">
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -1341,10 +1341,10 @@ const FocusIcon = () => (
       <div className="absolute inset-0 bg-tech-bg z-0"></div> 
       
       {/* Hero Content Section */}
-      <main className="relative z-10 w-full flex flex-col items-center justify-center text-center pt-10 md:pt-28 px-4">
+      <main className="relative z-10 w-full flex flex-col items-center justify-center text-center pt-10 md:pt-28 ">
         
         {/* Pill Badge */}
-        <div className="border border-gray-700 rounded-full px-4 py-1.5 text-sm text-gray-400 ">
+        <div className="border-2 border-tech-cyan rounded-lg px-4 md:py-1.5 text-sm text-white ">
           Your Business Deserves a Digital Command Center
         </div>
 
@@ -1383,16 +1383,16 @@ const FocusIcon = () => (
 
                 <div className="flex flex-col sm:flex-row justify-center gap-4"> 
                     <div className="flex items-center gap-2 text-center">
-                        <p className="text-tech-cyan text-xl">①</p>
+                        <p className="text-tech-cyan text-sm">1.</p>
                         <p className="text-gray-300 text-sm">Submit Email</p>
                     </div>
                     <div className="flex items-center gap-2 text-center">
-                        <p className="text-tech-cyan text-xl">②</p>
+                        <p className="text-tech-cyan text-sm">2.</p>
                         <p className="text-gray-300 text-sm">Reply with Assets</p>
                     </div>
                     <div className="flex items-center gap-2 text-center">
-                        <p className="text-tech-cyan text-xl">③</p>
-                        <p className="text-gray-300 text-sm">We Deploy & You Explore</p>
+                        <p className="text-tech-cyan text-sm">3</p>
+                        <p className="text-gray-300 text-sm">We Deploy</p>
                     </div>
                 </div>
             </div>
@@ -1408,7 +1408,7 @@ const FocusIcon = () => (
 </section>
       </main>
       {/* Dashboard Preview Image Section */}
-      <div className="relative bg-tech-bg  w-full flex justify-center  px-4 pb-16"> {/* ADDED pb-16 for some bottom padding */}
+      <div className="relative bg-tech-bg z-10 w-full flex justify-center py-4 px-4 pb-16"> {/* ADDED pb-16 for some bottom padding */}
         <div className="relative w-full max-w-5xl">
             {/* Subtle glow behind the image */}
             <div className="absolute inset-0 bg-tech-cyan/20 blur-xl rounded-xl"></div>
@@ -2152,7 +2152,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 Cancel
               </button>
               <button type="submit" className="bg-slate-800/60 text-tech-cyan hover:bg-tech-cyan hover:text-tech-bg px-6 py-3 rounded-md font-bold hover:opacity-80 transition-opacity duration-300">
-                {isCustomPlan ? 'Submit Custom Request' : 'Confirm & Proceed to Payment'}
+                {isCustomPlan ? 'Submit Custom Request' : ' Proceed to Payment'}
               </button>
             </div>
           </form>
@@ -2404,19 +2404,19 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
     switch (paymentStatus) {
       case 'successful':
         return {
-          icon: <HiCheckCircle className="w-24 h-24 text-green-400" />,
+          icon: <HiCheckCircle className="w-24 h-24 text-white" />,
           title: "Transmission Complete",
           message: `Congratulations! Your journey has begun. A confirmation has been sent to ${customerEmail}, and we will reach out within 1 hour to kickstart your project.`
         };
       case 'requested':
         return {
-          icon: <HiInformationCircle className="w-24 h-24 text-blue-400" />,
+          icon: <HiInformationCircle className="w-24 h-24 text-white" />,
           title: "Request Logged & Awaiting Review",
           message: `Thank you for your custom request. Our team will review your needs and send a personalized quote to ${customerEmail} within 1-2 business days.`
         };
       default: // 'failed'
         return {
-          icon: <HiExclamationCircle className="w-24 h-24 text-red-400" />,
+          icon: <HiExclamationCircle className="w-24 h-24 text-white" />,
           title: "Transmission Failed",
           message: "It looks like there was an issue with your payment. Please try again, or reach out to support – we're here to help you get back on track."
         };
