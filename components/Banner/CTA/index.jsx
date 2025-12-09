@@ -206,8 +206,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***', 
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ', 
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -221,8 +221,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***', 
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***' 
+                ' BONUS: Dedicated Onboarding Specialist ', 
+                ' BONUS: Emergency Content Update SLA (4-hour fix) ' 
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -270,8 +270,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -285,8 +285,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -334,8 +334,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -349,8 +349,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -398,8 +398,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -413,8 +413,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -462,8 +462,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -477,8 +477,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -526,8 +526,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -541,8 +541,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -590,8 +590,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -605,8 +605,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -654,8 +654,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -669,8 +669,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -718,8 +718,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -733,8 +733,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -782,8 +782,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -797,8 +797,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -846,8 +846,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -861,8 +861,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -910,8 +910,8 @@ function App() {
                 'Proactive Technical Optimization (Speed and SEO Basics).',
                 'Dedicated Growth Analytics Dashboard.',
                 'Monthly Performance Review Report.',
-                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
-                '*** BONUS: Access to Premium Marketing Resources Library ***'
+                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
+                ' BONUS: Access to Premium Marketing Resources Library '
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
@@ -925,8 +925,8 @@ function App() {
                 'Unlimited Secure Cloud Storage & Bandwidth.',
                 'Advanced Marketing & Traffic Insights.',
                 'Full Managed SEO Strategy & Content Review.', 
-                '*** BONUS: Dedicated Onboarding Specialist ***',
-                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+                ' BONUS: Dedicated Onboarding Specialist ',
+                ' BONUS: Emergency Content Update SLA (4-hour fix) '
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -1341,10 +1341,10 @@ const FocusIcon = () => (
       <div className="absolute inset-0 bg-tech-bg z-0"></div> 
       
       {/* Hero Content Section */}
-      <main className="relative z-10 w-full flex flex-col items-center justify-center text-center pt-10 md:pt-28 px-4">
+      <main className="relative z-10 w-full flex flex-col items-center justify-center text-center pt-10 md:pt-28 ">
         
         {/* Pill Badge */}
-        <div className="border border-gray-700 rounded-full px-4 py-1.5 text-sm text-gray-400 ">
+        <div className="border-2 border-tech-cyan rounded-lg px-4 py-1.5 text-sm text-white ">
           Your Business Deserves a Digital Command Center
         </div>
 
@@ -1408,7 +1408,7 @@ const FocusIcon = () => (
 </section>
       </main>
       {/* Dashboard Preview Image Section */}
-      <div className="relative bg-tech-bg  w-full flex justify-center  px-4 pb-16"> {/* ADDED pb-16 for some bottom padding */}
+      <div className="relative bg-tech-bg z-10 w-full flex justify-center py-4 px-4 pb-16"> {/* ADDED pb-16 for some bottom padding */}
         <div className="relative w-full max-w-5xl">
             {/* Subtle glow behind the image */}
             <div className="absolute inset-0 bg-tech-cyan/20 blur-xl rounded-xl"></div>
