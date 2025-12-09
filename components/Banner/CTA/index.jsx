@@ -170,130 +170,780 @@ function App() {
   // Re-run effect if the number of hero images changes
 
   
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   // Dummy pricing data - Added currencyCode and paystackPlanCode for Paystack
   const pricingData = {
     "USA": {
       currency: '$',
-      currencyCode: 'USD', // Added for Paystack
+      currencyCode: 'USD',
       plans: {
-        basic: { name: 'Basic', price: 45000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_pi46n98lssw3p90' }, // Updated price and plan code
-        pro: { name: 'Pro', price: 118500, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_x6o01vr72wd6157' }, // Updated price and plan code
-        enterprise: { name: 'Enterprise', price: 298500, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_eaops7fc8vchc8v' }, // Updated price and plan code
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 45000, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 45000, 
+            specialOfferPrice: 34900, // Approx 22% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.'
+            ], 
+            paystackPlanCode: 'PLN_OFFER_USD34900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 118500, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***', 
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 298500, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***', 
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***' 
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "Nigeria": {
-      currency: '₦',
-      currencyCode: 'NGN', // Added for Paystack
-      plans: {
-        basic: { name: 'Basic', price: 20000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_ptb1hb41va33pe0' }, // Updated price and plan code
-        pro: { name: 'Pro', price: 60000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_po6k9pskjr6c6y4' }, // Updated price and plan code
-        enterprise: { name: 'Enterprise', price: 100000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_hb5osqdsmf09ypk' }, // Updated price and plan code
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
-      },
+    currency: '₦',
+    currencyCode: 'NGN', 
+    plans: {
+        launchpad: { 
+            name: 'Basic', 
+            price: 20000, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 20000, 
+            specialOfferPrice: 14999, // Approx 25% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_NGN14999' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 60000, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 100000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
+    },
     },
     "UK": {
       currency: '£',
-      currencyCode: 'GBP', // Added for Paystack
+      currencyCode: 'GBP',
       plans: {
-        basic: { name: 'Basic', price: 46250, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_oiw7p5snz7evuo4' }, // Updated price and plan code
-        pro: { name: 'Pro', price: 120250, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_mj1lgmnupqyoynr' }, // Updated price and plan code
-        enterprise: { name: 'Enterprise', price: 314500, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_0eu82fwzb13j5zn' }, // Updated price and plan code
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 46250, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 46250, 
+            specialOfferPrice: 35900, // Approx 22% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_GBP35900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 120250, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 314500, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "Canada": {
       currency: 'C$',
-      currencyCode: 'CAD', // Added for Paystack
+      currencyCode: 'CAD',
       plans: {
-        basic: { name: 'Basic', price: 38500, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_o3p55fz00z4wvkv' }, // Updated price and plan code
-        pro: { name: 'Pro', price: 97900, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_v9kvtwmp8v85aeh' }, // Updated price and plan code
-        enterprise: { name: 'Enterprise', price: 242000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_0uv0gk0epv5p1nb' }, // Updated price and plan code
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 38500, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 38500, 
+            specialOfferPrice: 29900, // Approx 22% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_CAD29900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 97900, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 242000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "Australia": {
       currency: 'A$',
-      currencyCode: 'AUD', // Added for Paystack
+      currencyCode: 'AUD',
       plans: {
-        basic: { name: 'Basic', price: 39000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_AU_BASIC_MONTHLY' }, // Price remains same, plan code updated
-        pro: { name: 'Pro', price: 99000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_AU_PRO_MONTHLY' }, // Price remains same, plan code updated
-        enterprise: { name: 'Enterprise', price: 250000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_AU_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 39000, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 39000, 
+            specialOfferPrice: 29900, // Approx 23% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_AUD29900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 99000, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 250000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "Germany": {
       currency: '€',
-      currencyCode: 'EUR', // Added for Paystack
+      currencyCode: 'EUR',
       plans: {
-        basic: { name: 'Basic', price: 43200, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_jlc97ah1shc7uhw' }, // Updated price and plan code
-        pro: { name: 'Pro', price: 120000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_jb58o2q6sux01sw' }, // Updated price and plan code
-        enterprise: { name: 'Enterprise', price: 288000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_626mkoymysxt87w' }, // Updated price and plan code
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 43200, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 43200, 
+            specialOfferPrice: 32900, // Approx 24% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_EUR32900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 120000, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 288000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "France": {
       currency: '€',
-      currencyCode: 'EUR', // Added for Paystack
+      currencyCode: 'EUR',
       plans: {
-        basic: { name: 'Basic', price: 43200, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_jlc97ah1shc7uhw' }, // Updated price and plan code (same as Germany for EUR, as per user's list)
-        pro: { name: 'Pro', price: 120000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_jb58o2q6sux01sw' }, // Updated price and plan code (same as Germany for EUR, as per user's list)
-        enterprise: { name: 'Enterprise', price: 288000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_626mkoymysxt87w' }, // Updated price and plan code (same as Germany for EUR, as per user's list)
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 43200, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 43200, 
+            specialOfferPrice: 32900, // Approx 24% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_EUR32900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 120000, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 288000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "India": {
       currency: '₹',
-      currencyCode: 'INR', // Added for Paystack
+      currencyCode: 'INR',
       plans: {
-        basic: { name: 'Basic', price: 36000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_IN_BASIC_MONTHLY' }, // Price remains same, plan code updated
-        pro: { name: 'Pro', price: 99000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_IN_PRO_MONTHLY' }, // Price remains same, plan code updated
-        enterprise: { name: 'Enterprise', price: 270000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_IN_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 36000, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 36000, 
+            specialOfferPrice: 26900, // Approx 25% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_INR26900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 99000, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 270000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "Brazil": {
       currency: 'R$',
-      currencyCode: 'BRL', // Added for Paystack
+      currencyCode: 'BRL',
       plans: {
-        basic: { name: 'Basic', price: 36000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_BR_BASIC_MONTHLY' }, // Price remains same, plan code updated
-        pro: { name: 'Pro', price: 105000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_BR_PRO_MONTHLY' }, // Price remains same, plan code updated
-        enterprise: { name: 'Enterprise', price: 270000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_BR_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 36000, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 36000, 
+            specialOfferPrice: 28900, // Approx 20% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_BRL28900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 105000, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 270000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "South Africa": {
       currency: 'R',
-      currencyCode: 'ZAR', // Added for Paystack
+      currencyCode: 'ZAR',
       plans: {
-        basic: { name: 'Basic', price: 36000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_v09dez7ldkuk5yo' }, // Updated price and plan code
-        pro: { name: 'Pro', price: 96000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_l794gtpminaki2w' }, // Updated price and plan code
-        enterprise: { name: 'Enterprise', price: 250000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_8ef8l1nsob1oa0m' }, // Updated price and plan code
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 36000, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 36000, 
+            specialOfferPrice: 27500, // Approx 23% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_ZAR27500' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 96000, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 250000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "Japan": {
       currency: '¥',
-      currencyCode: 'JPY', // Added for Paystack
+      currencyCode: 'JPY',
       plans: {
-        basic: { name: 'Basic', price: 35000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_JP_BASIC_MONTHLY' }, // Price remains same, plan code updated
-        pro: { name: 'Pro', price: 95000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_JP_PRO_MONTHLY' }, // Price remains same, plan code updated
-        enterprise: { name: 'Enterprise', price: 250000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_JP_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 35000, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 35000, 
+            specialOfferPrice: 26900, // Approx 23% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_JPY26900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 95000, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 250000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
     "Mexico": {
       currency: 'MX$',
-      currencyCode: 'MXN', // Added for Paystack
+      currencyCode: 'MXN',
       plans: {
-        basic: { name: 'Basic', price: 45000, features: ['Your Dedicated Online Home (1 Website)', 'Stunning, Ready-to-Launch Designs', 'Peace of Mind Support', '10GB Secure Storage'], paystackPlanCode: 'PLN_MX_BASIC_MONTHLY' }, // Price remains same, plan code updated
-        pro: { name: 'Pro', price: 135000, features: ['Expand Your Reach (5 Websites)', 'Premium, Customizable Templates', 'Priority Expert Support', '50GB Secure Storage', 'Your Custom Domain'], paystackPlanCode: 'PLN_MX_PRO_MONTHLY' }, // Price remains same, plan code updated
-        enterprise: { name: 'Enterprise', price: 360000, features: ['Unleash Unlimited Potential (Unlimited Websites)', 'Tailored Custom Development', '24/7 Dedicated Strategic Support', 'Unlimited Secure Storage', 'Advanced Growth Analytics', 'Managed SEO for Dominance'], paystackPlanCode: 'PLN_MX_ENTERPRISE_MONTHLY' }, // Price remains same, plan code updated
-        custom: { name: 'Custom', price: 0, features: ['Tailored Solutions for Unique Needs', 'Personalized Consultation', 'Scalable Features', 'Dedicated Project Manager', 'Custom Quote'] },
+        launchpad: { 
+            name: 'Basic', 
+            price: 45000, 
+            // INTRODUCTORY OFFER FIELDS ADDED
+            originalPrice: 45000, 
+            specialOfferPrice: 34900, // Approx 22% off
+            isLimitedOffer: true,
+            features: [
+                'Your Secure, Professional Online Presence (1 Site).', 
+                'Quick Launch with Standard Site Templates.', 
+                'Standard Email Support (24-Hour Response).', 
+                '5GB Secure Storage for Essential Assets.',
+            ], 
+            paystackPlanCode: 'PLN_OFFER_MXN34900' // NEW PAYSTACK CODE FOR OFFER
+        }, 
+        commandCenter: { 
+            name: 'Pro', 
+            price: 135000, 
+            features: [
+                'Manage 1 Premium Website.', 
+                'Advanced Design Options and Customization.',
+                'Priority Email & Chat Support (2-Hour Response Window).', 
+                'Expanded Secure Cloud Storage (50GB).', 
+                'Free Custom Domain Name Included.', 
+                'Proactive Technical Optimization (Speed and SEO Basics).',
+                'Dedicated Growth Analytics Dashboard.',
+                'Monthly Performance Review Report.',
+                '*** BONUS: Free 1-Hour Conversion Optimization Audit ***',
+                '*** BONUS: Access to Premium Marketing Resources Library ***'
+            ], 
+            paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
+        }, 
+        digitalPartner: { 
+            name: 'Enterprise', 
+            price: 360000, 
+            features: [
+                'Manage 1 Strategic Website.', 
+                'Dedicated Monthly Budget for Custom Feature Development.',
+                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
+                'Unlimited Secure Cloud Storage & Bandwidth.',
+                'Advanced Marketing & Traffic Insights.',
+                'Full Managed SEO Strategy & Content Review.', 
+                '*** BONUS: Dedicated Onboarding Specialist ***',
+                '*** BONUS: Emergency Content Update SLA (4-hour fix) ***'
+            ], 
+            paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
+        }, 
+        custom: { 
+            name: 'Custom', 
+            price: 0, 
+            features: [
+                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
+                'In-Depth Strategy and Planning Session.',
+                'Built to Scale with Your Business.',
+                'Your Single Point-of-Contact Manager.',
+                'Custom Quote'
+            ] 
+        },
       },
     },
-  };
+};
   // State for FAQ accordion
   const [openFAQ, setOpenFAQ] = useState(null);
   // Effect to check for stored country and theme on component mount
@@ -316,7 +966,55 @@ function App() {
     }
   }, [showIntro]);
   // Depend on showIntro
+  
+  // IMPORTANT: Use a DEDICATED Formspree endpoint for the Free Trial leads
+const TRIAL_FORMSPREE_ENDPOINT = "https://formspree.io/f/mblnapya";
 
+  const TrialModal = ({ isOpen, onClose }) => {
+    if (!isOpen) return null;
+    return (
+        // Simple fixed overlay for the modal
+        <div className="fixed inset-0 z-50 bg-tech-bg bg-opacity-75 flex items-center justify-center p-4">
+            <div className="bg-tech-bg z-51 rounded-lg max-w-md w-full p-8 relative border-2 border-white/20 ">
+                
+                {/* Close Button */}
+                <button 
+                    onClick={onClose} 
+                    className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl"
+                >
+                    &times;
+                </button>
+
+                <h3 className="text-2xl font-bold mb-2 text-center text-white">Start Your Free Preview</h3>
+                <p className="text-white mb-6 text-center text-sm">
+                    Enter your email. We'll instantly send you instructions on how to submit your logo and details.
+                </p>
+
+                {/* The Formspree HTML Integration (The simplest way) */}
+                <form action={TRIAL_FORMSPREE_ENDPOINT} method="POST">
+                    <input
+                        type="email"
+                        name="email" // Must be 'name="email"' for Formspree to capture the value
+                        required
+                        placeholder="business@email.com"
+                        className="w-full bg-slate-800/70 p-3 rounded-md text-white  focus:border-tech-cyan focus:outline-none focus:ring-0 transition-colors duration-300 mb-4"
+                    />
+                    
+                    {/* Optional: Hidden field to redirect after successful submission */}
+                    {/* Replace [URL_TO_YOUR_THANK_YOU_PAGE] with your specific URL */}
+                    <input type="hidden" name="_next" value="[/]" />
+
+                    <button
+                        type="submit"
+                        className="w-full bg-tech-cyan text-tech-bg font-bold px-6 py-3 rounded-md hover:opacity-80 transition-opacity"
+                    >
+                        Send Instructions & Start Preview
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
+};
 
   // Handler for country selection in the modal
   const handleCountrySelect = (event) => {
@@ -472,26 +1170,26 @@ const FocusIcon = () => (
   // Dummy FAQ data
   const faqs = [
     {
-      question: "What is Website as a Service (WaaS)?",
-      answer: "WaaS is a subscription-based model where we provide, host, maintain, and update your website for a recurring fee. It's like renting a fully managed online presence, saving you time and technical headaches."
+      question: "What exactly is Website as a Service (WaaS)?",
+      answer: "WaaS is an *all-in-one subscription where we handle 100% of your website management. It covers the design, launch, hosting, security, and updates for one fixed monthly fee. It’s the simple way to own a powerful website without managing any of the technology."
     },
     {
-      question: "How long does it take to get my website live?",
-      answer: "We know your time is precious. Our streamlined process gets your basic website live within 3-5 business days, so you can start connecting with customers and generating leads faster."
+      question: "How quickly can I get my business website launched?",
+      answer: "We guarantee a rapid launch. Our streamlined process gets your initial website live within 7 business days. This allows us to ensure quality control and proper setup, so you can start connecting with customers fast." // Adjusted time slightly to be safer than 3-5 days.
     },
     {
-      question: "Can I use my own custom domain name?",
-      answer: "Yes, absolutely! Our Pro and Enterprise plans include custom domain integration. We'll help you connect your existing domain or assist you in registering a new one."
+      question: "Are there any hidden fees for setup, hosting, or maintenance?",
+      answer: "Absolutely not. Your fixed monthly price covers design, hosting, premium security, regular updates, and support. We eliminate the surprise bills typical of hiring freelancers or managing services separately." // Added high-value question from previous step.
     },
     {
-      question: "What kind of support do you offer?",
-      answer: "We offer 24/7 expert support across all our plans. Priority and dedicated support options are available with our higher-tier plans to ensure you always get the help you need, fast."
+      question: "What kind of support is included with my plan?",
+      answer: "Support expectations are clearly tiered: Launchpad includes Standard Email Support (24-hour response), while Command Center and Digital Partner offer Priority Chat/Email and 24/7 Emergency Support, respectively. We ensure clear, consistent help based on your subscription level." // Updated to align with the new plan names and clear support SLAs.
     },
     {
-      question: "Is Swift90 suitable for e-commerce businesses?",
-      answer: "Yes, our platform is fully capable of supporting e-commerce functionalities. Our Pro and Enterprise plans are ideal for online stores, offering features like product listings, shopping carts, and secure payment integrations."
+      question: "Is Swift90 suitable for e-commerce and selling online?",
+      answer: "Yes, our platform is fully e-commerce capable. Our Command Center and Digital Partner plans are ideal for online stores, offering advanced features like product management, secure payment integrations, and high-performance hosting." // Refined language to match new tier names.
     }
-  ];
+];
 
   // Dummy Blog Posts Data
   // Render different pages based on currentPage state
@@ -643,48 +1341,74 @@ const FocusIcon = () => (
       <div className="absolute inset-0 bg-tech-bg z-0"></div> 
       
       {/* Hero Content Section */}
-      <main className="relative z-10 w-full flex flex-col items-center justify-center text-center pt-20 md:pt-28 px-4">
+      <main className="relative z-10 w-full flex flex-col items-center justify-center text-center pt-10 md:pt-28 px-4">
         
         {/* Pill Badge */}
-        <div className="border border-gray-700 rounded-full px-4 py-1.5 text-sm text-gray-400 mb-6">
-          The Future of Website Ownership is Here
+        <div className="border border-gray-700 rounded-full px-4 py-1.5 text-sm text-gray-400 ">
+          Your Business Deserves a Digital Command Center
         </div>
 
-        {/* Main Headline */}
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold max-w-4xl tracking-tight bg-gradient-to-b from-gray-100 to-gray-500 text-transparent bg-clip-text">
-          Your Custom Website, On One Simple Subscription
-        </h1>
-        
-        {/* Sub-headline / Paragraph */}
-        <p className="mt-6 max-w-2xl text-lg text-gray-400 leading-relaxed">
-          We build, host, and maintain your perfect website for one fixed monthly fee. No huge upfront costs, no technical headaches.
-        </p>
+       
 
-        {/* Button Group */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
-          <a href="#pricing" className="bg-tech-cyan text-tech-bg font-bold px-6 py-3 rounded-md flex items-center gap-2 hover:bg-opacity-80 transition-all">
-            <span>Explore Plans</span>
-            {/* MODIFIED: Replaced FiArrowRight with inline SVG */}
-            <svg 
-              stroke="currentColor" 
-              fill="none" 
-              strokeWidth="2" 
-              viewBox="0 0 24 24" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              className="w-5 h-5" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-          
+                       
+<section id="free-trial-hook" className="py-16 bg-tech-bg px-6 font-mono ">
+   <div>
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold max-w-4xl tracking-tight bg-gradient-to-b from-gray-100 to-gray-500 text-transparent bg-clip-text text-center mx-auto">
+                Total Website Management. One Fixed Monthly Price.
+            </h1>
+            
+            {/* Sub-headline / Paragraph */}
+            <p className="mt-6 max-w-2xl text-lg text-gray-400 leading-relaxed text-center mx-auto">
+                We don't just build websites; we eliminate the headaches. Get a professional, high performance website managed 100% by us, freeing you to focus only on your core business growth.
+            </p>
+
+            {/* === COMBINED CTA & FREE TRIAL SECTION START === */}
+
+            {/* Primary CTA Button (Opens the modal) */}
+            <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center">
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="bg-tech-cyan text-tech-bg font-extrabold px-8 py-4 rounded-md text-xl flex items-center gap-2 hover:bg-opacity-80 transition-all shadow-lg"
+                >
+                    Start Your Free 7-Day Preview
+                </button>
+            </div>
+            
+            {/* --- 3-Step Process (Integrated Below CTA for Clarity) --- */}
+            <div className="mt-4 pt-2 max-w-4xl mx-auto"> 
+                <p className="text-sm text-gray-400 mb-4 font-bold text-center">
+                    See Your Business, Live. <span className="text-tech-cyan">No credit card required.</span>
+                </p>
+
+                <div className="flex flex-col sm:flex-row justify-center gap-4"> 
+                    <div className="flex items-center gap-2 text-center">
+                        <p className="text-tech-cyan text-xl">①</p>
+                        <p className="text-gray-300 text-sm">Submit Email</p>
+                    </div>
+                    <div className="flex items-center gap-2 text-center">
+                        <p className="text-tech-cyan text-xl">②</p>
+                        <p className="text-gray-300 text-sm">Reply with Assets</p>
+                    </div>
+                    <div className="flex items-center gap-2 text-center">
+                        <p className="text-tech-cyan text-xl">③</p>
+                        <p className="text-gray-300 text-sm">We Deploy & You Explore</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* === COMBINED CTA & FREE TRIAL SECTION END === */}
+
+            {/* Render the Modal Component */}
+            <TrialModal 
+                isOpen={isModalOpen} 
+                onClose={() => setIsModalOpen(false)} 
+            />
         </div>
+</section>
       </main>
-
       {/* Dashboard Preview Image Section */}
-      <div className="relative z-10 w-full flex justify-center mt-20 px-4 pb-16"> {/* ADDED pb-16 for some bottom padding */}
+      <div className="relative bg-tech-bg  w-full flex justify-center  px-4 pb-16"> {/* ADDED pb-16 for some bottom padding */}
         <div className="relative w-full max-w-5xl">
             {/* Subtle glow behind the image */}
             <div className="absolute inset-0 bg-tech-cyan/20 blur-xl rounded-xl"></div>
@@ -699,7 +1423,28 @@ const FocusIcon = () => (
             />
         </div>
       </div>
+
+      
+
+      
+
+     
+
+
+      
     </div>
+
+
+
+
+                
+
+
+
+
+             
+
+
 
                     {/* Why Choose Swift90 Section */}
                     <section id="why-swift90" className="relative py-16 md:py-24 px-6 bg-tech-bg text-white">
@@ -984,59 +1729,59 @@ const FocusIcon = () => (
 
 
 
+
           
-          {/* Our Impact in Numbers Section */}
-          <section id="impact" className="relative py-16 md:py-24 px-6 bg-tech-bg text-white">
-      <div className="container mx-auto max-w-6xl text-center">
-        <div className="flex items-center justify-center gap-4 mb-16">
-          <div className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFFF00] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FFFF00]"></span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
-            Live System Metrics
-          </h2>
-        </div>
+         {/* Our Impact in Numbers Section */}
+            <section id="impact" className="relative py-16 md:py-24 px-6 bg-tech-bg text-white">
+              <div className="container mx-auto max-w-6xl text-center">
+                <div className="flex items-center justify-center gap-4 mb-16">
+                  <div className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFFF00] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FFFF00]"></span>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-white to-white text-transparent bg-clip-text">
+                    Live System Metrics
+                  </h2>
+                </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
-          {/* Metric 1: Dreams Launched */}
-          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-center transition-all duration-300 ">
-            <div className="text-6xl font-extrabold text-tech-bg mb-2">
-              500<span className="text-5xl text-slate-500">+</span>
-            </div>
-            <h3 className="text-xl font-bold text-tech-bg mb-2">Dreams Launched</h3>
-            <p className="text-tech-bg leading-relaxed">
-              Each project represents a business now thriving online.
-            </p>
-          </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  
+                  {/* Metric 1: Scale & Experience (500+ Businesses Launched & Managed) */}
+                  <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-center transition-all duration-300 ">
+                    <div className="text-6xl font-extrabold text-tech-bg mb-2">
+                      500<span className="text-5xl text-slate-500">+</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-tech-bg mb-2">Businesses Launched & Managed</h3>
+                    <p className="text-tech-bg leading-relaxed">
+                      Each project represents a business now thriving online under our care.
+                    </p>
+                  </div>
 
-          {/* Metric 2: Peace of Mind */}
-          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-center transition-all duration-300  ">
-            <div className="text-6xl font-extrabold text-tech-bg mb-2">
-              98<span className="text-5xl text-slate-500">%</span>
-            </div>
-            <h3 className="text-xl font-bold text-tech-bg mb-2">Peace of Mind</h3>
-            <p className="text-tech-bg leading-relaxed">
-              Our clients trust us to deliver, and we consistently exceed expectations.
-            </p>
-          </div>
+                  {/* Metric 2: Reliability & Trust (99.9% Uptime Guarantee) */}
+                  <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-center transition-all duration-300  ">
+                    <div className="text-6xl font-extrabold text-tech-bg mb-2">
+                      99.9<span className="text-5xl text-slate-500">%</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-tech-bg mb-2">Uptime Guarantee</h3>
+                    <p className="text-tech-bg leading-relaxed">
+                      A measurable promise of reliability that keeps your digital doors open, always.
+                    </p>
+                  </div>
 
-          {/* Metric 3: Uptime */}
-          <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-center transition-all duration-300  ">
-            <div className="text-6xl font-extrabold text-tech-bg mb-2">
-              24<span className="text-5xl text-slate-500">/7</span>
-            </div>
-            <h3 className="text-xl font-bold text-tech-bg mb-2">Always On</h3>
-            <p className="text-tech-bg leading-relaxed">
-              Our dedicated support ensures your online presence never sleeps, just like your ambition.
-            </p>
-          </div>
+                  {/* Metric 3: Availability & Security (24/7 Monitoring & Automated Security) */}
+                  <div className="bg-tech-cyan  backdrop-blur-sm  rounded-2xl p-8 text-center transition-all duration-300  ">
+                    <div className="text-6xl font-extrabold text-tech-bg mb-2">
+                      24<span className="text-5xl text-slate-500">/7</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-tech-bg mb-2">Monitoring & Automated Security</h3>
+                    <p className="text-tech-bg leading-relaxed">
+                      We actively watch, secure, and update your site, so you never have to worry about maintenance.
+                    </p>
+                  </div>
 
-        </div>
-      </div>
-    </section>
-
+                </div>
+              </div>
+            </section>
 
 
 
@@ -1435,6 +2180,8 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
   const [loadingPayment, setLoadingPayment] = useState(false);
   const [messageBox, setMessageBox] = useState(null);
 
+
+
   // Your existing useEffect to load the Paystack script can remain the same
   useEffect(() => {
     if (!isCustomPlan) {
@@ -1494,6 +2241,9 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
         setFormspreeLoading(false);
       }
     };
+
+    
+
 
     const handleInitiatePayment = () => {
       if (!customerName || !customerEmail) {
