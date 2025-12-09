@@ -179,7 +179,7 @@ function App() {
       currency: '$',
       currencyCode: 'USD',
       plans: {
-        launchpad: { 
+        Basic: { 
             name: 'Basic', 
             price: 45000, 
             // INTRODUCTORY OFFER FIELDS ADDED
@@ -192,9 +192,9 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.'
             ], 
-            paystackPlanCode: 'PLN_OFFER_USD34900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
-        commandCenter: { 
+        Pro: { 
             name: 'Pro', 
             price: 118500, 
             features: [
@@ -211,7 +211,7 @@ function App() {
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
-        digitalPartner: { 
+        Enterprise: { 
             name: 'Enterprise', 
             price: 298500, 
             features: [
@@ -243,7 +243,7 @@ function App() {
     currency: '₦',
     currencyCode: 'NGN', 
     plans: {
-        launchpad: { 
+        Basic: { 
             name: 'Basic', 
             price: 20000, 
             // INTRODUCTORY OFFER FIELDS ADDED
@@ -256,9 +256,9 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_NGN14999' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
-        commandCenter: { 
+        Pro: { 
             name: 'Pro', 
             price: 60000, 
             features: [
@@ -275,7 +275,7 @@ function App() {
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
-        digitalPartner: { 
+        Enterprise: { 
             name: 'Enterprise', 
             price: 100000, 
             features: [
@@ -320,7 +320,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_GBP35900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -384,7 +384,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_CAD29900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -448,7 +448,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_AUD29900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -512,7 +512,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_EUR32900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -576,7 +576,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_EUR32900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -640,7 +640,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_INR26900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -704,7 +704,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_BRL28900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -768,7 +768,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_ZAR27500' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -832,7 +832,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_JPY26900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -896,7 +896,7 @@ function App() {
                 'Standard Email Support (24-Hour Response).', 
                 '5GB Secure Storage for Essential Assets.',
             ], 
-            paystackPlanCode: 'PLN_OFFER_MXN34900' // NEW PAYSTACK CODE FOR OFFER
+            paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         commandCenter: { 
             name: 'Pro', 
@@ -2152,7 +2152,7 @@ function PurchasePage({ purchaseDetails, setPurchaseDetails, setCurrentPage, dar
                 Cancel
               </button>
               <button type="submit" className="bg-slate-800/60 text-tech-cyan hover:bg-tech-cyan hover:text-tech-bg px-6 py-3 rounded-md font-bold hover:opacity-80 transition-opacity duration-300">
-                {isCustomPlan ? 'Submit Custom Request' : 'Confirm & Proceed to Payment'}
+                {isCustomPlan ? 'Submit Custom Request' : ' Proceed to Payment'}
               </button>
             </div>
           </form>
