@@ -245,48 +245,47 @@ function App() {
     plans: {
         Basic: { 
             name: 'Basic', 
-            price: 20000, 
+            price: 30000, 
             // INTRODUCTORY OFFER FIELDS ADDED
-            originalPrice: 20000, 
+            originalPrice: 30000, 
             specialOfferPrice: 14999, // Approx 25% off
             isLimitedOffer: true,
             features: [
-                'Your Secure, Professional Online Presence (1 Site).', 
-                'Quick Launch with Standard Site Templates.', 
-                'Standard Email Support (24-Hour Response).', 
-                '5GB Secure Storage for Essential Assets.',
+                'Professionally designed website', 
+                'Secure hosting & uptime monitoring', 
+                'Product/content updates (up to 5/month)', 
+                'Price & stock management', 
+                'Basic promo/discount activation', 
+                'Payment & checkout monitoring', 
+                'Email/WhatsApp support', 
             ], 
             paystackPlanCode: 'PLN_ptb1hb41va33pe0' // NEW PAYSTACK CODE FOR OFFER
         }, 
         Pro: { 
             name: 'Pro', 
-            price: 60000, 
+            price: 70000, 
             features: [
-                'Manage 1 Premium Website.', 
-                'Advanced Design Options and Customization.',
-                'Priority Email & Chat Support (2-Hour Response Window).', 
-                'Expanded Secure Cloud Storage (50GB).', 
-                'Free Custom Domain Name Included.', 
-                'Proactive Technical Optimization (Speed and SEO Basics).',
-                'Dedicated Growth Analytics Dashboard.',
-                'Monthly Performance Review Report.',
-                ' BONUS: Free 1-Hour Conversion Optimization Audit ',
-                ' BONUS: Access to Premium Marketing Resources Library '
+                'Everything in Starter', 
+                'Up to 15 updates/month',
+                'Advanced promo & discount control', 
+                'Homepage & banner updates', 
+                'Low-stock & urgency messaging', 
+                'Order issue handling',
+                'Priority support',
             ], 
             paystackPlanCode: 'PLN_po6k9pskjr6c6y4' 
         }, 
         Enterprise: { 
             name: 'Enterprise', 
-            price: 100000, 
+            price: 150000, 
             features: [
-                'Manage 1 Strategic Website.', 
-                'Dedicated Monthly Budget for Custom Feature Development.',
-                '24/7 Emergency Technical Support and Dedicated Strategic Consultations (Monthly).',
-                'Unlimited Secure Cloud Storage & Bandwidth.',
-                'Advanced Marketing & Traffic Insights.',
-                'Full Managed SEO Strategy & Content Review.', 
-                ' BONUS: Dedicated Onboarding Specialist ',
-                ' BONUS: Emergency Content Update SLA (4-hour fix) '
+                'Everything in Growth', 
+                'Unlimited updates (fair use)',
+                'Weekly performance optimization',
+                'Analytics & reporting',
+                'SEO health monitoring',
+                'Conversion optimization', 
+                'Dedicated support line',
             ], 
             paystackPlanCode: 'PLN_hb5osqdsmf09ypk' 
         }, 
@@ -294,12 +293,13 @@ function App() {
             name: 'Custom', 
             price: 0, 
             features: [
-                'Bespoke Solutions for Complex Requirements (Includes Multi-Site).', 
-                'In-Depth Strategy and Planning Session.',
-                'Built to Scale with Your Business.',
-                'Your Single Point-of-Contact Manager.',
-                'Custom Quote'
-            ] 
+        'Tailored website & system solutions based on your business model',
+        'In-depth strategy & discovery session',
+        'Designed to scale with your operations',
+        'Support for complex workflows & multi-site setups',
+        'Dedicated account manager',
+        'Custom monthly management agreement'
+    ] 
         },
     },
     },
@@ -943,7 +943,7 @@ function App() {
         },
       },
     },
-};
+  };
   // State for FAQ accordion
   const [openFAQ, setOpenFAQ] = useState(null);
   // Effect to check for stored country and theme on component mount
@@ -1002,7 +1002,7 @@ const TRIAL_FORMSPREE_ENDPOINT = "https://formspree.io/f/mblnapya";
                     
                     {/* Optional: Hidden field to redirect after successful submission */}
                     {/* Replace [URL_TO_YOUR_THANK_YOU_PAGE] with your specific URL */}
-                    <input type="hidden" name="_next" value="[/]" />
+                    <input type="hidden" name="_next" value="#" />
 
                     <button
                         type="submit"
@@ -1375,10 +1375,10 @@ const FocusIcon = () => (
                 </button>
             </div>
             
-            {/* --- 3-Step Process (Integrated Below CTA for Clarity) --- */}
+            {/* --- 3-Step Process (Integrated Below CTA for Clarity) -- */}
             <div className="mt-4 pt-2 max-w-4xl mx-auto"> 
                 <p className="text-sm text-gray-400 mb-4 font-bold text-center">
-                    See Your Business, Live. <span className="text-tech-cyan">No credit card required.</span>
+                    See Your Business, Live. <span className="text-tech-cyan">No payment required for trial.</span>
                 </p>
 
                 <div className="flex flex-col sm:flex-row justify-center gap-4"> 
