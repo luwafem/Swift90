@@ -1375,7 +1375,7 @@ const FocusIcon = () => (
                 </button>
             </div>
             
-            {/* --- 3-Step Process (Integrated Below CTA for Clarity) --- */}
+            {/* --- 3-Step Process (Integrated Below CTA for Clarity) -- */}
             <div className="mt-4 pt-2 max-w-4xl mx-auto"> 
                 <p className="text-sm text-gray-400 mb-4 font-bold text-center">
                     See Your Business, Live. <span className="text-tech-cyan">No payment required for trial.</span>
